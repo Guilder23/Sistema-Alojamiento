@@ -1,0 +1,326 @@
+/* Estilos para la gestión de usuarios */
+
+.usuarios-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.usuarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 1rem;
+}
+
+.usuarios-header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.usuarios-header .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.usuarios-header .btn-primary {
+    background-color: #667eea;
+    color: white;
+}
+
+.usuarios-header .btn-primary:hover {
+    background-color: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Búsqueda y Filtros */
+.busqueda-filtros {
+    background-color: #f5f7fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.form-busqueda {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.busqueda-group {
+    display: flex;
+    flex-grow: 1;
+    min-width: 250px;
+    gap: 0;
+}
+
+.busqueda-group .form-control {
+    border-radius: 8px 0 0 8px;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+}
+
+.busqueda-group .btn-search {
+    background-color: #667eea;
+    color: white;
+    border: 1px solid #667eea;
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.busqueda-group .btn-search:hover {
+    background-color: #5568d3;
+}
+
+.filtro-rol {
+    min-width: 200px;
+}
+
+.filtro-rol .form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+}
+
+/* Tabla de Usuarios */
+.usuarios-tabla {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table {
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table thead th {
+    padding: 1rem;
+    font-weight: 600;
+    color: #495057;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.usuario-username {
+    font-weight: 500;
+    color: #667eea;
+}
+
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.badge-rol {
+    background-color: #e7f5ff;
+    color: #0c63e4;
+}
+
+.badge-success {
+    background-color: #d1e7dd;
+    color: #146c43;
+}
+
+.badge-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.badge-secondary {
+    background-color: #e2e3e5;
+    color: #3d4550;
+}
+
+/* Acciones */
+.acciones {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.btn-info {
+    background-color: #0dcaf0;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #0bb5d9;
+    transform: translateY(-1px);
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #ffb800;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Paginación */
+.paginacion {
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.page-link:hover {
+    background-color: #f8f9fa;
+    border-color: #667eea;
+}
+
+.page-item.active .page-link {
+    background-color: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+/* Sin usuarios */
+.sin-usuarios {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: #6c757d;
+}
+
+.sin-usuarios i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.sin-usuarios p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.sin-usuarios .btn {
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .usuarios-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .form-busqueda {
+        flex-direction: column;
+    }
+    
+    .busqueda-group {
+        width: 100%;
+    }
+    
+    .filtro-rol {
+        width: 100%;
+    }
+    
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .acciones {
+        gap: 0.25rem;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}

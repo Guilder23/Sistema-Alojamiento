@@ -1,0 +1,126 @@
+{% load static %}
+
+<!-- Modal de Registro -->
+<div id="modalRegistro" class="modal" style="display: none;">
+    <div class="modal-overlay" onclick="closeRegistroModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2>Crear Cuenta</h2>
+                <button class="modal-close" onclick="closeRegistroModal()" type="button">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="modal-subtitle">Sistema de Gestión de Alojamiento</p>
+
+                <form method="post" action="{% url 'autenticacion:registro' %}" class="modal-form" novalidate id="registroForm">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="modal_reg_username">Usuario</label>
+                        <input
+                            type="text"
+                            id="modal_reg_username"
+                            name="username"
+                            placeholder="Nombre de usuario"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modal_reg_email">Correo Electrónico</label>
+                        <input
+                            type="email"
+                            id="modal_reg_email"
+                            name="email"
+                            placeholder="tu@correo.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modal_reg_password1">Contraseña</label>
+                        <input
+                            type="password"
+                            id="modal_reg_password1"
+                            name="password1"
+                            placeholder="Contraseña segura"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modal_reg_password2">Confirmar Contraseña</label>
+                        <input
+                            type="password"
+                            id="modal_reg_password2"
+                            name="password2"
+                            placeholder="Confirmar contraseña"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        Crear Cuenta
+                    </button>
+                </form>
+
+                <div class="modal-footer">
+                    <p style="text-align: center; color: #666;">
+                        ¿Ya tienes cuenta? 
+                        <a href="javascript:void(0)" onclick="switchToLoginModal(); return false;" style="color: #667eea; text-decoration: none; font-weight: 600;">Inicia sesión aquí</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openRegistroModal() {
+    const modal = document.getElementById('modalRegistro');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeRegistroModal() {
+    const modal = document.getElementById('modalRegistro');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function switchToLoginModal() {
+    closeRegistroModal();
+    const loginModal = document.getElementById('modalLogin');
+    if (loginModal) {
+        loginModal.style.display = 'block';
+    }
+}
+
+// Validar contraseñas coincidan
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registroForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const password1 = document.getElementById('modal_reg_password1').value;
+            const password2 = document.getElementById('modal_reg_password2').value;
+            
+            if (password1 !== password2) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden');
+            }
+        });
+    }
+});
+
+// Cerrar con ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRegistroModal();
+    }
+});
+</script>

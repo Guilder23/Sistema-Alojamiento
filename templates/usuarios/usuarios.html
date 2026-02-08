@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gestión de Usuarios - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
+<!-- Modals CSS -->
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="usuarios-container">
+    <!-- Header -->
+    <div class="usuarios-header">
+        <h1><i class="fas fa-users"></i> Gestión de Usuarios</h1>
+        <button class="btn btn-primary" onclick="abrirModal('modalCrearUsuario')">
+            <i class="fas fa-user-plus"></i> Crear Nuevo Usuario
+        </button>
+    </div>
+    
+    <!-- Búsqueda y Filtros -->
+    <div class="busqueda-filtros">
+        <div class="busqueda-group">
+            <input type="text" 
+                   id="busquedaInput" 
+                   placeholder="Buscar por nombre, usuario o correo..." 
+                   class="form-control"
+                   onkeyup="filtrarUsuarios()">
+            <button type="button" class="btn btn-search" onclick="filtrarUsuarios()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <div class="filtro-rol">
+            <select id="filtroRol" class="form-control" onchange="filtrarUsuarios()">
+                <option value="">Todos los roles</option>
+                <option value="admin">Administrador</option>
+                <option value="gerente">Gerente</option>
+                <option value="recepcionista">Recepcionista</option>
+                <option value="limpieza">Personal de Limpieza</option>
+                <option value="cliente">Cliente</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Tabla de Usuarios -->
+    <div class="usuarios-tabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Nombre Completo</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usuariosBody">
+                <!-- Cargado por JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Estado vacío -->
+    <div id="sinUsuarios" class="sin-usuarios" style="display: none;">
+        <i class="fas fa-inbox"></i>
+        <p>No hay usuarios que mostrar</p>
+        <button class="btn btn-secondary" onclick="limpiarFiltros()">
+            Limpiar filtros
+        </button>
+    </div>
+</div>
+
+<!-- Modals de Usuarios -->
+{% include 'usuarios/modals/crear.html' %}
+{% include 'usuarios/modals/ver.html' %}
+{% include 'usuarios/modals/editar.html' %}
+{% include 'usuarios/modals/eliminar.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Main JavaScript -->
+<script src="{% static 'js/usuarios/usuarios.js' %}"></script>
+
+<!-- Modals JavaScript -->
+<script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
+{% endblock %}

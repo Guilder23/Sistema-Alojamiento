@@ -1,0 +1,73 @@
+/* Estilos para Modal Ver Usuario */
+
+#modalVerUsuario .modal-body {
+    padding: 20px;
+}
+
+#modalVerUsuario .usuario-info-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#modalVerUsuario .info-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+#modalVerUsuario .info-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #667eea;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+#modalVerUsuario .info-item p {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+#modalVerUsuario .badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#modalVerUsuario .badge-rol {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+#modalVerUsuario .badge-success {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+#modalVerUsuario .badge-danger {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+#modalVerUsuario .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    #modalVerUsuario .usuario-info-card {
+        grid-template-columns: 1fr;
+    }
+}

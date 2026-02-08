@@ -1,0 +1,161 @@
+<!-- Barra Lateral para Dashboards -->
+{% if user.is_authenticated %}
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-bars"></i> Menu
+    </div>
+    
+    <nav class="sidebar-nav">
+        {% if user.perfil.rol.nombre == 'administrador' %}
+            <a href="{% url 'autenticacion:dashboard_admin' %}" class="sidebar-link">
+                <i class="fas fa-cog"></i> Dashboard Admin
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-users-cog"></i> Gestionar Usuarios
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-home"></i> Gestionar Habitaciones
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-chart-bar"></i> Reportes
+            </a>
+        {% elif user.perfil.rol.nombre == 'recepcionista' %}
+            <a href="{% url 'autenticacion:dashboard_recepcionista' %}" class="sidebar-link">
+                <i class="fas fa-clipboard-list"></i> Dashboard
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-calendar"></i> Reservas
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-credit-card"></i> Pagos
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-users"></i> Clientes
+            </a>
+        {% elif user.perfil.rol.nombre == 'gerente' %}
+            <a href="{% url 'autenticacion:dashboard_gerente' %}" class="sidebar-link">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-bar-chart"></i> Reportes
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-money-bill"></i> Ingresos
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-list"></i> Reservas
+            </a>
+        {% elif user.perfil.rol.nombre == 'empleado' %}
+            <a href="{% url 'autenticacion:dashboard_limpieza' %}" class="sidebar-link">
+                <i class="fas fa-broom"></i> Dashboard
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-door-open"></i> Habitaciones
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-tasks"></i> Tareas
+            </a>
+        {% else %}
+            <a href="{% url 'autenticacion:dashboard_cliente' %}" class="sidebar-link">
+                <i class="fas fa-list"></i> Mis Reservas
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-search"></i> Búscar Habitaciones
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-heart"></i> Favoritos
+            </a>
+            <a href="#" class="sidebar-link">
+                <i class="fas fa-envelope"></i> Mensajes
+            </a>
+        {% endif %}
+    </nav>
+    
+    <div class="sidebar-footer">
+        <a href="{% url 'autenticacion:password_change' %}" class="sidebar-link">
+            <span class="icon"><i class="fas fa-key"></i></span> Cambiar Contraseña
+        </a>
+        <a href="{% url 'autenticacion:logout' %}" class="sidebar-link text-danger">
+            <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Logout
+        </a>
+    </div>
+</aside>
+
+<style>
+    .sidebar {
+        width: 250px;
+        background: #f8f9fa;
+        border-right: 1px solid #e0e0e0;
+        min-height: calc(100vh - 56px);
+        padding: 20px 0;
+    }
+
+    .sidebar-header {
+        padding: 0 20px 20px;
+        border-bottom: 2px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-header h5 {
+        color: #667eea;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+
+    .sidebar-link:hover {
+        background-color: #e8f0fe;
+        border-left-color: #667eea;
+        color: #667eea;
+    }
+
+    .sidebar-link.active {
+        background-color: #e8f0fe;
+        border-left-color: #667eea;
+        color: #667eea;
+        font-weight: 600;
+    }
+
+    .sidebar-link .icon {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #ddd;
+    }
+
+    .sidebar-link.text-danger {
+        color: #dc3545;
+    }
+
+    .sidebar-link.text-danger:hover {
+        background-color: #fff5f5;
+        color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 100%;
+            min-height: auto;
+        }
+    }
+</style>
+{% endif %}

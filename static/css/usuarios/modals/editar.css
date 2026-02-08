@@ -1,0 +1,94 @@
+/* Estilos para Modal Editar Usuario */
+
+#modalEditarUsuario .modal-form {
+    padding: 20px;
+}
+
+#modalEditarUsuario .form-group {
+    margin-bottom: 15px;
+}
+
+#modalEditarUsuario .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+#modalEditarUsuario .form-control {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#modalEditarUsuario .form-control:focus {
+    border-color: #f39c12;
+    background: #fffbf0;
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    outline: none;
+}
+
+#modalEditarUsuario .form-control:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+}
+
+#modalEditarUsuario .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+#modalEditarUsuario .form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalEditarUsuario .form-check-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #f39c12;
+}
+
+#modalEditarUsuario small {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+    font-size: 12px;
+}
+
+#modalEditarUsuario .alert {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalEditarUsuario .alert-danger {
+    background: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
+}
+
+#modalEditarUsuario .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    #modalEditarUsuario .form-row {
+        grid-template-columns: 1fr;
+    }
+}

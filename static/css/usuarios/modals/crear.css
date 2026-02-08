@@ -1,0 +1,88 @@
+/* Estilos para Modal Crear Usuario */
+
+#modalCrearUsuario .modal-form {
+    padding: 20px;
+}
+
+#modalCrearUsuario .form-group {
+    margin-bottom: 15px;
+}
+
+#modalCrearUsuario .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+#modalCrearUsuario .form-control {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#modalCrearUsuario .form-control:focus {
+    border-color: #667eea;
+    background: #f8f9ff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+#modalCrearUsuario .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+#modalCrearUsuario .form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalCrearUsuario .form-check-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+#modalCrearUsuario small {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+    font-size: 12px;
+}
+
+#modalCrearUsuario .alert {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalCrearUsuario .alert-danger {
+    background: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
+}
+
+#modalCrearUsuario .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    #modalCrearUsuario .form-row {
+        grid-template-columns: 1fr;
+    }
+}

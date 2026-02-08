@@ -1,0 +1,35 @@
+<!-- Modal Eliminar Usuario -->
+<div id="modalEliminarUsuario" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Eliminar Usuario</h5>
+                <button type="button" class="btn-close" onclick="cerrarModal('modalEliminarUsuario')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> 
+                    <strong>Advertencia:</strong> Esta acción es irreversible.
+                </div>
+                <p>
+                    ¿Estás seguro de que deseas eliminar al usuario 
+                    <strong id="eliminarUsuarioNombre"></strong>?
+                </p>
+                <p class="text-muted">Se eliminarán todos los datos asociados con este usuario.</p>
+            </div>
+            <form id="eliminarUsuarioForm" onsubmit="eliminarUsuario(event)" class="modal-form">
+                <input type="hidden" name="csrfmiddlewaretoken" value="">
+                <input type="hidden" id="eliminarUsuarioId" name="usuario_id" value="">
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalEliminarUsuario')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar Usuario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

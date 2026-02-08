@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Iniciar Sesión - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/autenticacion/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+    <div class="login-page-card">
+        <h1>Iniciar Sesión</h1>
+        <p class="subtitle">Ingresa tus credenciales para acceder al sistema</p>
+
+        {% if form.non_field_errors %}
+        <div class="error-alert">
+            {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.username.errors %}
+            <div class="error-alert">
+                {% for error in form.username.errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">
+                    <i class="fas fa-envelope"></i> Usuario o Correo
+                </label>
+                <input 
+                    type="text"
+                    id="{{ form.username.id_for_label }}"
+                    name="{{ form.username.name }}"
+                    class="form-control"
+                    placeholder="Correo o nombre de usuario"
+                    value="{{ form.username.value|default:'' }}"
+                    required
+                    autofocus
+                >
+            </div>
+
+            {% if form.password.errors %}
+            <div class="error-alert">
+                {% for error in form.password.errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">
+                    <i class="fas fa-lock"></i> Contraseña
+                </label>
+                <input 
+                    type="password"
+                    id="{{ form.password.id_for_label }}"
+                    name="{{ form.password.name }}"
+                    class="form-control"
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+
+            <div class="form-check">
+                <input 
+                    type="checkbox"
+                    id="remember_me"
+                    name="remember_me"
+                    class="form-check-input"
+                >
+                <label class="form-check-label" for="remember_me">
+                    Recuérdame
+                </label>
+            </div>
+
+            <button type="submit" class="submit-button">
+                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+            </button>
+        </form>
+
+        <div class="login-links">
+            <a href="{% url 'autenticacion:password_reset' %}">
+                <i class="fas fa-redo"></i> ¿Olvidaste tu contraseña?
+            </a>
+            <a href="{% url 'autenticacion:registro' %}">
+                <i class="fas fa-user-plus"></i> ¿No tienes cuenta? Regístrate
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/autenticacion/login.js' %}"></script>
+{% endblock %}

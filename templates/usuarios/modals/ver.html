@@ -1,0 +1,22 @@
+<!-- Modal Ver Usuario -->
+<div id="modalVerUsuario" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-user-circle"></i> Detalles del Usuario</h5>
+                <button type="button" class="btn-close" onclick="cerrarModal('modalVerUsuario')"></button>
+            </div>
+            <div class="modal-body" id="verUsuarioContenido">
+                <!-- Contenido cargado dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="abrirEditarUsuario()">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalVerUsuario')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<!-- Modal Editar Usuario -->
+<div id="modalEditarUsuario" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-user-edit"></i> Editar Usuario</h5>
+                <button type="button" class="btn-close" onclick="cerrarModal('modalEditarUsuario')"></button>
+            </div>
+            <form id="editarUsuarioForm" onsubmit="actualizarUsuario(event)" class="modal-form">
+                <input type="hidden" name="csrfmiddlewaretoken" value="">
+                <input type="hidden" id="editarUsuarioId" name="usuario_id" value="">
+                
+                <div class="form-group">
+                    <label for="editarUsername"><i class="fas fa-user"></i> Usuario</label>
+                    <input type="text" id="editarUsername" name="username" class="form-control" required disabled>
+                    <small class="text-muted">No se puede cambiar el nombre de usuario</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editarEmail"><i class="fas fa-envelope"></i> Correo</label>
+                    <input type="email" id="editarEmail" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="editarNombre"><i class="fas fa-address-card"></i> Nombre</label>
+                        <input type="text" id="editarNombre" name="first_name" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="editarApellido"><i class="fas fa-address-card"></i> Apellido</label>
+                        <input type="text" id="editarApellido" name="last_name" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editarRol"><i class="fas fa-briefcase"></i> Rol</label>
+                    <select id="editarRol" name="rol" class="form-control" required>
+                        <option value="">-- Selecciona un rol --</option>
+                        <option value="admin">Administrador</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="limpieza">Personal de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                </div>
+                
+                <div class="form-group form-check">
+                    <input type="checkbox" id="editarActivo" name="is_active">
+                    <label class="form-check-label" for="editarActivo">
+                        <i class="fas fa-check-circle"></i> Usuario Activo
+                    </label>
+                </div>
+                
+                <div id="editarErrors" class="alert alert-danger" style="display: none;"></div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalEditarUsuario')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

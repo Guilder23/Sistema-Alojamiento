@@ -1,0 +1,112 @@
+/* Estilos para Modal Eliminar Usuario */
+
+#modalEliminarUsuario .modal-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    padding: 20px;
+}
+
+#modalEliminarUsuario .modal-header-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+#modalEliminarUsuario .modal-header .modal-title {
+    color: white;
+    font-weight: 700;
+}
+
+#modalEliminarUsuario .btn-close {
+    color: white;
+    filter: brightness(1.2);
+}
+
+#modalEliminarUsuario .modal-body {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+#modalEliminarUsuario .alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    color: #856404;
+}
+
+#modalEliminarUsuario .alert i {
+    font-size: 20px;
+}
+
+#modalEliminarUsuario p {
+    margin: 15px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+#modalEliminarUsuario strong {
+    color: #dc3545;
+    font-weight: 700;
+}
+
+#modalEliminarUsuario .text-muted {
+    color: #999 !important;
+    font-size: 13px;
+}
+
+#modalEliminarUsuario .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+#modalEliminarUsuario .btn {
+    padding: 10px 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#modalEliminarUsuario .btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+#modalEliminarUsuario .btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+#modalEliminarUsuario .btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+}
+
+#modalEliminarUsuario .btn-secondary:hover {
+    background: #d0d0d0;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    #modalEliminarUsuario .modal-body {
+        padding: 20px;
+    }
+    
+    #modalEliminarUsuario .modal-footer {
+        flex-direction: column;
+    }
+    
+    #modalEliminarUsuario .btn {
+        width: 100%;
+    }
+}
