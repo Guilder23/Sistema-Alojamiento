@@ -1,88 +1,70 @@
 /* Estilos para Modal Crear Usuario */
 
-#modalCrearUsuario .modal-form {
-    padding: 20px;
+#modal-crear-usuario .modal-body {
+    padding-top: 18px;
 }
 
-#modalCrearUsuario .form-group {
-    margin-bottom: 15px;
+#modal-crear-usuario #form-crear-usuario {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
 }
 
-#modalCrearUsuario .form-group label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
+#modal-crear-usuario #form-crear-usuario .form-group {
+    margin-bottom: 0;
 }
 
-#modalCrearUsuario .form-control {
-    padding: 10px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: all 0.3s ease;
+#modal-crear-usuario #form-crear-usuario .form-group label {
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
 }
 
-#modalCrearUsuario .form-control:focus {
-    border-color: #667eea;
-    background: #f8f9ff;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    outline: none;
+#modal-crear-usuario #form-crear-usuario .form-control {
+    border-radius: 12px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
 }
 
-#modalCrearUsuario .form-row {
+#modal-crear-usuario #form-crear-usuario .form-control:focus {
+    border-color: rgba(102, 126, 234, 0.9);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.16);
+}
+
+#modal-crear-usuario #form-crear-usuario .form-control.error {
+    border-color: rgba(220, 53, 69, 0.8);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.12);
+}
+
+#modal-crear-usuario #form-crear-usuario .form-error {
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+#modal-crear-usuario #form-crear-usuario .password-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 12px;
 }
 
-#modalCrearUsuario .form-check {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+#modal-crear-usuario #form-crear-usuario .password-grid .input-with-icon .input-icon {
+    background: rgba(99, 102, 241, 0.10);
+    color: rgba(99, 102, 241, 0.95);
 }
 
-#modalCrearUsuario .form-check-input {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    accent-color: #667eea;
+#modal-crear-usuario #form-crear-usuario .password-grid .form-group {
+    margin-bottom: 0;
 }
 
-#modalCrearUsuario small {
-    display: block;
-    margin-top: 5px;
-    color: #999;
-    font-size: 12px;
+#modal-crear-usuario .modal-footer {
+    justify-content: space-between;
 }
 
-#modalCrearUsuario .alert {
-    padding: 12px 15px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#modalCrearUsuario .alert-danger {
-    background: #fee;
-    color: #c33;
-    border: 1px solid #fcc;
-}
-
-#modalCrearUsuario .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 15px 20px;
-    border-top: 1px solid #e0e0e0;
+#modal-crear-usuario .modal-footer .btn {
+    border-radius: 12px;
 }
 
 @media (max-width: 768px) {
-    #modalCrearUsuario .form-row {
+    #modal-crear-usuario #form-crear-usuario .password-grid {
         grid-template-columns: 1fr;
     }
 }

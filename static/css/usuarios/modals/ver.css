@@ -1,73 +1,68 @@
 /* Estilos para Modal Ver Usuario */
 
-#modalVerUsuario .modal-body {
-    padding: 20px;
+#modal-ver-usuario .modal-body {
+    padding-top: 18px;
 }
 
-#modalVerUsuario .usuario-info-card {
+#modal-ver-usuario .detail-group {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 190px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 12px 14px;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 14px;
+    margin-bottom: 10px;
 }
 
-#modalVerUsuario .info-item {
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
-}
-
-#modalVerUsuario .info-item label {
-    display: flex;
+#modal-ver-usuario .detail-label {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    color: #667eea;
     font-size: 12px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    color: rgba(17, 24, 39, 0.55);
+    font-weight: 800;
 }
 
-#modalVerUsuario .info-item p {
-    margin: 0;
-    color: #333;
+#modal-ver-usuario .detail-label i {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: rgba(102, 126, 234, 0.10);
+    color: rgba(102, 126, 234, 0.95);
+    margin-right: 8px;
+    font-size: 11px;
+}
+
+#modal-ver-usuario .detail-value {
     font-size: 14px;
-    word-break: break-all;
+    font-weight: 650;
+    color: rgba(17, 24, 39, 0.90);
+    word-break: break-word;
 }
 
-#modalVerUsuario .badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 20px;
+#modal-ver-usuario .detail-value .badge {
+    border-radius: 999px;
+    padding: 6px 12px;
     font-size: 12px;
-    font-weight: 600;
 }
 
-#modalVerUsuario .badge-rol {
-    background: #e3f2fd;
-    color: #1976d2;
-}
-
-#modalVerUsuario .badge-success {
-    background: #e8f5e9;
-    color: #388e3c;
-}
-
-#modalVerUsuario .badge-danger {
-    background: #ffebee;
-    color: #d32f2f;
-}
-
-#modalVerUsuario .modal-footer {
-    display: flex;
+#modal-ver-usuario .modal-footer {
     justify-content: flex-end;
-    gap: 10px;
-    padding: 15px 20px;
-    border-top: 1px solid #e0e0e0;
+}
+
+#modal-ver-usuario .modal-footer .btn {
+    border-radius: 12px;
 }
 
 @media (max-width: 768px) {
-    #modalVerUsuario .usuario-info-card {
+    #modal-ver-usuario .detail-group {
         grid-template-columns: 1fr;
+        gap: 6px;
     }
 }

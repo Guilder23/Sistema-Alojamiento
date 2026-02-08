@@ -1,77 +1,67 @@
-<!-- Modal Crear Nuevo Usuario -->
-<div id="modalCrearUsuario" class="modal-backdrop" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h5>
-                <button type="button" class="btn-close" onclick="cerrarModal('modalCrearUsuario')"></button>
+<!-- Modal Crear Usuario -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-crear-usuario" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h3>
+        <button class="close-modal" id="close-modal-crear">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-crear-usuario">
+            <div class="form-group">
+                <label for="crear-username">Nombre de Usuario <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="crear-username" class="form-control" required placeholder="Ej: juan.garcia">
+                </div>
+                <div class="form-error"></div>
             </div>
-            <form id="crearUsuarioForm" onsubmit="guardarUsuario(event)" class="modal-form">
-                <input type="hidden" name="csrfmiddlewaretoken" value="">
-                
-                <div class="form-group">
-                    <label for="crearUsername"><i class="fas fa-user"></i> Usuario</label>
-                    <input type="text" id="crearUsername" name="username" class="form-control" placeholder="Nombre de usuario" required>
-                    <small class="text-muted">Sin espacios, solo letras y números</small>
+            <div class="form-group">
+                <label for="crear-email">Email <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" id="crear-email" class="form-control" required placeholder="Ej: juan@hotel.com">
                 </div>
-                
-                <div class="form-group">
-                    <label for="crearEmail"><i class="fas fa-envelope"></i> Correo</label>
-                    <input type="email" id="crearEmail" name="email" class="form-control" placeholder="correo@ejemplo.com" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="crearNombre"><i class="fas fa-address-card"></i> Nombre</label>
-                        <input type="text" id="crearNombre" name="first_name" class="form-control" placeholder="Nombre">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="crearApellido"><i class="fas fa-address-card"></i> Apellido</label>
-                        <input type="text" id="crearApellido" name="last_name" class="form-control" placeholder="Apellido">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="crearPassword"><i class="fas fa-lock"></i> Contraseña</label>
-                        <input type="password" id="crearPassword" name="password" class="form-control" placeholder="Mínimo 8 caracteres" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="crearPassword2"><i class="fas fa-lock"></i> Confirmar</label>
-                        <input type="password" id="crearPassword2" name="password2" class="form-control" placeholder="Repite la contraseña" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="crearRol"><i class="fas fa-briefcase"></i> Rol</label>
-                    <select id="crearRol" name="rol" class="form-control" required>
-                        <option value="">-- Selecciona un rol --</option>
-                        <option value="admin">Administrador</option>
-                        <option value="gerente">Gerente</option>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-rol">Rol <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-briefcase"></i></span>
+                    <select id="crear-rol" class="form-control" required>
+                        <option value="">Seleccionar rol</option>
+                        <option value="administrador">Administrador</option>
                         <option value="recepcionista">Recepcionista</option>
-                        <option value="limpieza">Personal de Limpieza</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
                         <option value="cliente">Cliente</option>
                     </select>
                 </div>
-                
-                <div class="form-group form-check">
-                    <input type="checkbox" id="crearActivo" name="is_active" checked>
-                    <label class="form-check-label" for="crearActivo">
-                        <i class="fas fa-check-circle"></i> Usuario Activo
-                    </label>
+                <div class="form-error"></div>
+            </div>
+            <div class="password-grid">
+                <div class="form-group">
+                    <label for="crear-password">Contraseña <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="crear-password" class="form-control" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-error"></div>
                 </div>
-                
-                <div id="crearErrors" class="alert alert-danger" style="display: none;"></div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalCrearUsuario')">
-                        <i class="fas fa-times"></i> Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Crear Usuario
-                    </button>
+                <div class="form-group">
+                    <label for="crear-password-confirm">Confirmar Contraseña <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-shield-alt"></i></span>
+                        <input type="password" id="crear-password-confirm" class="form-control" required placeholder="Repetir contraseña">
+                    </div>
+                    <div class="form-error"></div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-usuario')">Cancelar</button>
+        <button type="submit" form="form-crear-usuario" class="btn btn-primary">
+            <i class="fas fa-save"></i> Crear Usuario
+        </button>
     </div>
 </div>

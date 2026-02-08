@@ -1,112 +1,149 @@
 /* Estilos para Modal Eliminar Usuario */
 
-#modalEliminarUsuario .modal-header {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    color: white;
-    padding: 20px;
+#modal-eliminar-usuario .modal-header {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.16), rgba(200, 35, 51, 0.10));
+    color: rgba(17, 24, 39, 0.92);
+    padding: 18px 22px;
 }
 
-#modalEliminarUsuario .modal-header-danger {
+#modal-eliminar-usuario .modal-header-danger {
     background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
 }
 
-#modalEliminarUsuario .modal-header .modal-title {
+#modal-eliminar-usuario .modal-header .modal-title {
     color: white;
     font-weight: 700;
 }
 
-#modalEliminarUsuario .btn-close {
+#modal-eliminar-usuario .btn-close {
     color: white;
     filter: brightness(1.2);
 }
 
-#modalEliminarUsuario .modal-body {
-    padding: 30px 20px;
+#modal-eliminar-usuario .modal-body {
+    padding: 22px;
     text-align: center;
 }
 
-#modalEliminarUsuario .alert {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: flex;
+#modal-eliminar-usuario .confirm-message {
+    text-align: left;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+#modal-eliminar-usuario .confirm-message > i {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    background: #fff3cd;
-    border: 1px solid #ffc107;
-    color: #856404;
-}
-
-#modalEliminarUsuario .alert i {
+    border-radius: 14px;
+    background: rgba(220, 53, 69, 0.12);
+    color: rgba(220, 53, 69, 0.95);
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
-#modalEliminarUsuario p {
-    margin: 15px 0;
+#modal-eliminar-usuario .confirm-username {
+    margin: 6px 0 10px;
+    font-size: 15px;
+    font-weight: 900;
+    color: rgba(17, 24, 39, 0.92);
+}
+
+#modal-eliminar-usuario .confirm-warning {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(245, 158, 11, 0.20);
+    background: rgba(255, 251, 235, 0.9);
+    color: rgba(146, 64, 14, 0.95);
+    font-weight: 700;
+}
+
+#modal-eliminar-usuario .confirm-warning i {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: rgba(245, 158, 11, 0.18);
+    color: rgba(245, 158, 11, 0.95);
+}
+
+#modal-eliminar-usuario .confirm-message p {
+    margin: 8px 0;
     font-size: 14px;
-    color: #333;
-    line-height: 1.6;
+    color: rgba(17, 24, 39, 0.85);
+    line-height: 1.55;
 }
 
-#modalEliminarUsuario strong {
+#modal-eliminar-usuario strong {
     color: #dc3545;
     font-weight: 700;
 }
 
-#modalEliminarUsuario .text-muted {
+#modal-eliminar-usuario .text-muted {
     color: #999 !important;
     font-size: 13px;
 }
 
-#modalEliminarUsuario .modal-footer {
+#modal-eliminar-usuario .modal-footer {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 20px;
-    border-top: 1px solid #e0e0e0;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+    border-top: 1px solid rgba(17, 24, 39, 0.10);
 }
 
-#modalEliminarUsuario .btn {
-    padding: 10px 20px;
-    font-weight: 600;
+#modal-eliminar-usuario .btn {
+    padding: 12px 16px;
+    font-weight: 700;
     border: none;
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    min-width: 180px;
 }
 
-#modalEliminarUsuario .btn-danger {
+#modal-eliminar-usuario .btn-danger {
     background: #dc3545;
     color: white;
 }
 
-#modalEliminarUsuario .btn-danger:hover {
+#modal-eliminar-usuario .btn-danger:hover {
     background: #c82333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(220, 53, 69, 0.22);
 }
 
-#modalEliminarUsuario .btn-secondary {
-    background: #e0e0e0;
-    color: #333;
+#modal-eliminar-usuario .btn-secondary {
+    background: rgba(17, 24, 39, 0.06);
+    color: rgba(17, 24, 39, 0.88);
 }
 
-#modalEliminarUsuario .btn-secondary:hover {
-    background: #d0d0d0;
-    transform: translateY(-2px);
+#modal-eliminar-usuario .btn-secondary:hover {
+    background: rgba(17, 24, 39, 0.10);
+    transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
-    #modalEliminarUsuario .modal-body {
+    #modal-eliminar-usuario .modal-body {
         padding: 20px;
     }
     
-    #modalEliminarUsuario .modal-footer {
+    #modal-eliminar-usuario .modal-footer {
         flex-direction: column;
     }
     
-    #modalEliminarUsuario .btn {
+    #modal-eliminar-usuario .btn {
         width: 100%;
+        min-width: 0;
     }
 }

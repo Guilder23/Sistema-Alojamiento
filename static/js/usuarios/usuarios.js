@@ -171,6 +171,7 @@ function abrirModal(modalId) {
             overlay.classList.add('active');
         }
         modal.style.display = 'block';
+        document.body.classList.add('modal-open');
     }
 }
 
@@ -182,6 +183,11 @@ function cerrarModal(modalId) {
             overlay.classList.remove('active');
         }
         modal.style.display = 'none';
+        const algunModalAbierto = Array.from(document.querySelectorAll('.modal-content'))
+            .some(m => m.style.display === 'block');
+        if (!algunModalAbierto) {
+            document.body.classList.remove('modal-open');
+        }
     }
 }
 
@@ -192,6 +198,7 @@ function cerrarTodosModales() {
     document.querySelectorAll('.modal-content').forEach(modal => {
         modal.style.display = 'none';
     });
+    document.body.classList.remove('modal-open');
 }
 
 // Funciones para abrir modales específicos

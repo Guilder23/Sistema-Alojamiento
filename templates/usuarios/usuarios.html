@@ -12,6 +12,10 @@
     <!-- CSS Usuarios -->
     <link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
     <link rel="stylesheet" href="{% static 'css/usuarios/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
 </head>
 <body>
     {% include 'componentes/messages.html' %}
@@ -85,185 +89,10 @@
 
     {% include 'componentes/footer_dashboard.html' %}
 
-    <!-- Modal Crear Usuario -->
-    <div class="modal-overlay"></div>
-    <div class="modal-content" id="modal-crear-usuario" style="display: none;">
-        <div class="modal-header">
-            <h3><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h3>
-            <button class="close-modal" id="close-modal-crear">&times;</button>
-        </div>
-        <div class="modal-body">
-            <form id="form-crear-usuario">
-                <div class="form-group">
-                    <label for="crear-username">Nombre de Usuario <span class="required">*</span></label>
-                    <input type="text" id="crear-username" class="form-control" required placeholder="Ej: juan.garcia">
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="crear-email">Email <span class="required">*</span></label>
-                    <input type="email" id="crear-email" class="form-control" required placeholder="Ej: juan@hotel.com">
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="crear-rol">Rol <span class="required">*</span></label>
-                    <select id="crear-rol" class="form-control" required>
-                        <option value="">Seleccionar rol</option>
-                        <option value="administrador">Administrador</option>
-                        <option value="recepcionista">Recepcionista</option>
-                        <option value="gerente">Gerente</option>
-                        <option value="empleado_limpieza">Empleado de Limpieza</option>
-                        <option value="cliente">Cliente</option>
-                    </select>
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="crear-password">Contraseña <span class="required">*</span></label>
-                    <input type="password" id="crear-password" class="form-control" required placeholder="Mínimo 6 caracteres">
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="crear-password-confirm">Confirmar Contraseña <span class="required">*</span></label>
-                    <input type="password" id="crear-password-confirm" class="form-control" required placeholder="Repetir contraseña">
-                    <div class="form-error"></div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-usuario')">Cancelar</button>
-            <button type="submit" form="form-crear-usuario" class="btn btn-primary">
-                <i class="fas fa-save"></i> Crear Usuario
-            </button>
-        </div>
-    </div>
-
-    <!-- Modal Ver Usuario -->
-    <div class="modal-overlay"></div>
-    <div class="modal-content" id="modal-ver-usuario" style="display: none;">
-        <div class="modal-header">
-            <h3><i class="fas fa-user"></i> Detalles del Usuario</h3>
-            <button class="close-modal" id="close-modal-ver">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="detail-group">
-                <div class="detail-label">ID</div>
-                <div class="detail-value" id="ver-id">-</div>
-            </div>
-            <div class="detail-group">
-                <div class="detail-label">Usuario</div>
-                <div class="detail-value" id="ver-username">-</div>
-            </div>
-            <div class="detail-group">
-                <div -overlay"></div>
-    <div class="modal-content" id="modal-editar-usuario" style="display: none;">
-        <div class="modal-header">
-            <h3><i class="fas fa-user-edit"></i> Editar Usuario</h3>
-            <button class="close-modal" id="close-modal-editar">&times;</button>
-        </div>
-        <div class="modal-body">
-            <form id="form-editar-usuario">
-                <input type="hidden" id="editar-id">
-                <div class="form-group">
-                    <label for="editar-username">Nombre de Usuario <span class="required">*</span></label>
-                    <input type="text" id="editar-username" class="form-control" required>
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="editar-email">Email <span class="required">*</span></label>
-                    <input type="email" id="editar-email" class="form-control" required>
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="editar-rol">Rol <span class="required">*</span></label>
-                    <select id="editar-rol" class="form-control" required>
-                        <option value="administrador">Administrador</option>
-                        <option value="recepcionista">Recepcionista</option>
-                        <option value="gerente">Gerente</option>
-                        <option value="empleado_limpieza">Empleado de Limpieza</option>
-                        <option value="cliente">Cliente</option>
-                    </select>
-                    <div class="form-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="editar-is-active">
-                        <input type="checkbox" id="editar-is-active"> Usuario Activo
-                    </label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cambiar-password">
-                    <label for="cambiar-password">Cambiar Contraseña</label>
-                </div>
-                <div id="password-fields-editar" style="display: none;">
-                    <div class="form-group">
-                        <label for="editar-password">Nueva Contraseña</label>
-                        <input type="password" id="editar-password" class="form-control" placeholder="Mínimo 6 caracteres">
-                        <div class="form-error"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editar-password-confirm">Confirmar Contraseña</label>
-                        <input type="password" id="editar-password-confirm" class="form-control">
-                        <div class="form-error"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-editar-usuario')">Cancelar</button>
-            <button type="submit" form="form-editar-usuario" class="btn btn-success">
-                <i class="fas fa-save"></i> Guardar Cambios
-            </button   </div>
-                    <div class="form-group">
-                        <label for="edit-rol">Rol</label>
-                        <select id="edit-rol" name="rol" required>
-                            <option value="administrador">Administrador</option>
-                            <option value="recepcionista">Recepcionista</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="empleado_limpieza">Empleado de Limpieza</option>
-                            <option value="cliente">Cliente</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="edit-cambiar-password" name="cambiar-password">
-                            Cambiar Contraseña
-                        </label>
-                    </div>
-                    <div class="form-group" id="password-group" style="display: none;">
-                        <label for="edit-password">Nueva Contraseña</label>
-                        <input type="password" id="edit-password" name="password" placeholder="Dejar vacío para mantener actual">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-modal-id="modal-editar-usuario">Cancelar</button>
-                <button class="btn btn-primary" id="btn-submit-editar">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Eliminar Usuario -->
-    <div class="modal-overlay"></div>
-    <div class="modal-content" id="modal-eliminar-usuario" style="display: none;">
-        <div class="modal-header">
-            <h3><i class="fas fa-exclamation-triangle"></i> Eliminar Usuario</h3>
-            <button class="close-modal" id="close-modal-eliminar">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="confirm-message">
-                <i class="fas fa-exclamation-circle"></i>
-                <p>¿Estás seguro de que deseas eliminar el usuario?</p>
-                <p class="confirm-username" id="eliminar-username"></p>
-                <div class="confirm-warning">
-                    <i class="fas fa-info-circle"></i> Esta acción no se puede deshacer
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" id="btn-cancelar-eliminar">Cancelar</button>
-            <button class="btn btn-danger" id="btn-confirmar-eliminar">
-                <i class="fas fa-trash"></i> Eliminar Permanentemente
-            </button>
-        </div>
-    </div>
+    {% include 'usuarios/modals/crear.html' %}
+    {% include 'usuarios/modals/ver.html' %}
+    {% include 'usuarios/modals/editar.html' %}
+    {% include 'usuarios/modals/eliminar.html' %}
 
     <!-- Scripts -->
     <script src="{% static 'js/componentes/sidebar.js' %}"></script>
