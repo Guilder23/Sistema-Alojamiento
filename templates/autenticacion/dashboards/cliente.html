@@ -1,9 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ titulo }} - Sistema de Alojamiento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/componentes/messages.css' %}">
+    <script src="{% static 'js/componentes/messages.js' %}"></script>
     <style>
         * {
             margin: 0;
@@ -14,6 +18,14 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .page-wrapper {
+            display: flex;
+            flex: 1;
         }
 
         .navbar {
@@ -62,6 +74,11 @@
 
         .logout-btn:hover {
             background: rgba(255,255,255,0.3);
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow-x: hidden;
         }
 
         .container {
@@ -203,6 +220,8 @@
     </style>
 </head>
 <body>
+    {% include 'componentes/messages.html' %}
+    
     <!-- Navbar -->
     <div class="navbar">
         <h1>👤 {{ titulo }}</h1>
@@ -214,8 +233,12 @@
             <a href="{% url 'autenticacion:logout' %}" class="logout-btn">Cerrar Sesión</a>
         </div>
     </div>
-
-    <!-- Contenido Principal -->
+    
+    <!-- Page Wrapper con Sidebar -->
+    <div class="page-wrapper">
+        {% include 'componentes/sidebar.html' %}
+        
+        <div class="main-content">
     <div class="container">
         <!-- Tarjeta de Bienvenida -->
         <div class="welcome-card">
@@ -268,6 +291,8 @@
             </div>
         </div>
     </div>
+        </div> <!-- Cierre .main-content -->
+    </div> <!-- Cierre .page-wrapper -->
 
     <!-- Footer -->
     <div class="footer">
