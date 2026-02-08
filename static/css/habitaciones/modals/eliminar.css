@@ -1,0 +1,4 @@
+/* Modal Eliminar Habitación */
+#modal-eliminar-habitacion .modal-footer {
+    justify-content: space-between;
+}

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} - Sistema de Alojamiento</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/habitaciones/habitaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/habitaciones/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/crear.css' %}">
+    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/ver.css' %}">
+    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/editar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/eliminar.css' %}">
+</head>
+<body>
+    {% include 'componentes/messages.html' %}
+    {% include 'componentes/navbar_dashboard.html' %}
+
+    <div class="page-wrapper">
+        {% include 'componentes/sidebar.html' %}
+
+        <div class="main-content">
+            <div class="container-habitaciones">
+                <section class="habitaciones-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-bed"></i> Gestión de Habitaciones</h2>
+                        <button class="btn btn-primary" onclick="abrirModalCrearHabitacion()">
+                            <i class="fas fa-plus"></i> Crear Nueva Habitación
+                        </button>
+                    </div>
+
+                    <div class="filters-container">
+                        <input type="text" id="search-habitaciones" class="search-input" placeholder="🔍 Buscar por número o descripción...">
+                        <select id="filter-tipo" class="filter-select">
+                            <option value="">Filtrar por Tipo</option>
+                            {% for value,label in tipos_habitacion %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <select id="filter-bano" class="filter-select">
+                            <option value="">Filtrar por Baño</option>
+                            {% for value,label in tipos_bano %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <select id="filter-estado" class="filter-select">
+                            <option value="">Filtrar por Estado</option>
+                            {% for value,label in estados_habitacion %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <select id="filter-piso" class="filter-select">
+                            <option value="">Filtrar por Piso</option>
+                            <option value="1">Piso 1</option>
+                            <option value="2">Piso 2</option>
+                            <option value="3">Piso 3</option>
+                            <option value="4">Piso 4</option>
+                            <option value="5">Piso 5</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="tabla-habitaciones" class="habitaciones-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Tipo</th>
+                                    <th>Capacidad</th>
+                                    <th>Precio/Noche</th>
+                                    <th>Estado</th>
+                                    <th>Piso</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="loading-row">
+                                    <td colspan="7">Cargando habitaciones...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button id="prev-page" onclick="cambiarPaginaHabitaciones('prev')">Anterior</button>
+                        <span id="page-info">Página 1 de 1</span>
+                        <button id="next-page" onclick="cambiarPaginaHabitaciones('next')">Siguiente</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    {% include 'componentes/footer_dashboard.html' %}
+
+    {% include 'habitaciones/modals/crear.html' %}
+    {% include 'habitaciones/modals/ver.html' %}
+    {% include 'habitaciones/modals/editar.html' %}
+    {% include 'habitaciones/modals/eliminar.html' %}
+
+    <script src="{% static 'js/componentes/sidebar.js' %}"></script>
+    <script src="{% static 'js/habitaciones/habitaciones.js' %}"></script>
+    <script src="{% static 'js/habitaciones/modals/crear.js' %}"></script>
+    <script src="{% static 'js/habitaciones/modals/ver.js' %}"></script>
+    <script src="{% static 'js/habitaciones/modals/editar.js' %}"></script>
+    <script src="{% static 'js/habitaciones/modals/eliminar.js' %}"></script>
+</body>
+</html>

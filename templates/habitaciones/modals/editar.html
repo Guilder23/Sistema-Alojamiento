@@ -1,0 +1,253 @@
+<!-- Modal Editar Habitación -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-editar-habitacion" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-pen"></i> Editar Habitación</h3>
+        <button class="close-modal" id="close-modal-editar-habitacion">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-editar-habitacion" novalidate>
+            <input type="hidden" id="editar-id">
+
+            <div class="form-section">
+                <div class="section-title"><i class="fas fa-circle-info"></i> Campos básicos</div>
+
+                <div class="form-group">
+                    <label for="editar-numero">Número</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-hashtag"></i></span>
+                        <input type="text" id="editar-numero" class="form-control" readonly style="background-color: #f8fafc; cursor: not-allowed;">
+                    </div>
+                    <small class="form-help">El número de habitación no se puede modificar</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-nombre">Nombre de habitación <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-tag"></i></span>
+                        <input type="text" id="editar-nombre" class="form-control" required>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-tipo">Tipo <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-bed"></i></span>
+                        <select id="editar-tipo" class="form-control" required>
+                            <option value="simple">Habitación Simple</option>
+                            <option value="doble">Habitación Doble</option>
+                            <option value="triple">Habitación Triple</option>
+                            <option value="suite">Suite</option>
+                            <option value="deluxe">Deluxe</option>
+                            <option value="presidencial">Suite Presidencial</option>
+                        </select>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editar-capacidad">Capacidad <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-users"></i></span>
+                            <input type="number" id="editar-capacidad" class="form-control" required min="1">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-piso">Piso <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-layer-group"></i></span>
+                            <input type="number" id="editar-piso" class="form-control" required min="1">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editar-precio">Precio por Noche <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" id="editar-precio" class="form-control" required min="0" step="0.01">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-precio-fin">Precio fin de semana (opcional)</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-calendar"></i></span>
+                            <input type="number" id="editar-precio-fin" class="form-control" min="0" step="0.01">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-estado">Estado <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-circle"></i></span>
+                        <select id="editar-estado" class="form-control" required>
+                            <option value="disponible">Disponible</option>
+                            <option value="ocupada">Ocupada</option>
+                            <option value="limpieza">En limpieza</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="fuera_servicio">Fuera de servicio</option>
+                        </select>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-tipo-bano">Tipo de Baño <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-bath"></i></span>
+                        <select id="editar-tipo-bano" class="form-control" required>
+                            <option value="privado">Baño privado</option>
+                            <option value="compartido">Baño compartido</option>
+                            <option value="sin_bano">Sin baño</option>
+                        </select>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-vista">Vista</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-mountain"></i></span>
+                        <select id="editar-vista" class="form-control">
+                            <option value="">Seleccionar vista</option>
+                            <option value="mar">Mar</option>
+                            <option value="ciudad">Ciudad</option>
+                            <option value="jardin">Jardín</option>
+                            <option value="montana">Montaña</option>
+                            <option value="interior">Interior</option>
+                            <option value="sin_vista">Sin vista</option>
+                        </select>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-youtube">Video (YouTube)</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fab fa-youtube"></i></span>
+                        <input type="url" id="editar-youtube" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-descripcion">Descripción</label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-align-left"></i></span>
+                        <textarea id="editar-descripcion" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-foto-principal">Imagen principal</label>
+                    <div class="file-upload">
+                        <input type="file" id="editar-foto-principal" class="form-control" accept="image/*">
+                    </div>
+                    <div class="foto-preview" id="editar-foto-principal-preview" style="display:none;"><img id="editar-foto-principal-preview-img" alt="Preview"></div>
+                    <div class="form-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editar-fotos">Galería de imágenes (máx 6)</label>
+                    <div class="galeria-container">
+                        <div class="fotos-grid" id="editar-fotos-preview"></div>
+                        <button type="button" class="btn-agregar-foto" id="btn-agregar-editar-foto" onclick="document.getElementById('editar-fotos').click()">
+                            <i class="fas fa-plus"></i> Agregar imagen
+                        </button>
+                        <input type="file" id="editar-fotos" class="form-control" accept="image/*" style="display:none;">
+                    </div>
+                    <small class="form-help"><span id="editar-contador-fotos">0</span> de 6 imágenes</small>
+                    <div class="form-error"></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title"><i class="fas fa-sliders"></i> Características</div>
+                <div class="amenidades-section">
+                    <div class="amenidades-title"><i class="fas fa-list-check"></i> Amenidades y Servicios</div>
+                    <div class="amenidades-grid">
+                        <label class="amenidad"><input type="checkbox" id="editar-bano-privado"> <span><i class="fas fa-bath"></i> Baño privado</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-tv"> <span><i class="fas fa-tv"></i> TV</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-internet"> <span><i class="fas fa-wifi"></i> Internet</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-acceso-youtube"> <span><i class="fab fa-youtube"></i> Acceso a YouTube</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-aire"> <span><i class="fas fa-snowflake"></i> Aire acondicionado</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-calefaccion"> <span><i class="fas fa-fire"></i> Calefacción</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-minibar"> <span><i class="fas fa-wine-bottle"></i> Minibar</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-caja"> <span><i class="fas fa-vault"></i> Caja fuerte</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-escritorio"> <span><i class="fas fa-chair"></i> Escritorio</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-armario"> <span><i class="fas fa-shirt"></i> Armario</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-agua"> <span><i class="fas fa-droplet"></i> Agua caliente</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-toallas"> <span><i class="fas fa-bath"></i> Toallas</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-papel"> <span><i class="fas fa-toilet-paper"></i> Papel higiénico</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-shampoo"> <span><i class="fas fa-pump-soap"></i> Shampoo</span></label>
+                        <label class="amenidad"><input type="checkbox" id="editar-secador"> <span><i class="fas fa-wind"></i> Secador de cabello</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title"><i class="fas fa-bed"></i> Camas</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editar-numero-camas">Número de camas <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-layer-group"></i></span>
+                            <input type="number" id="editar-numero-camas" class="form-control" required min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-tipo-cama">Tipo de cama <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-moon"></i></span>
+                            <select id="editar-tipo-cama" class="form-control" required>
+                                <option value="single">Single</option>
+                                <option value="queen">Queen</option>
+                                <option value="king">King</option>
+                                <option value="mixta">Mixta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title"><i class="fas fa-calendar-check"></i> Configuración de reservas</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editar-min-noches">Reserva mínima (noches) <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-minus"></i></span>
+                            <input type="number" id="editar-min-noches" class="form-control" required min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-max-noches">Reserva máxima (noches) <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-plus"></i></span>
+                            <input type="number" id="editar-max-noches" class="form-control" required min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <label class="amenidad"><input type="checkbox" id="editar-mascotas"> <span><i class="fas fa-paw"></i> Permite mascotas</span></label>
+                    <label class="amenidad"><input type="checkbox" id="editar-fumar"> <span><i class="fas fa-smoking"></i> Permite fumar</span></label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModalHabitaciones('modal-editar-habitacion')">Cancelar</button>
+        <button type="submit" form="form-editar-habitacion" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+    </div>
+</div>

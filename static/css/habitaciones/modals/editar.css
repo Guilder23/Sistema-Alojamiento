@@ -1,0 +1,4 @@
+/* Modal Editar Habitación */
+#modal-editar-habitacion .modal-footer {
+    justify-content: space-between;
+}
