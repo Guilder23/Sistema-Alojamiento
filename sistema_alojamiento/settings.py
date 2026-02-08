@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login URLs
 LOGIN_URL = 'autenticacion:login'
-LOGIN_REDIRECT_URL = 'habitaciones:habitacion_list'
+LOGIN_REDIRECT_URL = 'habitaciones:list'
 LOGOUT_REDIRECT_URL = 'inicio:inicio'
 
 # Configuración de servidor de email (Gmail SMTP)
