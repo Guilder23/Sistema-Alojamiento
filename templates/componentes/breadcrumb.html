@@ -1,3 +1,8 @@
+{% load static %}
+
+<!-- CSS del Breadcrumb -->
+<link rel="stylesheet" href="{% static 'css/componentes/breadcrumb.css' %}">
+
 <!-- Breadcrumb Navegación -->
 {% if page_title or breadcrumbs %}
 <nav aria-label="breadcrumb" class="breadcrumb-container">
@@ -21,28 +26,6 @@
     </ol>
 </nav>
 
-<style>
-    .breadcrumb-container {
-        background-color: transparent;
-        padding: 0;
-    }
-
-    .breadcrumb {
-        margin: 10px 0;
-        background-color: transparent;
-    }
-
-    .breadcrumb-item a {
-        color: #667eea;
-        text-decoration: none;
-    }
-
-    .breadcrumb-item a:hover {
-        text-decoration: underline;
-    }
-
-    .breadcrumb-item.active {
-        color: #555;
-    }
-</style>
+<!-- JS del Breadcrumb -->
+<script src="{% static 'js/componentes/breadcrumb.js' %}" defer></script>
 {% endif %}

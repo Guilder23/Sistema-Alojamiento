@@ -1,0 +1,33 @@
+{% load static %}
+
+<!-- CSS del Navbar Dashboard -->
+<link rel="stylesheet" href="{% static 'css/componentes/navbar_dashboard.css' %}">
+
+<!-- Navbar para Dashboards -->
+<nav class="dashboard-navbar">
+    <h1>
+        {% if user.perfil.rol.nombre == 'administrador' %}
+            🏨 Panel de Administración
+        {% elif user.perfil.rol.nombre == 'recepcionista' %}
+            📋 Panel de Recepción
+        {% elif user.perfil.rol.nombre == 'gerente' %}
+            📊 Panel de Gerencia
+        {% elif user.perfil.rol.nombre == 'empleado' %}
+            🧹 Panel de Limpieza
+        {% else %}
+            👤 Mi Cuenta
+        {% endif %}
+    </h1>
+    <div class="user-section">
+        <div class="user-info">
+            <div class="username">{{ user.get_full_name|default:user.username }}</div>
+            <div style="opacity: 0.9;">{{ user.email }}</div>
+        </div>
+        <a href="{% url 'autenticacion:logout' %}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </a>
+    </div>
+</nav>
+
+<!-- JS del Navbar Dashboard -->
+<script src="{% static 'js/componentes/navbar_dashboard.js' %}" defer></script>
