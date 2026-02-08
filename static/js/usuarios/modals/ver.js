@@ -1,70 +1,49 @@
-/* JavaScript para Modal Ver Usuario */
+// Modal Ver Usuario
 
-function verUsuario(usuarioId) {
-    const usuario = usuariosData.find(u => u.id === usuarioId);
-    if (!usuario) return;
-    
-    usuarioSeleccionado = usuario;
-    
-    const contenido = document.getElementById('verUsuarioContenido');
-    contenido.innerHTML = `
-        <div class="usuario-info-card">
-            <div class="info-item">
-                <label><i class="fas fa-user"></i> Usuario</label>
-                <p>${usuario.username}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-envelope"></i> Correo</label>
-                <p>${usuario.email}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-address-card"></i> Nombre</label>
-                <p>${usuario.first_name}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-address-card"></i> Apellido</label>
-                <p>${usuario.last_name}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-briefcase"></i> Rol</label>
-                <p><span class="badge badge-rol">${usuario.rol || 'Sin asignar'}</span></p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-toggle-on"></i> Estado</label>
-                <p>${usuario.is_active ? 
-                    '<span class="badge badge-success">Activo</span>' : 
-                    '<span class="badge badge-danger">Inactivo</span>'}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-check-double"></i> Correo Verificado</label>
-                <p>${usuario.email_verified ? 'Sí' : 'No'}</p>
-            </div>
-            <div class="info-item">
-                <label><i class="fas fa-calendar"></i> Fecha de Registro</label>
-                <p>${new Date(usuario.date_joined).toLocaleDateString('es-ES')}</p>
-            </div>
-        </div>
-    `;
-    
-    abrirModal('modalVerUsuario');
-}
+async function verUsuario(usuarioId) {
+    try {
+        const response = await fetch(`/usuarios/api/detalle/${usuarioId}/`);
+        if (!response.ok) throw new Error('Error al cargar usuario');
 
-function abrirEditarUsuario() {
-    if (usuarioSeleccionado) {
-        cerrarModal('modalVerUsuario');
-        editarUsuario(usuarioSeleccionado.id);
+        const data = await response.json();
+        if (data.success) {
+            mostrarDetallesUsuario(data.usuario);
+            abrirModal('modal-ver-usuario');
+        } else {
+            mostrarError('No se pudo cargar la información del usuario');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarError('Error al cargar los detalles del usuario');
     }
 }
 
-// Animaciones de entrada
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('modalVerUsuario');
-    if (modal) {
-        modal.addEventListener('show.bs.modal', function() {
-            const infoItems = document.querySelectorAll('.info-item');
-            infoItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.05}s`;
-            });
-        });
-    }
+function mostrarDetallesUsuario(usuario) {
+    document.getElementById('ver-id').textContent = usuario.id || '-';
+    document.getElementById('ver-username').textContent = usuario.username || '-';
+    document.getElementById('ver-email').textContent = usuario.email || '-';
+    document.getElementById('ver-rol').innerHTML = `<span class="badge badge-${usuario.rol}">${formatearRol(usuario.rol)}</span>`;
+    document.getElementById('ver-estado').innerHTML = `<span class="badge badge-${usuario.is_active ? 'activo' : 'inactivo'}">${usuario.is_active ? 'Activo' : 'Inactivo'}</span>`;
+    document.getElementById('ver-fecha-registro').textContent = formatearFecha(usuario.date_joined) || '-';
+    document.getElementById('ver-ultimo-acceso').textContent = usuario.last_login ? formatearFecha(usuario.last_login) : 'Nunca';
+}
+
+function formatearFecha(fechaStr) {
+    if (!fechaStr) return '-';
+    const fecha = new Date(fechaStr);
+    return fecha.toLocaleString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Cerrar modal
+document.getElementById('close-modal-ver')?.addEventListener('click', function() {
+    cerrarModal('modal-ver-usuario');
 });
+
+// Exponer función globalmente
+window.verUsuario = verUsuario;

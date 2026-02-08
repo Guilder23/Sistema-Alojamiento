@@ -12,8 +12,9 @@ urlpatterns = [
     path('', views.usuarios_view, name='list'),
     
     # API Endpoints
-    path('api/', views.api_usuarios_lista, name='api_lista'),
-    path('api/crear/', views.api_usuario_crear, name='api_crear'),
-    path('api/<int:usuario_id>/actualizar/', views.api_usuario_actualizar, name='api_actualizar'),
-    path('api/<int:usuario_id>/eliminar/', views.api_usuario_eliminar, name='api_eliminar'),
+    path('api/lista/', views.api_usuarios_lista, name='api_usuarios_lista'),
+    path('api/detalle/<int:usuario_id>/', views.api_usuario_detalle, name='api_usuario_detalle'),
+    path('api/crear/', views.api_usuario_crear, name='api_usuario_crear'),
+    path('api/actualizar/<int:usuario_id>/', views.api_usuario_actualizar, name='api_usuario_actualizar'),
+    path('api/eliminar/<int:usuario_id>/', views.api_usuario_eliminar, name='api_usuario_eliminar'),
 ]

@@ -17,7 +17,7 @@ urlpatterns = [
     
     # Aplicaciones del sistema
     path('autenticacion/', include(('app.autenticacion.urls', 'autenticacion'), namespace='autenticacion')),
-    path('usuarios/', include('app.usuarios.urls')),
+    path('usuarios/', include(('app.usuarios.urls', 'usuarios'), namespace='usuarios')),
     path('habitaciones/', include('app.habitaciones.urls')),
     path('reservas/', include('app.reservas.urls')),
     path('clientes/', include('app.clientes.urls')),

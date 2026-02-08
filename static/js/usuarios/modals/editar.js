@@ -1,75 +1,161 @@
-/* JavaScript para Modal Editar Usuario */
+// Modal Editar Usuario
 
-function editarUsuario(usuarioId) {
-    const usuario = usuariosData.find(u => u.id === usuarioId);
-    if (!usuario) return;
-    
-    usuarioSeleccionado = usuario;
-    
-    document.getElementById('editarUsuarioId').value = usuario.id;
-    document.getElementById('editarUsername').value = usuario.username;
-    document.getElementById('editarUsername').disabled = true;
-    document.getElementById('editarEmail').value = usuario.email;
-    document.getElementById('editarNombre').value = usuario.first_name;
-    document.getElementById('editarApellido').value = usuario.last_name;
-    document.getElementById('editarRol').value = usuario.rol || '';
-    document.getElementById('editarActivo').checked = usuario.is_active;
-    
-    abrirModal('modalEditarUsuario');
-}
+let usuarioEditando = null;
 
-function actualizarUsuario(e) {
-    e.preventDefault();
-    
-    const form = document.getElementById('editarUsuarioForm');
-    const formData = new FormData(form);
-    const usuarioId = formData.get('usuario_id');
-    
-    const datos = {
-        email: formData.get('email'),
-        first_name: formData.get('first_name'),
-        last_name: formData.get('last_name'),
-        rol: formData.get('rol'),
-        is_active: formData.get('is_active') ? true : false
-    };
-    
-    fetch(`/usuarios/api/${usuarioId}/actualizar/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCsrfToken()
-        },
-        body: JSON.stringify(datos)
-    })
-    .then(response => response.json())
-    .then(data => {
+async function editarUsuario(usuarioId) {
+    try {
+        const response = await fetch(`/usuarios/api/detalle/${usuarioId}/`);
+        if (!response.ok) throw new Error('Error al cargar usuario');
+
+        const data = await response.json();
         if (data.success) {
-            cerrarModal('modalEditarUsuario');
-            cargarUsuarios();
-            mostrarExito('Usuario actualizado exitosamente');
+            usuarioEditando = data.usuario;
+            cargarDatosEdicion(data.usuario);
+            abrirModal('modal-editar-usuario');
         } else {
-            mostrarErrorForm('editarErrors', data.error || 'Error al actualizar usuario');
+            mostrarError('No se pudo cargar la información del usuario');
         }
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Error:', error);
-        mostrarErrorForm('editarErrors', 'Error al actualizar usuario');
-    });
+        mostrarError('Error al cargar los datos del usuario');
+    }
 }
 
-// Validación en tiempo real
-document.addEventListener('DOMContentLoaded', function() {
-    const emailInput = document.getElementById('editarEmail');
-    if (emailInput) {
-        emailInput.addEventListener('blur', function() {
-            if (this.value && !validarEmail(this.value)) {
-                mostrarErrorForm('editarErrors', 'El correo no es válido');
-            }
-        });
-    }
+function cargarDatosEdicion(usuario) {
+    document.getElementById('editar-id').value = usuario.id;
+    document.getElementById('editar-username').value = usuario.username;
+    document.getElementById('editar-email').value = usuario.email;
+    document.getElementById('editar-rol').value = usuario.rol;
+    document.getElementById('editar-is-active').checked = usuario.is_active;
+    
+    // Limpiar campos de contraseña
+    document.getElementById('editar-password').value = '';
+    document.getElementById('editar-password-confirm').value = '';
+    document.getElementById('cambiar-password').checked = false;
+    togglePasswordFields(false);
+}
+
+// Toggle de campos de contraseña
+document.getElementById('cambiar-password')?.addEventListener('change', function(e) {
+    togglePasswordFields(e.target.checked);
 });
 
-function validarEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+function togglePasswordFields(mostrar) {
+    const passwordFields = document.getElementById('password-fields-editar');
+    if (passwordFields) {
+        passwordFields.style.display = mostrar ? 'block' : 'none';
+        
+        // Limpiar campos si se ocultan
+        if (!mostrar) {
+            document.getElementById('editar-password').value = '';
+            document.getElementById('editar-password-confirm').value = '';
+        }
+    }
 }
+
+// Manejar envío del formulario
+document.getElementById('form-editar-usuario')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        id: parseInt(document.getElementById('editar-id').value),
+        username: document.getElementById('editar-username').value.trim(),
+        email: document.getElementById('editar-email').value.trim(),
+        rol: document.getElementById('editar-rol').value,
+        is_active: document.getElementById('editar-is-active').checked
+    };
+
+    // Si se va a cambiar la contraseña
+    const cambiarPassword = document.getElementById('cambiar-password').checked;
+    if (cambiarPassword) {
+        const password = document.getElementById('editar-password').value;
+        const passwordConfirm = document.getElementById('editar-password-confirm').value;
+
+        if (password !== passwordConfirm) {
+            mostrarErrorCampo('editar-password-confirm', 'Las contraseñas no coinciden');
+            return;
+        }
+
+        if (password.length < 6) {
+            mostrarErrorCampo('editar-password', 'La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+
+        formData.password = password;
+    }
+
+    // Validar campos requeridos
+    if (!validarFormularioEditar(formData)) {
+        return;
+    }
+
+    await actualizarUsuario(formData);
+});
+
+async function actualizarUsuario(formData) {
+    try {
+        const response = await fetch(`/usuarios/api/actualizar/${formData.id}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            mostrarExito('Usuario actualizado exitosamente');
+            cerrarModal('modal-editar-usuario');
+            cargarUsuarios();
+        } else {
+            if (data.error) {
+                mostrarError(data.error);
+            } else if (data.errors) {
+                mostrarErroresFormulario(data.errors, 'editar');
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarError('Error al actualizar el usuario');
+    }
+}
+
+// Validación del formulario
+function validarFormularioEditar(formData) {
+    limpiarErrores();
+    let isValid = true;
+
+    if (!formData.username || formData.username.length < 3) {
+        mostrarErrorCampo('editar-username', 'El nombre de usuario debe tener al menos 3 caracteres');
+        isValid = false;
+    }
+
+    if (!formData.email || !validarEmail(formData.email)) {
+        mostrarErrorCampo('editar-email', 'Ingrese un email válido');
+        isValid = false;
+    }
+
+    if (!formData.rol) {
+        mostrarErrorCampo('editar-rol', 'Debe seleccionar un rol');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+// Cerrar modal
+document.getElementById('close-modal-editar')?.addEventListener('click', function() {
+    cerrarModal('modal-editar-usuario');
+    limpiarFormularioEditar();
+});
+
+function limpiarFormularioEditar() {
+    document.getElementById('form-editar-usuario')?.reset();
+    limpiarErrores();
+    usuarioEditando = null;
+}
+
+// Exponer función globalmente
+window.editarUsuario = editarUsuario;

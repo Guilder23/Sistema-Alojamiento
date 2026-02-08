@@ -66,6 +66,34 @@ def api_usuarios_lista(request):
 
 @login_required(login_url='autenticacion:login')
 @user_passes_test(es_administrador)
+@require_http_methods(["GET"])
+def api_usuario_detalle(request, usuario_id):
+    """API: Obtener detalles de un usuario específico"""
+    try:
+        usuario = User.objects.select_related('perfil__rol').get(pk=usuario_id)
+        
+        return JsonResponse({
+            'success': True,
+            'usuario': {
+                'id': usuario.id,
+                'username': usuario.username,
+                'email': usuario.email,
+                'first_name': usuario.first_name,
+                'last_name': usuario.last_name,
+                'is_active': usuario.is_active,
+                'rol': usuario.perfil.rol.nombre if hasattr(usuario, 'perfil') else '',
+                'date_joined': usuario.date_joined.isoformat(),
+                'last_login': usuario.last_login.isoformat() if usuario.last_login else None
+            }
+        })
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Usuario no encontrado'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+@login_required(login_url='autenticacion:login')
+@user_passes_test(es_administrador)
 @require_http_methods(["POST"])
 def api_usuario_crear(request):
     """API: Crear nuevo usuario"""
@@ -88,8 +116,8 @@ def api_usuario_crear(request):
     if not email:
         return JsonResponse({'success': False, 'error': 'Correo es requerido'})
     
-    if not password or len(password) < 8:
-        return JsonResponse({'success': False, 'error': 'Contraseña debe tener al menos 8 caracteres'})
+    if not password or len(password) < 6:
+        return JsonResponse({'success': False, 'error': 'Contraseña debe tener al menos 6 caracteres'})
     
     # Verificar usuario duplicado
     if User.objects.filter(username=username).exists():
@@ -134,7 +162,7 @@ def api_usuario_crear(request):
 
 @login_required(login_url='autenticacion:login')
 @user_passes_test(es_administrador)
-@require_http_methods(["POST"])
+@require_http_methods(["PUT", "POST"])
 def api_usuario_actualizar(request, usuario_id):
     """API: Actualizar usuario existente"""
     usuario = get_object_or_404(User, pk=usuario_id)
@@ -161,6 +189,13 @@ def api_usuario_actualizar(request, usuario_id):
         if 'is_active' in datos:
             usuario.is_active = bool(datos['is_active'])
         
+        # Cambiar contraseña si se proporciona
+        if 'password' in datos and datos['password']:
+            password = datos['password']
+            if len(password) < 6:
+                return JsonResponse({'success': False, 'error': 'La contraseña debe tener al menos 6 caracteres'})
+            usuario.set_password(password)
+        
         usuario.save()
         
         # Actualizar rol
@@ -186,7 +221,7 @@ def api_usuario_actualizar(request, usuario_id):
 
 @login_required(login_url='autenticacion:login')
 @user_passes_test(es_administrador)
-@require_http_methods(["POST"])
+@require_http_methods(["DELETE", "POST"])
 def api_usuario_eliminar(request, usuario_id):
     """API: Eliminar usuario"""
     usuario = get_object_or_404(User, pk=usuario_id)

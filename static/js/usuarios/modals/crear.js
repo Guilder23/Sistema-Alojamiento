@@ -1,89 +1,135 @@
-/* JavaScript para Modal Crear Usuario */
+// Modal Crear Usuario
 
-function guardarUsuario(e) {
+async function crearUsuario(formData) {
+    try {
+        const response = await fetch('/usuarios/api/crear/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            mostrarExito('Usuario creado exitosamente');
+            cerrarModal('modal-crear-usuario');
+            limpiarFormularioCrear();
+            cargarUsuarios();
+        } else {
+            if (data.error) {
+                mostrarError(data.error);
+            } else if (data.errors) {
+                mostrarErroresFormulario(data.errors);
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarError('Error al crear el usuario');
+    }
+}
+
+// Manejar envío del formulario
+document.getElementById('form-crear-usuario')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const form = document.getElementById('crearUsuarioForm');
-    const formData = new FormData(form);
-    
-    // Validar contraseñas coincidan
-    if (formData.get('password') !== formData.get('password2')) {
-        mostrarErrorForm('crearErrors', 'Las contraseñas no coinciden');
-        return;
-    }
-    
-    // Validar longitud de contraseña
-    if (formData.get('password').length < 8) {
-        mostrarErrorForm('crearErrors', 'La contraseña debe tener al menos 8 caracteres');
-        return;
-    }
-    
-    const datos = {
-        username: formData.get('username'),
-        email: formData.get('email'),
-        first_name: formData.get('first_name'),
-        last_name: formData.get('last_name'),
-        password: formData.get('password'),
-        rol: formData.get('rol'),
-        is_active: formData.get('is_active') ? true : false
+    const formData = {
+        username: document.getElementById('crear-username').value.trim(),
+        email: document.getElementById('crear-email').value.trim(),
+        password: document.getElementById('crear-password').value,
+        password_confirm: document.getElementById('crear-password-confirm').value,
+        rol: document.getElementById('crear-rol').value
     };
-    
-    fetch('/usuarios/api/crear/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCsrfToken()
-        },
-        body: JSON.stringify(datos)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            cerrarModal('modalCrearUsuario');
-            form.reset();
-            cargarUsuarios();
-            mostrarExito('Usuario creado exitosamente');
-        } else {
-            mostrarErrorForm('crearErrors', data.error || 'Error al crear usuario');
+
+    // Validar contraseñas
+    if (formData.password !== formData.password_confirm) {
+        mostrarErrorCampo('crear-password-confirm', 'Las contraseñas no coinciden');
+        return;
+    }
+
+    // Validar campos requeridos
+    if (!validarFormularioCrear(formData)) {
+        return;
+    }
+
+    await crearUsuario(formData);
+});
+
+// Validación del formulario
+function validarFormularioCrear(formData) {
+    limpiarErrores();
+    let isValid = true;
+
+    if (!formData.username || formData.username.length < 3) {
+        mostrarErrorCampo('crear-username', 'El nombre de usuario debe tener al menos 3 caracteres');
+        isValid = false;
+    }
+
+    if (!formData.email || !validarEmail(formData.email)) {
+        mostrarErrorCampo('crear-email', 'Ingrese un email válido');
+        isValid = false;
+    }
+
+    if (!formData.password || formData.password.length < 6) {
+        mostrarErrorCampo('crear-password', 'La contraseña debe tener al menos 6 caracteres');
+        isValid = false;
+    }
+
+    if (!formData.rol) {
+        mostrarErrorCampo('crear-rol', 'Debe seleccionar un rol');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+// Validar email
+function validarEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Mostrar error en campo específico
+function mostrarErrorCampo(fieldId, mensaje) {
+    const field = document.getElementById(fieldId);
+    if (field) {
+        field.classList.add('error');
+        const errorDiv = field.parentElement.querySelector('.form-error');
+        if (errorDiv) {
+            errorDiv.textContent = mensaje;
+            errorDiv.classList.add('active');
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        mostrarErrorForm('crearErrors', 'Error al crear usuario');
+    }
+}
+
+// Mostrar errores del servidor
+function mostrarErroresFormulario(errors) {
+    for (const [field, messages] of Object.entries(errors)) {
+        const fieldId = `crear-${field}`;
+        mostrarErrorCampo(fieldId, messages[0]);
+    }
+}
+
+// Limpiar errores
+function limpiarErrores() {
+    document.querySelectorAll('.form-control.error').forEach(field => {
+        field.classList.remove('error');
+    });
+    document.querySelectorAll('.form-error.active').forEach(error => {
+        error.classList.remove('active');
     });
 }
 
-// Setup de validación en tiempo real
-document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('crearPassword');
-    if (passwordInput) {
-        passwordInput.addEventListener('input', function() {
-            const strength = calcularFortalezaContraseña(this.value);
-            mostrarFortalezaContraseña(strength);
-        });
-    }
-    
-    const passwordConfirm = document.getElementById('crearPassword2');
-    if (passwordConfirm) {
-        passwordConfirm.addEventListener('change', function() {
-            const password = document.getElementById('crearPassword').value;
-            if (password !== this.value && this.value) {
-                mostrarErrorForm('crearErrors', 'Las contraseñas no coinciden');
-            }
-        });
-    }
+// Limpiar formulario
+function limpiarFormularioCrear() {
+    document.getElementById('form-crear-usuario')?.reset();
+    limpiarErrores();
+}
+
+// Cerrar modal
+document.getElementById('close-modal-crear')?.addEventListener('click', function() {
+    cerrarModal('modal-crear-usuario');
+    limpiarFormularioCrear();
 });
-
-function calcularFortalezaContraseña(password) {
-    let fortaleza = 0;
-    if (password.length >= 8) fortaleza++;
-    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) fortaleza++;
-    if (password.match(/[0-9]/)) fortaleza++;
-    if (password.match(/[^a-zA-Z0-9]/)) fortaleza++;
-    return fortaleza;
-}
-
-function mostrarFortalezaContraseña(fortaleza) {
-    const labels = ['Muy débil', 'Débil', 'Media', 'Fuerte', 'Muy fuerte'];
-    console.log('Fortaleza de contraseña:', labels[fortaleza - 1] || 'Invalid');
-}

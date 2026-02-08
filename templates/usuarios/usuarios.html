@@ -1,96 +1,276 @@
-{% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Gestión de Usuarios - Sistema de Alojamiento{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
-<!-- Modals CSS -->
-<link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
-<link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
-<link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
-<link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
-{% endblock %}
-
-{% block content %}
-<div class="usuarios-container">
-    <!-- Header -->
-    <div class="usuarios-header">
-        <h1><i class="fas fa-users"></i> Gestión de Usuarios</h1>
-        <button class="btn btn-primary" onclick="abrirModal('modalCrearUsuario')">
-            <i class="fas fa-user-plus"></i> Crear Nuevo Usuario
-        </button>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} - Sistema de Alojamiento</title>
     
-    <!-- Búsqueda y Filtros -->
-    <div class="busqueda-filtros">
-        <div class="busqueda-group">
-            <input type="text" 
-                   id="busquedaInput" 
-                   placeholder="Buscar por nombre, usuario o correo..." 
-                   class="form-control"
-                   onkeyup="filtrarUsuarios()">
-            <button type="button" class="btn btn-search" onclick="filtrarUsuarios()">
-                <i class="fas fa-search"></i>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS Usuarios -->
+    <link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usuarios/modals.css' %}">
+</head>
+<body>
+    {% include 'componentes/messages.html' %}
+    {% include 'componentes/navbar_dashboard.html' %}
+    
+    <!-- Page Wrapper con Sidebar -->
+    <div class="page-wrapper">
+        {% include 'componentes/sidebar.html' %}
+        
+        <div class="main-content">
+            <div class="container-usuarios">
+                <!-- Sección de Usuarios -->
+                <section class="usuarios-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Gestión de Usuarios</h2>
+                        <button class="btn btn-primary" onclick="abrirModalCrear()">
+                            <i class="fas fa-plus"></i> Crear Nuevo Usuario
+                        </button>
+                    </div>
+
+                <!-- Filtros -->
+                <div class="filters-container">
+                    <input type="text" id="search-usuarios" class="search-input" placeholder="🔍 Buscar usuario...">
+                    <select id="filter-rol" class="filter-select">
+                        <option value="">Filtrar por Rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                    <select id="filter-estado" class="filter-select">
+                        <option value="">Filtrar por Estado</option>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Tabla de Usuarios -->
+                <div class="table-container">
+                    <table id="tabla-usuarios" class="usuarios-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos se cargarán con JavaScript -->
+                            <tr class="loading-row">
+                                <td colspan="6">Cargando usuarios...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div class="pagination">
+                    <button id="prev-page" onclick="cambiarPagina('prev')">Anterior</button>
+                    <span id="page-info">Página 1 de 1</span>
+                    <button id="next-page" onclick="cambiarPagina('next')">Siguiente</button>
+                </div>
+                </section>
+            </div> <!-- Cierre .container-usuarios -->
+        </div> <!-- Cierre .main-content -->
+    </div> <!-- Cierre .page-wrapper -->
+
+    {% include 'componentes/footer_dashboard.html' %}
+
+    <!-- Modal Crear Usuario -->
+    <div class="modal-overlay"></div>
+    <div class="modal-content" id="modal-crear-usuario" style="display: none;">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h3>
+            <button class="close-modal" id="close-modal-crear">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="form-crear-usuario">
+                <div class="form-group">
+                    <label for="crear-username">Nombre de Usuario <span class="required">*</span></label>
+                    <input type="text" id="crear-username" class="form-control" required placeholder="Ej: juan.garcia">
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="crear-email">Email <span class="required">*</span></label>
+                    <input type="email" id="crear-email" class="form-control" required placeholder="Ej: juan@hotel.com">
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="crear-rol">Rol <span class="required">*</span></label>
+                    <select id="crear-rol" class="form-control" required>
+                        <option value="">Seleccionar rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="crear-password">Contraseña <span class="required">*</span></label>
+                    <input type="password" id="crear-password" class="form-control" required placeholder="Mínimo 6 caracteres">
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="crear-password-confirm">Confirmar Contraseña <span class="required">*</span></label>
+                    <input type="password" id="crear-password-confirm" class="form-control" required placeholder="Repetir contraseña">
+                    <div class="form-error"></div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-usuario')">Cancelar</button>
+            <button type="submit" form="form-crear-usuario" class="btn btn-primary">
+                <i class="fas fa-save"></i> Crear Usuario
             </button>
         </div>
-        
-        <div class="filtro-rol">
-            <select id="filtroRol" class="form-control" onchange="filtrarUsuarios()">
-                <option value="">Todos los roles</option>
-                <option value="admin">Administrador</option>
-                <option value="gerente">Gerente</option>
-                <option value="recepcionista">Recepcionista</option>
-                <option value="limpieza">Personal de Limpieza</option>
-                <option value="cliente">Cliente</option>
-            </select>
+    </div>
+
+    <!-- Modal Ver Usuario -->
+    <div class="modal-overlay"></div>
+    <div class="modal-content" id="modal-ver-usuario" style="display: none;">
+        <div class="modal-header">
+            <h3><i class="fas fa-user"></i> Detalles del Usuario</h3>
+            <button class="close-modal" id="close-modal-ver">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="detail-group">
+                <div class="detail-label">ID</div>
+                <div class="detail-value" id="ver-id">-</div>
+            </div>
+            <div class="detail-group">
+                <div class="detail-label">Usuario</div>
+                <div class="detail-value" id="ver-username">-</div>
+            </div>
+            <div class="detail-group">
+                <div -overlay"></div>
+    <div class="modal-content" id="modal-editar-usuario" style="display: none;">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-edit"></i> Editar Usuario</h3>
+            <button class="close-modal" id="close-modal-editar">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="form-editar-usuario">
+                <input type="hidden" id="editar-id">
+                <div class="form-group">
+                    <label for="editar-username">Nombre de Usuario <span class="required">*</span></label>
+                    <input type="text" id="editar-username" class="form-control" required>
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="editar-email">Email <span class="required">*</span></label>
+                    <input type="email" id="editar-email" class="form-control" required>
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="editar-rol">Rol <span class="required">*</span></label>
+                    <select id="editar-rol" class="form-control" required>
+                        <option value="administrador">Administrador</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="editar-is-active">
+                        <input type="checkbox" id="editar-is-active"> Usuario Activo
+                    </label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="cambiar-password">
+                    <label for="cambiar-password">Cambiar Contraseña</label>
+                </div>
+                <div id="password-fields-editar" style="display: none;">
+                    <div class="form-group">
+                        <label for="editar-password">Nueva Contraseña</label>
+                        <input type="password" id="editar-password" class="form-control" placeholder="Mínimo 6 caracteres">
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-password-confirm">Confirmar Contraseña</label>
+                        <input type="password" id="editar-password-confirm" class="form-control">
+                        <div class="form-error"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-editar-usuario')">Cancelar</button>
+            <button type="submit" form="form-editar-usuario" class="btn btn-success">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button   </div>
+                    <div class="form-group">
+                        <label for="edit-rol">Rol</label>
+                        <select id="edit-rol" name="rol" required>
+                            <option value="administrador">Administrador</option>
+                            <option value="recepcionista">Recepcionista</option>
+                            <option value="gerente">Gerente</option>
+                            <option value="empleado_limpieza">Empleado de Limpieza</option>
+                            <option value="cliente">Cliente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="edit-cambiar-password" name="cambiar-password">
+                            Cambiar Contraseña
+                        </label>
+                    </div>
+                    <div class="form-group" id="password-group" style="display: none;">
+                        <label for="edit-password">Nueva Contraseña</label>
+                        <input type="password" id="edit-password" name="password" placeholder="Dejar vacío para mantener actual">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal-id="modal-editar-usuario">Cancelar</button>
+                <button class="btn btn-primary" id="btn-submit-editar">Guardar Cambios</button>
+            </div>
         </div>
     </div>
-    
-    <!-- Tabla de Usuarios -->
-    <div class="usuarios-tabla">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Correo</th>
-                    <th>Nombre Completo</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="usuariosBody">
-                <!-- Cargado por JavaScript -->
-            </tbody>
-        </table>
+
+    <!-- Modal Eliminar Usuario -->
+    <div class="modal-overlay"></div>
+    <div class="modal-content" id="modal-eliminar-usuario" style="display: none;">
+        <div class="modal-header">
+            <h3><i class="fas fa-exclamation-triangle"></i> Eliminar Usuario</h3>
+            <button class="close-modal" id="close-modal-eliminar">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="confirm-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>¿Estás seguro de que deseas eliminar el usuario?</p>
+                <p class="confirm-username" id="eliminar-username"></p>
+                <div class="confirm-warning">
+                    <i class="fas fa-info-circle"></i> Esta acción no se puede deshacer
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="btn-cancelar-eliminar">Cancelar</button>
+            <button class="btn btn-danger" id="btn-confirmar-eliminar">
+                <i class="fas fa-trash"></i> Eliminar Permanentemente
+            </button>
+        </div>
     </div>
-    
-    <!-- Estado vacío -->
-    <div id="sinUsuarios" class="sin-usuarios" style="display: none;">
-        <i class="fas fa-inbox"></i>
-        <p>No hay usuarios que mostrar</p>
-        <button class="btn btn-secondary" onclick="limpiarFiltros()">
-            Limpiar filtros
-        </button>
-    </div>
-</div>
 
-<!-- Modals de Usuarios -->
-{% include 'usuarios/modals/crear.html' %}
-{% include 'usuarios/modals/ver.html' %}
-{% include 'usuarios/modals/editar.html' %}
-{% include 'usuarios/modals/eliminar.html' %}
-
-{% endblock %}
-
-{% block extra_js %}
-<!-- Main JavaScript -->
-<script src="{% static 'js/usuarios/usuarios.js' %}"></script>
-
-<!-- Modals JavaScript -->
-<script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
-<script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
-<script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
-<script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
-{% endblock %}
+    <!-- Scripts -->
+    <script src="{% static 'js/componentes/sidebar.js' %}"></script>
+    <script src="{% static 'js/usuarios/usuarios.js' %}"></script>
+    <script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
+    <script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
+    <script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
+    <script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
+</body>
+</html>

@@ -1,72 +1,65 @@
-/* JavaScript para Modal Eliminar Usuario */
+// Modal Eliminar Usuario
 
-function confirmarEliminar(usuarioId) {
+let usuarioEliminar = null;
+
+function eliminarUsuario(usuarioId) {
+    // Buscar el usuario en los datos
     const usuario = usuariosData.find(u => u.id === usuarioId);
-    if (!usuario) return;
     
-    usuarioSeleccionado = usuario;
-    
-    document.getElementById('eliminarUsuarioId').value = usuario.id;
-    document.getElementById('eliminarUsuarioNombre').textContent = usuario.username;
-    
-    abrirModal('modalEliminarUsuario');
-}
-
-function eliminarUsuario(e) {
-    e.preventDefault();
-    
-    const usuarioId = document.getElementById('eliminarUsuarioId').value;
-    const usuarioNombre = document.getElementById('eliminarUsuarioNombre').textContent;
-    
-    // Confirmación adicional
-    if (!confirm(`¿Estás completamente seguro de que deseas eliminar a ${usuarioNombre}? Esta acción no se puede deshacer.`)) {
+    if (!usuario) {
+        mostrarError('Usuario no encontrado');
         return;
     }
+
+    usuarioEliminar = usuario;
     
-    // Cambiar texto del botón
-    const btnEliminar = document.querySelector('#modalEliminarUsuario .btn-danger');
-    if (btnEliminar) {
-        btnEliminar.disabled = true;
-        btnEliminar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Eliminando...';
-    }
+    // Mostrar información en el modal
+    document.getElementById('eliminar-username').textContent = usuario.username;
     
-    fetch(`/usuarios/api/${usuarioId}/eliminar/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': getCsrfToken()
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            cerrarModal('modalEliminarUsuario');
-            cargarUsuarios();
-            mostrarExito('Usuario eliminado exitosamente');
-        } else {
-            mostrarError(data.error || 'Error al eliminar usuario');
-            if (btnEliminar) {
-                btnEliminar.disabled = false;
-                btnEliminar.innerHTML = '<i class="fas fa-trash"></i> Eliminar Usuario';
-            }
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        mostrarError('Error al eliminar usuario');
-        if (btnEliminar) {
-            btnEliminar.disabled = false;
-            btnEliminar.innerHTML = '<i class="fas fa-trash"></i> Eliminar Usuario';
-        }
-    });
+    // Abrir modal
+    abrirModal('modal-eliminar-usuario');
 }
 
-// Prevenir eliminación accidental con Escape
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('keydown', function(e) {
-        const modal = document.getElementById('modalEliminarUsuario');
-        if (e.key === 'Escape' && modal && modal.style.display !== 'none') {
-            // No cerrar con Escape en el modal de eliminar
-            e.preventDefault();
+// Confirmar eliminación
+document.getElementById('btn-confirmar-eliminar')?.addEventListener('click', async function() {
+    if (!usuarioEliminar) return;
+
+    try {
+        const response = await fetch(`/usuarios/api/eliminar/${usuarioEliminar.id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            mostrarExito('Usuario eliminado exitosamente');
+            cerrarModal('modal-eliminar-usuario');
+            usuarioEliminar = null;
+            cargarUsuarios();
+        } else {
+            mostrarError(data.error || data.message || 'Error al eliminar el usuario');
         }
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarError('Error al eliminar el usuario');
+    }
 });
+
+// Cancelar eliminación
+document.getElementById('btn-cancelar-eliminar')?.addEventListener('click', function() {
+    cerrarModal('modal-eliminar-usuario');
+    usuarioEliminar = null;
+});
+
+// Cerrar modal
+document.getElementById('close-modal-eliminar')?.addEventListener('click', function() {
+    cerrarModal('modal-eliminar-usuario');
+    usuarioEliminar = null;
+});
+
+// Exponer función globalmente
+window.eliminarUsuario = eliminarUsuario;
