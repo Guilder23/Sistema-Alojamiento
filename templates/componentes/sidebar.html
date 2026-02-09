@@ -37,7 +37,7 @@
                     <i class="fas fa-clipboard-list"></i>
                     <span class="link-text">Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-link" title="Reservas">
+                <a href="{% url 'reservas:todas_reservas' %}" class="sidebar-link" title="Reservas">
                     <i class="fas fa-calendar"></i>
                     <span class="link-text">Reservas</span>
                 </a>
@@ -80,11 +80,11 @@
                     <span class="link-text">Tareas</span>
                 </a>
             {% elif user.perfil.rol.nombre == 'cliente' %}
-                <a href="{% url 'autenticacion:dashboard_cliente' %}" class="sidebar-link" title="Mis Reservas">
+                <a href="{% url 'reservas:mis_reservas' %}" class="sidebar-link" title="Mis Reservas">
                     <i class="fas fa-list"></i>
                     <span class="link-text">Mis Reservas</span>
                 </a>
-                <a href="#" class="sidebar-link" title="Búscar Habitaciones">
+                <a href="{% url 'habitaciones:buscar' %}" class="sidebar-link" title="Búscar Habitaciones">
                     <i class="fas fa-search"></i>
                     <span class="link-text">Búscar Habitaciones</span>
                 </a>

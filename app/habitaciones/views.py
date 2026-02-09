@@ -28,6 +28,22 @@ def habitaciones_view(request):
     return render(request, 'habitaciones/habitaciones.html', context)
 
 
+@login_required(login_url='autenticacion:login')
+def buscar_habitaciones_view(request):
+    """Vista para que los clientes puedan buscar y reservar habitaciones disponibles"""
+    habitaciones = Habitacion.objects.filter(estado='disponible').prefetch_related('fotos').order_by('numero')
+    
+    context = {
+        'titulo': 'Buscar Habitaciones',
+        'habitaciones': habitaciones,
+        'tipos_habitacion': Habitacion.TIPOS_HABITACION,
+        'tipos_bano': Habitacion.TIPOS_BANO,
+        'tipos_cama': Habitacion.TIPOS_CAMA,
+        'vistas': Habitacion.VISTAS,
+    }
+    return render(request, 'reservas/reservasClientes/buscar.html', context)
+
+
 def _habitacion_to_dict(h):
     return {
         'id': h.id,
@@ -96,6 +112,21 @@ def api_habitaciones_lista(request):
 @require_http_methods(["GET"])
 def api_habitacion_detalle(request, habitacion_id):
     h = get_object_or_404(Habitacion.objects.prefetch_related('fotos'), pk=habitacion_id)
+    return JsonResponse({'success': True, 'habitacion': _habitacion_to_dict(h)})
+
+
+@login_required(login_url='autenticacion:login')
+@require_http_methods(["GET"])
+def api_habitacion_detalle_publico(request, habitacion_id):
+    """
+    Endpoint público para que los clientes vean detalles de habitaciones disponibles.
+    No requiere permisos de administrador.
+    """
+    h = get_object_or_404(
+        Habitacion.objects.prefetch_related('fotos'), 
+        pk=habitacion_id,
+        estado='disponible'  # Solo habitaciones disponibles
+    )
     return JsonResponse({'success': True, 'habitacion': _habitacion_to_dict(h)})
 
 

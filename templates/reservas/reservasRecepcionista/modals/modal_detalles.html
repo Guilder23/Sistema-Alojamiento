@@ -1,0 +1,77 @@
+<!-- Modal Detalles Reserva -->
+<div class="modal fade" id="modalDetalles" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-info-circle"></i> Detalles de Reserva <span id="modal-reserva-numero"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Información del Cliente -->
+                <div class="detalle-section mb-4">
+                    <h6 class="detalle-titulo">
+                        <i class="fas fa-user"></i> Información del Cliente
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Nombre:</strong> <span id="modal-cliente-nombre"></span></p>
+                            <p><strong>Email:</strong> <span id="modal-cliente-email"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Teléfono:</strong> <span id="modal-cliente-telefono">N/A</span></p>
+                            <p><strong>Documento:</strong> <span id="modal-cliente-documento">N/A</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de la Habitación -->
+                <div class="detalle-section mb-4">
+                    <h6 class="detalle-titulo">
+                        <i class="fas fa-bed"></i> Información de la Habitación
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Número:</strong> <span id="modal-habitacion-numero"></span></p>
+                            <p><strong>Tipo:</strong> <span id="modal-habitacion-tipo"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Huéspedes:</strong> <span id="modal-huespedes"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de la Reserva -->
+                <div class="detalle-section mb-4">
+                    <h6 class="detalle-titulo">
+                        <i class="fas fa-calendar-alt"></i> Información de la Reserva
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Fecha Entrada:</strong> <span id="modal-fecha-entrada"></span></p>
+                            <p><strong>Fecha Salida:</strong> <span id="modal-fecha-salida"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Precio Total:</strong> <span id="modal-precio-total" class="text-success fw-bold"></span></p>
+                            <p><strong>Estado:</strong> <span id="modal-estado-reserva"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notas del Cliente -->
+                <div class="detalle-section" id="modal-notas-section" style="display: none;">
+                    <h6 class="detalle-titulo">
+                        <i class="fas fa-sticky-note"></i> Notas del Cliente
+                    </h6>
+                    <div class="alert alert-info" id="modal-notas-contenido"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

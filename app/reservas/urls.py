@@ -4,10 +4,13 @@ from . import views
 app_name = 'reservas'
 
 urlpatterns = [
-    # Reservas - Será ampliado con vistas específicas
-    # path('', views.ReservaListView.as_view(), name='reserva_list'),
-    # path('<int:pk>/', views.ReservaDetailView.as_view(), name='reserva_detail'),
-    # path('crear/', views.ReservaCreateView.as_view(), name='reserva_create'),
-    # path('<int:pk>/editar/', views.ReservaUpdateView.as_view(), name='reserva_update'),
-    # path('<int:pk>/cancelar/', views.ReservaCancelView.as_view(), name='reserva_cancel'),
+    # Vistas
+    path('mis-reservas/', views.mis_reservas, name='mis_reservas'),
+    path('todas/', views.todas_reservas, name='todas_reservas'),
+    
+    # API endpoints
+    path('api/crear/', views.crear_reserva_api, name='crear_api'),
+    path('api/detalle/<int:reserva_id>/', views.obtener_detalle_reserva_api, name='detalle_api'),
+    path('api/confirmar/<int:reserva_id>/', views.confirmar_reserva_api, name='confirmar_api'),
+    path('api/cancelar/<int:reserva_id>/', views.cancelar_reserva_api, name='cancelar_api'),
 ]
