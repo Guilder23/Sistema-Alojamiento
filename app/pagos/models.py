@@ -1,6 +1,70 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.contrib.auth.models import User
 from app.reservas.models import Reserva
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image
+
+
+class ConfiguracionQR(models.Model):
+    """Configuración del QR para pagos"""
+    
+    ESTADOS_QR = [
+        ('activo', 'Activo'),
+        ('inactivo', 'Inactivo'),
+    ]
+    
+    codigo_qr = models.CharField(
+        max_length=255,
+        help_text="Código QR o datos para generar el QR (puede ser URL, número de cuenta, etc)"
+    )
+    descripcion = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Descripción del método de pago (ej: Transferencia a cuenta 123456)"
+    )
+    imagen_qr = models.ImageField(
+        upload_to='qr_codes/',
+        blank=True,
+        null=True,
+        help_text="Imagen del código QR"
+    )
+    estado = models.CharField(
+        max_length=20,
+        choices=ESTADOS_QR,
+        default='activo'
+    )
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Configuración QR'
+        verbose_name_plural = 'Configuraciones QR'
+    
+    def __str__(self):
+        return f"QR Pagos - {self.descripcion}"
+    
+    def generar_qr(self):
+        """Generar imagen QR a partir del código"""
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(self.codigo_qr)
+        qr.make(fit=True)
+        
+        img = qr.make_image(fill_color="black", back_color="white")
+        
+        # Guardar la imagen
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        file_name = f'qr_{self.id}.png'
+        self.imagen_qr.save(file_name, File(buffer), save=False)
+        self.save()
 
 
 class Pago(models.Model):
@@ -14,9 +78,16 @@ class Pago(models.Model):
     
     ESTADOS_PAGO = [
         ('pendiente', 'Pendiente'),
-        ('pagado', 'Pagado'),
-        ('parcial', 'Pago Parcial'),
+        ('enviado', 'Comprobante Enviado'),
+        ('validado', 'Validado'),
+        ('rechazado', 'Rechazado'),
         ('reembolsado', 'Reembolsado'),
+    ]
+    
+    ESTADOS_VALIDACION = [
+        ('pendiente', 'Pendiente Revisión'),
+        ('aprobado', 'Aprobado'),
+        ('rechazado', 'Rechazado'),
     ]
     
     reserva = models.ForeignKey(
@@ -36,7 +107,7 @@ class Pago(models.Model):
     tipo_pago = models.CharField(
         max_length=20,
         choices=TIPOS_PAGO,
-        default='efectivo',
+        default='qr',
         help_text="Método de pago utilizado"
     )
     
@@ -46,23 +117,60 @@ class Pago(models.Model):
         default='pendiente'
     )
     
+    estado_validacion = models.CharField(
+        max_length=20,
+        choices=ESTADOS_VALIDACION,
+        default='pendiente'
+    )
+    
     fecha_pago = models.DateTimeField(
         auto_now_add=True,
         help_text="Fecha y hora del pago"
     )
     
+    # Comprobante enviado por el cliente
+    comprobante_cliente = models.ImageField(
+        upload_to='pagos/comprobantes_cliente/%Y/%m/',
+        blank=True,
+        null=True,
+        help_text="Comprobante de transferencia enviado por cliente"
+    )
+    
+    # Comprobante/referencia de validación
     comprobante = models.FileField(
         upload_to='pagos/comprobantes/%Y/%m/',
         blank=True,
         null=True,
-        help_text="Comprobante de pago (factura, recibo, etc)"
+        help_text="Comprobante de pago validado"
     )
     
-    referencia = models.CharField(
+    # Validación por recepcionista
+    validado_por = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='pagos_validados',
+        help_text="Recepcionista que validó el pago"
+    )
+    
+    fecha_validacion = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Fecha de validación del pago"
+    )
+    
+    comentario_validacion = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Comentarios o razón de rechazo"
+    )
+    
+    referencia_transaccion = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        help_text="Referencia de transferencia o número de autorización"
+        help_text="Referencia de transferencia o número de confirmación"
     )
     
     notas = models.TextField(

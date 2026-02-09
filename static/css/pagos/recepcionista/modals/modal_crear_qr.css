@@ -1,0 +1,73 @@
+/* Modal Crear QR - Estilos */
+
+#modalCrearQR .modal-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+#modalCrearQR .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#modalCrearQR .form-label i {
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+#modalCrearQR .form-control,
+#modalCrearQR .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#modalCrearQR .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+#modalCrearQR small.text-muted {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Preview de imagen */
+#preview_crear {
+    border: 2px dashed #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+#preview_crear:hover {
+    border-color: #007bff;
+    background: white;
+}
+
+#preview_img_crear {
+    border: 3px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Check Switch */
+#modalCrearQR .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+#modalCrearQR .form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}

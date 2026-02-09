@@ -1,0 +1,46 @@
+/* Modal Aprobar Pago - Estilos */
+
+#modalAprobarPago .modal-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+#modalAprobarPago .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#modalAprobarPago .form-label i {
+    color: #28a745;
+}
+
+#modalAprobarPago .form-control {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#modalAprobarPago .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.15);
+}
+
+#modalAprobarPago .alert-info {
+    background: #d1f2eb;
+    border-color: #20c997;
+    color: #0c5460;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#modalAprobarPago .alert-info i {
+    font-size: 1.5rem;
+    color: #28a745;
+}

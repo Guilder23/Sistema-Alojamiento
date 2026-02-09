@@ -1,0 +1,52 @@
+<div class="modal fade" id="modalAprobarPago" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle"></i> Aprobar Pago
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-success">
+                    <i class="fas fa-info-circle"></i>
+                    Confirma que el comprobante de pago es válido y aprobar la transacción.
+                </div>
+
+                <form id="form-aprobar-pago">
+                    <input type="hidden" id="pago-id-aprobar" value="">
+
+                    <div class="form-group mb-3">
+                        <label for="referencia-transaccion" class="form-label">
+                            <i class="fas fa-hashtag"></i> Referencia de Transacción
+                        </label>
+                        <input type="text" 
+                               id="referencia-transaccion" 
+                               class="form-control" 
+                               placeholder="Ej: TRF-2026-0001"
+                               required>
+                        <small class="form-text text-muted">Número de transferencia o referencia de validación</small>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="comentario-aprobacion" class="form-label">
+                            <i class="fas fa-comment"></i> Comentarios (Opcional)
+                        </label>
+                        <textarea id="comentario-aprobacion" 
+                                  class="form-control" 
+                                  rows="3" 
+                                  placeholder="Ej: Transferencia válida, enviada desde..."></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btn-confirmar-aprobacion">
+                    <i class="fas fa-check"></i> Aprobar Pago
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

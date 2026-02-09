@@ -1,0 +1,84 @@
+<div class="modal fade" id="modalRechazarPago" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-circle"></i> Rechazar Pago
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-warning"></i>
+                    <strong>Advertencia:</strong> Al rechazar, el cliente deberá reintentar el pago.
+                </div>
+
+                <form id="form-rechazar-pago">
+                    <input type="hidden" id="pago-id-rechazar" value="">
+
+                    <div class="form-group mb-3">
+                        <label for="motivo-rechazo" class="form-label">
+                            <i class="fas fa-close"></i> Motivo del Rechazo
+                        </label>
+                        <div class="btn-group-vertical w-100" role="group">
+                            <input type="radio" class="btn-check" name="motivo" id="motivo-1" value="El comprobante no es legible">
+                            <label class="btn btn-outline-danger text-start" for="motivo-1">
+                                <i class="fas fa-eye-slash"></i> El comprobante no es legible
+                            </label>
+
+                            <input type="radio" class="btn-check" name="motivo" id="motivo-2" value="El monto no coincide">
+                            <label class="btn btn-outline-danger text-start" for="motivo-2">
+                                <i class="fas fa-calculator"></i> El monto no coincide
+                            </label>
+
+                            <input type="radio" class="btn-check" name="motivo" id="motivo-3" value="Comprobante no válido o falsificado">
+                            <label class="btn btn-outline-danger text-start" for="motivo-3">
+                                <i class="fas fa-ban"></i> Comprobante no válido o falsificado
+                            </label>
+
+                            <input type="radio" class="btn-check" name="motivo" id="motivo-4" value="Otro">
+                            <label class="btn btn-outline-danger text-start" for="motivo-4">
+                                <i class="fas fa-ellipsis-h"></i> Otro
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3" id="motivo-otro-group" style="display:none;">
+                        <label for="motivo-detalle" class="form-label">
+                            <i class="fas fa-comment"></i> Especifica el motivo
+                        </label>
+                        <textarea id="motivo-detalle" 
+                                  class="form-control" 
+                                  rows="3"
+                                  placeholder="Escribe el motivo del rechazo..."></textarea>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <small>
+                            <i class="fas fa-info-circle"></i>
+                            El cliente recibirá notificación de este rechazo y podrá reintentar el pago.
+                        </small>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btn-confirmar-rechazo">
+                    <i class="fas fa-times"></i> Rechazar Pago
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Mostrar/ocultar campo de motivo personalizado
+document.querySelectorAll('input[name="motivo"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const otroGroup = document.getElementById('motivo-otro-group');
+        otroGroup.style.display = this.value === 'Otro' ? 'block' : 'none';
+    });
+});
+</script>

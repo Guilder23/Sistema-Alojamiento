@@ -1,0 +1,75 @@
+<!-- Modal Crear QR -->
+<div class="modal fade" id="modalCrearQR" tabindex="-1" aria-labelledby="modalCrearQRLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalCrearQRLabel">
+                    <i class="fas fa-qrcode"></i> Crear Nueva Configuración QR
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formCrearQR" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label for="descripcion_crear" class="form-label">
+                            <i class="fas fa-align-left"></i> Descripción del Método de Pago *
+                        </label>
+                        <input type="text" class="form-control" id="descripcion_crear" name="descripcion" 
+                               placeholder="Ej: Transferencia a cuenta Banco XYZ - 123456789" required>
+                        <small class="text-muted">Esta descripción verá el cliente junto al QR</small>
+                    </div>
+
+                    <!-- Código QR -->
+                    <div class="mb-3">
+                        <label for="codigo_qr_crear" class="form-label">
+                            <i class="fas fa-key"></i> Código/Datos del QR *
+                        </label>
+                        <textarea class="form-control" id="codigo_qr_crear" name="codigo_qr" rows="3" 
+                                  placeholder="Número de cuenta, URL, o datos para el QR" required></textarea>
+                        <small class="text-muted">Este texto se convertirá en código QR si no subes una imagen</small>
+                    </div>
+
+                    <!-- Imagen QR -->
+                    <div class="mb-3">
+                        <label for="imagen_qr_crear" class="form-label">
+                            <i class="fas fa-image"></i> Subir Imagen del QR (Opcional)
+                        </label>
+                        <input type="file" class="form-control" id="imagen_qr_crear" name="imagen_qr" accept="image/*">
+                        <small class="text-muted">Si no subes una imagen, se generará automáticamente desde el código</small>
+                    </div>
+
+                    <!-- Preview de imagen -->
+                    <div id="preview_crear" class="mb-3" style="display:none;">
+                        <label class="form-label">Vista Previa:</label>
+                        <div class="text-center">
+                            <img id="preview_img_crear" src="" alt="Preview" style="max-width: 200px; border: 1px solid #ddd; padding: 10px;">
+                        </div>
+                    </div>
+
+                    <!-- Estado -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i> Estado
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="estado_crear" name="estado" value="activo" checked>
+                            <label class="form-check-label" for="estado_crear">
+                                Activar inmediatamente (desactivará otros QR activos)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar Configuración
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -170,6 +170,11 @@
                                         <button class="btn btn-sm btn-outline-primary btn-ver-detalles" data-reserva-id="{{ reserva.id }}">
                                             <i class="fas fa-eye"></i> Ver Detalles
                                         </button>
+                                        {% if reserva.estado == 'confirmada' %}
+                                        <a href="{% url 'pagos:mis_pagos' %}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-wallet"></i> Ver Pagos
+                                        </a>
+                                        {% endif %}
                                         {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
                                         <button class="btn btn-sm btn-outline-danger btn-cancelar-reserva" data-reserva-id="{{ reserva.id }}">
                                             <i class="fas fa-times"></i> Cancelar

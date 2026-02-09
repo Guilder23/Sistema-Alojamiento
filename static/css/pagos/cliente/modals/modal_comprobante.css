@@ -1,0 +1,71 @@
+/* Modal Comprobante - Estilos */
+
+/* Upload Area */
+#upload-area {
+    border: 3px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#upload-area:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+#upload-area.drag-over {
+    border-color: #3b82f6;
+    background: #dbeafe;
+}
+
+#upload-area i {
+    font-size: 3rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+#upload-area p {
+    color: #6b7280;
+    margin: 0.5rem 0;
+}
+
+#upload-area .text-muted {
+    font-size: 0.875rem;
+}
+
+/* Preview Container */
+.preview-container {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #f9fafb;
+    display: none;
+}
+
+.preview-container.show {
+    display: block;
+}
+
+.preview-container img {
+    max-height: 400px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.preview-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.preview-actions .btn {
+    flex: 1;
+}
+
+.preview-actions .btn:first-child {
+    margin-right: 0.5rem;
+}

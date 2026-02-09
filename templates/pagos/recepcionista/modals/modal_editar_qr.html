@@ -1,0 +1,90 @@
+<!-- Modal Editar QR -->
+<div class="modal fade" id="modalEditarQR" tabindex="-1" aria-labelledby="modalEditarQRLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="modalEditarQRLabel">
+                    <i class="fas fa-edit"></i> Editar Configuración QR
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formEditarQR" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" id="qr_id_editar" name="qr_id">
+                <div class="modal-body">
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label for="descripcion_editar" class="form-label">
+                            <i class="fas fa-align-left"></i> Descripción del Método de Pago *
+                        </label>
+                        <input type="text" class="form-control" id="descripcion_editar" name="descripcion" required>
+                    </div>
+
+                    <!-- Código QR -->
+                    <div class="mb-3">
+                        <label for="codigo_qr_editar" class="form-label">
+                            <i class="fas fa-key"></i> Código/Datos del QR *
+                        </label>
+                        <textarea class="form-control" id="codigo_qr_editar" name="codigo_qr" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Imagen actual -->
+                    <div class="mb-3" id="imagen_actual_container">
+                        <label class="form-label">Imagen QR Actual:</label>
+                        <div class="text-center">
+                            <img id="qr_actual_img" src="" alt="QR Actual" style="max-width: 200px; border: 1px solid #ddd; padding: 10px;">
+                        </div>
+                    </div>
+
+                    <!-- Nueva Imagen QR -->
+                    <div class="mb-3">
+                        <label for="imagen_qr_editar" class="form-label">
+                            <i class="fas fa-image"></i> Cambiar Imagen del QR (Opcional)
+                        </label>
+                        <input type="file" class="form-control" id="imagen_qr_editar" name="imagen_qr" accept="image/*">
+                        <small class="text-muted">Deja vacío para mantener la imagen actual</small>
+                    </div>
+
+                    <!-- Preview de nueva imagen -->
+                    <div id="preview_editar" class="mb-3" style="display:none;">
+                        <label class="form-label">Vista Previa Nueva Imagen:</label>
+                        <div class="text-center">
+                            <img id="preview_img_editar" src="" alt="Preview" style="max-width: 200px; border: 1px solid #ddd; padding: 10px;">
+                        </div>
+                    </div>
+
+                    <!-- Regenerar QR -->
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="regenerar_qr" name="regenerar_qr" value="true">
+                            <label class="form-check-label" for="regenerar_qr">
+                                <i class="fas fa-sync"></i> Regenerar QR automáticamente desde el código
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Estado -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i> Estado
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="estado_editar" name="estado" value="activo">
+                            <label class="form-check-label" for="estado_editar">
+                                Configuración activa (los clientes verán este QR)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save"></i> Actualizar Configuración
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
