@@ -28,6 +28,9 @@
 
     <!-- Filtros de búsqueda -->
     <div class="filtros-container">
+        <div class="filtros-header">
+            <h3><i class="fas fa-sliders-h"></i> Filtros de Búsqueda</h3>
+        </div>
         <div class="filtros-row">
             <div class="filtro-group">
                 <label for="filtro-tipo"><i class="fas fa-bed"></i> Tipo</label>
@@ -55,11 +58,11 @@
                 <input type="number" id="filtro-precio-max" class="form-control" placeholder="Ej: 150">
             </div>
 
-            <div class="filtro-group">
+            <div class="filtro-group filtro-amenidades">
                 <label><i class="fas fa-wifi"></i> Amenidades</label>
                 <div class="amenidades-filtro">
                     <label class="checkbox-label">
-                        <input type="checkbox" id="filtro-wifi"> Internet
+                        <input type="checkbox" id="filtro-wifi"> WiFi
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" id="filtro-tv"> TV
@@ -70,12 +73,12 @@
                 </div>
             </div>
 
-            <div class="filtro-group">
-                <button type="button" id="btn-aplicar-filtros" class="btn btn-primary">
-                    <i class="fas fa-filter"></i> Aplicar Filtros
+            <div class="filtro-group filtro-botones">
+                <button type="button" id="btn-aplicar-filtros" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check"></i> Filtrar
                 </button>
-                <button type="button" id="btn-limpiar-filtros" class="btn btn-secondary">
-                    <i class="fas fa-times"></i> Limpiar
+                <button type="button" id="btn-limpiar-filtros" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-undo"></i> Limpiar
                 </button>
             </div>
         </div>
