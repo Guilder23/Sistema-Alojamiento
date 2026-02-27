@@ -8,137 +8,332 @@
 {% endblock %}
 
 {% block content %}
-<div class="inicio-container">
+<div class="inicio-wrapper">
+    
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="hero-icon">
-            <i class="fas fa-building"></i>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">Bienvenido a la solución</div>
+                <h1 class="hero-title">Gestión Inteligente de Alojamientos</h1>
+                <p class="hero-subtitle">La plataforma más completa y moderna para administrar tu hotel, posada o casa de huéspedes con eficiencia total</p>
+                
+                <div class="hero-buttons">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'autenticacion:dashboard' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-tachometer-alt"></i> Mi Dashboard
+                        </a>
+                        <a href="{% url 'autenticacion:logout' %}" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a>
+                    {% else %}
+                        <button onclick="openLoginModal()" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </button>
+                        <button onclick="openRegistroModal()" class="btn btn-outline btn-lg">
+                            <i class="fas fa-user-plus"></i> Crear Cuenta Gratis
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="hero-icon-large">
+                    <i class="fas fa-building"></i>
+                </div>
+            </div>
         </div>
-        <h1>Sistema de Gestión de Alojamiento</h1>
-        <p>Administra tu hotel o posada de forma eficiente y moderna</p>
-        <div class="hero-buttons">
-            {% if user.is_authenticated %}
-                <a href="{% url 'autenticacion:dashboard' %}" class="hero-btn primary">
-                    <i class="fas fa-tachometer-alt"></i> Mi Dashboard
-                </a>
-                <a href="{% url 'autenticacion:logout' %}" class="hero-btn">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                </a>
-            {% else %}
-                <button onclick="openLoginModal()" class="hero-btn primary">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                </button>
-                <button onclick="openRegistroModal()" class="hero-btn">
-                    <i class="fas fa-user-plus"></i> Crear Cuenta
-                </button>
-            {% endif %}
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Usuarios Activos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Reservas Procesadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Disponibilidad</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Soporte Técnico</div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="features-section">
-        <h2>Características Principales</h2>
+        <div class="section-header">
+            <h2>Características Principales</h2>
+            <p>Todo lo que necesitas para gestionar tu negocio de alojamiento</p>
+        </div>
         
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-check"></i>
                 </div>
                 <h3>Gestión de Reservas</h3>
-                <p>Sistema completo para administrar todas tus reservas de forma centralizada y eficiente.</p>
+                <p>Sistema inteligente para administrar todas tus reservas, disponibilidad y políticas de cancelación en un solo lugar.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-user-friends"></i>
                 </div>
                 <h3>Gestión de Clientes</h3>
-                <p>Mantén un registro completo de todos tus clientes con su historial de reservas.</p>
+                <p>Mantén un registro completo de tus huéspedes con historial de reservas, preferencias y datos de contacto.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-bed"></i>
+                    <i class="fas fa-door-open"></i>
                 </div>
                 <h3>Control de Habitaciones</h3>
-                <p>Monitorea el estado y disponibilidad de todas tus habitaciones en tiempo real.</p>
+                <p>Monitorea en tiempo real el estado, disponibilidad y mantenimiento de cada habitación de tu establecimiento.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-dollar-sign"></i>
+                    <i class="fas fa-credit-card"></i>
                 </div>
                 <h3>Gestión de Pagos</h3>
-                <p>Registra y controla todos los pagos de tus clientes de forma segura.</p>
+                <p>Procesa pagos de forma segura con múltiples opciones de pago y generación automática de recibos.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-broom"></i>
+                    <i class="fas fa-sparkles"></i>
                 </div>
                 <h3>Control de Limpieza</h3>
-                <p>Asigna y monitorea tareas de limpieza para mantener tus habitaciones impecables.</p>
+                <p>Coordina y monitorea las tareas de limpieza para garantizar habitaciones impecables siempre.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-chart-bar"></i>
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <h3>Reportes Detallados</h3>
-                <p>Genera informes completos sobre ingresos, ocupación y desempeño general.</p>
+                <h3>Reportes y Análisis</h3>
+                <p>Genera reportes detallados sobre ingresos, ocupación, desempeño y tendencias de tu negocio.</p>
+                <a href="#" class="feature-link">Más info <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>Listo para empezar?</h2>
-        <p>Crea tu cuenta hoy y comienza a gestionar tu alojamiento de manera inteligente</p>
-        {% if not user.is_authenticated %}
-            <button onclick="openRegistroModal()" class="cta-button">
-                <i class="fas fa-rocket"></i> Registrate Ahora
-            </button>
-        {% endif %}
-    </section>
-
-    <!-- Info Section -->
-    <section class="info-section">
-        <h2>Por qué elegirnos</h2>
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="section-header">
+            <h2>Por qué elegirnos</h2>
+            <p>Somos la solución integral que tu negocio merece</p>
+        </div>
         
-        <div class="info-grid">
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-lock"></i>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <h4>Seguridad Garantizada</h4>
-                <p>Tus datos están protegidos con encriptación de nivel empresarial y contraseñas seguras.</p>
+                <h4>Seguridad Premium</h4>
+                <p>Tus datos están protegidos con encriptación de nivel empresarial y certificaciones de seguridad internacionales.</p>
             </div>
 
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-bolt"></i>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-rocket"></i>
                 </div>
-                <h4>Rendimiento Rápido</h4>
-                <p>Interfaz optimizada para acceso rápido a toda la información que necesitas.</p>
+                <h4>Rendimiento Ultrarrápido</h4>
+                <p>Interfaz optimizada y servidores de alta velocidad para máximo rendimiento en todo momento.</p>
             </div>
 
-            <div class="info-card">
-                <div class="info-icon">
+            <div class="benefit-card">
+                <div class="benefit-icon">
                     <i class="fas fa-mobile-alt"></i>
                 </div>
                 <h4>Acceso Multiplataforma</h4>
-                <p>Accede desde cualquier dispositivo: computadora, tablet o teléfono móvil.</p>
+                <p>Accede desde cualquier dispositivo: computadora, tablet o teléfono móvil, en cualquier lugar.</p>
             </div>
 
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-star"></i>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4>Soporte 24/7</h4>
+                <p>Equipo de soporte disponible todo el tiempo para ayudarte con cualquier duda o problema.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-cog"></i>
                 </div>
                 <h4>Fácil de Usar</h4>
-                <p>Interfaz intuitiva diseñada para facilitar la gestión sin necesidad de capacitación compleja.</p>
+                <p>Interfaz intuitiva sin necesidad de capacitación compleja. Comienza en minutos, no en días.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h4>Actualizaciones Constantes</h4>
+                <p>Mejoras y nuevas funcionalidades agregadas regularmente sin costo adicional para ti.</p>
             </div>
         </div>
     </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2>¿Cómo Funciona?</h2>
+            <p>Tres simples pasos para empezar a gestionar tu alojamiento</p>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Crea tu Cuenta</h3>
+                <p>Regístrate en segundos con tu email y contraseña. Es gratis y sin compromisos.</p>
+            </div>
+            
+            <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Configura tu Negocio</h3>
+                <p>Agrega tus habitaciones, precios y políticas en pocos minutos.</p>
+            </div>
+            
+            <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Comienza a Vender</h3>
+                <p>¡Listo! Empieza a recibir reservas y gestiona tu negocio desde el dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="section-header">
+            <h2>Planes Simples y Transparentes</h2>
+            <p>Elige el plan que mejor se adapte a tu negocio</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">Básico</div>
+                <div class="pricing-price"><span>$0</span>/mes</div>
+                <div class="pricing-period">Para empezar</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Hasta 5 habitaciones</li>
+                    <li><i class="fas fa-check"></i> 50 reservas/mes</li>
+                    <li><i class="fas fa-check"></i> Gestión básica</li>
+                    <li><i class="fas fa-times"></i> Reportes avanzados</li>
+                </ul>
+                <button class="btn btn-outline btn-block">Seleccionar</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Popular</div>
+                <div class="pricing-header">Profesional</div>
+                <div class="pricing-price"><span>$29</span>/mes</div>
+                <div class="pricing-period">Más recomendado</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Hasta 50 habitaciones</li>
+                    <li><i class="fas fa-check"></i> Reservas ilimitadas</li>
+                    <li><i class="fas fa-check"></i> Reportes completos</li>
+                    <li><i class="fas fa-check"></i> Soporte prioritario</li>
+                </ul>
+                <button class="btn btn-primary btn-block">Probar Ahora</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">Empresarial</div>
+                <div class="pricing-price"><span>$99</span>/mes</div>
+                <div class="pricing-period">Todo incluido</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Habitaciones ilimitadas</li>
+                    <li><i class="fas fa-check"></i> Reservas ilimitadas</li>
+                    <li><i class="fas fa-check"></i> API personalizada</li>
+                    <li><i class="fas fa-check"></i> Soporte dedicado</li>
+                </ul>
+                <button class="btn btn-outline btn-block">Contactar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final Section -->
+    <section class="cta-final">
+        <div class="cta-content">
+            <h2>Comienza tu Prueba Gratuita Hoy</h2>
+            <p>Sin tarjeta de crédito requerida. Acceso inmediato a todas las funcionalidades.</p>
+            {% if not user.is_authenticated %}
+                <button onclick="openRegistroModal()" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i> Empezar Ahora
+                </button>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header">
+            <h2>Preguntas Frecuentes</h2>
+            <p>Resuelve las dudas más comunes</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-plus"></i>
+                    <span>¿Puedo cambiar de plan en cualquier momento?</span>
+                </div>
+                <div class="faq-answer">
+                    Sí, puedes cambiar tu plan cuando quieras. Los cambios se prorratea automáticamente.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-plus"></i>
+                    <span>¿Qué métodos de pago aceptan?</span>
+                </div>
+                <div class="faq-answer">
+                    Aceptamos todas las tarjetas de crédito, transferencia bancaria y billeteras digitales.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-plus"></i>
+                    <span>¿Hay período de prueba gratuita?</span>
+                </div>
+                <div class="faq-answer">
+                    Sí, el plan Básico es completamente gratuito. Puedes usarlo sin límite de tiempo.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-plus"></i>
+                    <span>¿Puedo exportar mis datos?</span>
+                </div>
+                <div class="faq-answer">
+                    Claro, puedes descargar todos tus datos en Excel o PDF en cualquier momento.
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 {% endblock %}
 

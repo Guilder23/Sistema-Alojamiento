@@ -1,5 +1,7 @@
 :root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-gradient: linear-gradient(135deg, #0D7A7F 0%, #062A2E 100%);
+    --primary-color: #0D7A7F;
+    --accent-color: #1BA8B0;
     --text-dark: #1a1a1a;
     --text-light: #fff;
     --bg-light: #f8f9fa;
@@ -85,8 +87,8 @@
 }
 
 .navbar-link.btn-registro:hover {
-    background: var(--text-light);
-    color: #667eea;
+    background: var(--accent-color);
+    color: white;
 }
 
 /* Dropdown Menu */
