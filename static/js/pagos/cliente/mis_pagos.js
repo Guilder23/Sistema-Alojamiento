@@ -27,7 +27,7 @@ const csrftoken = getCookie('csrftoken');
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Pagos Cliente inicializado');
     
-    // Event listeners para botones de pagar con QR
+    // Event listeners para botones
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-pagar-qr')) {
             const btn = e.target.closest('.btn-pagar-qr');
@@ -35,30 +35,39 @@ document.addEventListener('DOMContentLoaded', function() {
             abrirModalPagarQR(parseInt(pagoId));
         }
         
-        if (e.target.closest('.btn-reintentar-pago')) {
-            const btn = e.target.closest('.btn-reintentar-pago');
+        if (e.target.closest('.btn-enviar-comprobante') && !e.target.closest('#modalComprobante')) {
+            const btn = e.target.closest('.btn-enviar-comprobante');
             const pagoId = btn.getAttribute('data-pago-id');
-            abrirModalPagarQR(parseInt(pagoId));
+            abrirModalComprobante(parseInt(pagoId));
+        }
+        
+        if (e.target.id === 'btn-enviar-comprobante' || e.target.closest('#btn-enviar-comprobante')) {
+            e.preventDefault();
+            enviarComprobante();
+        }
+        
+        if (e.target.closest('#btn-siguiente-comprobante')) {
+            e.preventDefault();
+            e.stopPropagation();
+            const pagoId = pagoActual;
+            
+            // Remover focus del botón antes de cerrar
+            e.target.blur();
+            
+            // Cerrar modal de QR
+            const modalQR = bootstrap.Modal.getInstance(document.getElementById('modalPagarQR'));
+            if (modalQR) {
+                modalQR.hide();
+            }
+            
+            // Esperar a que se cierre completamente antes de abrir el siguiente
+            document.getElementById('modalPagarQR').addEventListener('hidden.bs.modal', function handler() {
+                abrirModalComprobante(pagoId);
+                // Remover listener después de usarlo
+                this.removeEventListener('hidden.bs.modal', handler);
+            }, { once: true });
         }
     });
-    
-    // Botón siguiente comprobante
-    const btnSiguiente = document.getElementById('btn-siguiente-comprobante');
-    if (btnSiguiente) {
-        btnSiguiente.addEventListener('click', abrirModalComprobante);
-    }
-    
-    // Botón enviar comprobante
-    const btnEnviar = document.getElementById('btn-enviar-comprobante');
-    if (btnEnviar) {
-        btnEnviar.addEventListener('click', enviarComprobante);
-    }
-    
-    // Input de comprobante
-    const inputComprobante = document.getElementById('comprobante-input');
-    if (inputComprobante) {
-        inputComprobante.addEventListener('change', previewComprobante);
-    }
 });
 
 /**
@@ -123,12 +132,20 @@ async function cargarQR() {
 /**
  * Abrir modal de comprobante
  */
-function abrirModalComprobante() {
+function abrirModalComprobante(pagoId) {
+    pagoActual = pagoId;
+    
     // Cerrar modal anterior
     const modalQR = bootstrap.Modal.getInstance(document.getElementById('modalPagarQR'));
     if (modalQR) {
         modalQR.hide();
     }
+    
+    // Limpiar formulario
+    document.getElementById('comprobante-input').value = '';
+    document.getElementById('comentario-pago').value = '';
+    document.getElementById('preview-container').style.display = 'none';
+    document.getElementById('btn-enviar-comprobante').disabled = true;
     
     // Abrir modal de comprobante
     const modal = new bootstrap.Modal(document.getElementById('modalComprobante'));
@@ -176,7 +193,11 @@ function previewComprobante(event) {
  */
 async function enviarComprobante() {
     if (!pagoActual) {
-        alert('Error: No se pudo identificar el pago');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error: No se pudo identificar el pago'
+        });
         return;
     }
     
@@ -184,18 +205,31 @@ async function enviarComprobante() {
     const file = fileInput.files[0];
     
     if (!file) {
-        alert('Por favor selecciona un comprobante');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Por favor selecciona un comprobante'
+        });
         return;
     }
     
     const btn = document.getElementById('btn-enviar-comprobante');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+    const btnText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
     
     const formData = new FormData();
     formData.append('comprobante', file);
     
+    // Agregar comentario si existe
+    const comentario = document.getElementById('comentario-pago')?.value;
+    if (comentario) {
+        formData.append('comentario', comentario);
+    }
+    
     try {
+        console.log(`Enviando comprobante para pago ${pagoActual}`);
+        
         const response = await fetch(`/pagos/enviar-comprobante/${pagoActual}/`, {
             method: 'POST',
             headers: {
@@ -204,21 +238,23 @@ async function enviarComprobante() {
             body: formData
         });
         
+        console.log('Response status:', response.status);
         const data = await response.json();
+        console.log('Response data:', data);
         
-        if (data.success) {
+        if (response.ok && data.success) {
             // Mostrar mensaje de éxito
             Swal.fire({
                 icon: 'success',
                 title: '¡Comprobante Enviado!',
-                text: data.message,
+                text: data.message || 'Tu comprobante ha sido enviado correctamente',
                 confirmButtonColor: '#3b82f6'
             }).then(() => {
                 // Recargar página
                 location.reload();
             });
         } else {
-            throw new Error(data.error);
+            throw new Error(data.error || 'Error desconocido');
         }
     } catch (error) {
         console.error('Error:', error);
@@ -229,7 +265,7 @@ async function enviarComprobante() {
         });
         
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-check"></i> Enviar Comprobante';
+        btn.innerHTML = btnText;
     }
 }
 

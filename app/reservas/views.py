@@ -27,10 +27,10 @@ def _obtener_o_crear_cliente(user):
         try:
             perfil = user.perfil
             telefono = perfil.telefono or perfil.celular or '0000000000'
-            cedula = perfil.cedula or 'TEMP'
+            cedula = perfil.cedula or f'USR-{user.id}'
         except PerfilUsuario.DoesNotExist:
             telefono = '0000000000'
-            cedula = 'TEMP'
+            cedula = f'USR-{user.id}'
         
         # Crear el cliente
         cliente = Cliente.objects.create(

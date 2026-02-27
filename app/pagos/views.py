@@ -83,6 +83,9 @@ def ver_qr_pago_view(request, pago_id):
 @login_required(login_url='autenticacion:login')
 @user_passes_test(es_cliente)
 @require_http_methods(["POST"])
+@login_required(login_url='autenticacion:login')
+@user_passes_test(es_cliente)
+@require_http_methods(["POST"])
 def enviar_comprobante_view(request, pago_id):
     """Enviar comprobante de pago"""
     try:
@@ -97,6 +100,12 @@ def enviar_comprobante_view(request, pago_id):
     try:
         pago.comprobante_cliente = request.FILES['comprobante']
         pago.estado = 'enviado'
+        
+        # Guardar comentario si existe
+        comentario = request.POST.get('comentario', '')
+        if comentario:
+            pago.comentario_cliente = comentario
+        
         pago.save()
         
         return JsonResponse({
