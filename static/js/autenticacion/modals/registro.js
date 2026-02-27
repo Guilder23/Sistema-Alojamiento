@@ -1,123 +1,244 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const registroForm = document.querySelector('.registro-form');
+/**
+ * Modal Registro - JavaScript
+ * Gestiona apertura, cierre y validación del modal
+ */
+
+// ============================================
+// Funciones Principales
+// ============================================
+
+function openRegistroModal() {
+    const modal = document.getElementById('modalRegistro');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            document.getElementById('reg_username')?.focus();
+        }, 100);
+    }
+}
+
+function closeRegistroModal() {
+    const modal = document.getElementById('modalRegistro');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function switchToLoginModal() {
+    closeRegistroModal();
     
-    if (registroForm) {
-        registroForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('id_username').value;
-            const email = document.getElementById('id_email').value;
-            const first_name = document.getElementById('id_first_name').value;
-            const last_name = document.getElementById('id_last_name').value;
-            const password1 = document.getElementById('id_password1').value;
-            const password2 = document.getElementById('id_password2').value;
-            
-            if (!username.trim()) {
-                showError('El usuario es requerido');
-                return;
+    // Abrir modal login
+    const loginModal = document.getElementById('modalLogin');
+    if (loginModal) {
+        loginModal.classList.add('shown');
+        loginModal.classList.remove('hidden');
+        loginModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            document.getElementById('modal_username')?.focus();
+        }, 100);
+    }
+}
+
+// ============================================
+// Event Listeners
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener elementos
+    const modal = document.getElementById('modalRegistro');
+    const form = document.getElementById('registroForm');
+    const password1 = document.getElementById('reg_password1');
+    const password2 = document.getElementById('reg_password2');
+
+    if (!modal || !form) return;
+
+    // Cerrar modal con overlay
+    const overlay = modal.querySelector('.modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegistroModal();
             }
-            
-            if (!email.trim()) {
-                showError('El correo es requerido');
-                return;
+        });
+    }
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (modal.classList.contains('active')) {
+                closeRegistroModal();
             }
-            
-            if (!validateEmail(email)) {
-                showError('El correo debe ser válido');
-                return;
+        }
+    });
+
+    // Validación del formulario
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const username = document.getElementById('reg_username').value.trim();
+        const email = document.getElementById('reg_email').value.trim();
+        const pass1 = password1.value;
+        const pass2 = password2.value;
+
+        // Limpiar errores previos
+        clearAllErrors();
+
+        // Validaciones
+        if (!username) {
+            showError('reg_username', 'El usuario es requerido');
+            return;
+        }
+
+        if (!email) {
+            showError('reg_email', 'El correo es requerido');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showError('reg_email', 'Correo inválido');
+            return;
+        }
+
+        if (!pass1) {
+            showError('reg_password1', 'La contraseña es requerida');
+            return;
+        }
+
+        if (pass1.length < 8) {
+            showError('reg_password1', 'Mínimo 8 caracteres');
+            return;
+        }
+
+        if (!pass2) {
+            showError('reg_password2', 'Confirma la contraseña');
+            return;
+        }
+
+        if (pass1 !== pass2) {
+            showError('reg_password2', 'Las contraseñas no coinciden');
+            return;
+        }
+
+        // Si todo es válido, enviar
+        form.submit();
+    });
+
+    // Limpiar errores al escribir
+    [
+        document.getElementById('reg_username'),
+        document.getElementById('reg_email'),
+        password1,
+        password2
+    ].forEach(input => {
+        if (input) {
+            input.addEventListener('input', function() {
+                clearError(this.id);
+            });
+        }
+    });
+
+    // Manejar Enter en los inputs
+    const usernameInput = document.getElementById('reg_username');
+    const emailInput = document.getElementById('reg_email');
+
+    if (usernameInput) {
+        usernameInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                emailInput?.focus();
             }
-            
-            if (!first_name.trim()) {
-                showError('El nombre es requerido');
-                return;
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                password1?.focus();
             }
-            
-            if (!last_name.trim()) {
-                showError('El apellido es requerido');
-                return;
+        });
+    }
+
+    if (password1) {
+        password1.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                password2?.focus();
             }
-            
-            if (!password1) {
-                showError('La contraseña es requerida');
-                return;
+        });
+    }
+
+    if (password2) {
+        password2.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                form.dispatchEvent(new Event('submit'));
             }
-            
-            if (password1.length < 8) {
-                showError('La contraseña debe tener al menos 8 caracteres');
-                return;
-            }
-            
-            if (password1 !== password2) {
-                showError('Las contraseñas no coinciden');
-                return;
-            }
-            
-            // Todo bien, enviar el formulario
-            enviarRegistro();
         });
     }
 });
 
-function enviarRegistro() {
-    const username = document.getElementById('id_username').value;
-    const email = document.getElementById('id_email').value;
-    const first_name = document.getElementById('id_first_name').value;
-    const last_name = document.getElementById('id_last_name').value;
-    const password1 = document.getElementById('id_password1').value;
-    
-    // Crear un formulario temporal para enviar como POST tradicional
-    const tempForm = document.createElement('form');
-    tempForm.method = 'POST';
-    tempForm.action = '/autenticacion/registro/';
-    tempForm.style.display = 'none';
-    tempForm.innerHTML = `
-        <input type="hidden" name="username" value="${username}">
-        <input type="hidden" name="email" value="${email}">
-        <input type="hidden" name="first_name" value="${first_name}">
-        <input type="hidden" name="last_name" value="${last_name}">
-        <input type="hidden" name="password" value="${password1}">
-        <input type="hidden" name="password_confirm" value="${password1}">
-        <input type="hidden" name="csrfmiddlewaretoken" value="${getCsrfToken()}">
-    `;
-    document.body.appendChild(tempForm);
-    
-    // Mostrar estado de carga
-    const submitBtn = document.querySelector('.registro-form button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
-    
-    // Enviar en 500ms para mostrar el spinner
-    setTimeout(() => {
-        tempForm.submit();
-    }, 500);
+// ============================================
+// Funciones de Validación
+// ============================================
+
+function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email) && email.length <= 254;
 }
 
-function getCsrfToken() {
-    const name = 'csrftoken';
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
+function showError(inputId, message) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    // Agregar clase de error al input
+    input.classList.add('input-error');
+    
+    // Encontrar el elemento de error correspondiente
+    // Los IDs de error siguen el patrón: inputId-error
+    const errorId = inputId + '-error';
+    let errorElement = document.getElementById(errorId);
+    
+    // Si no existe, crear el elemento de error
+    if (!errorElement) {
+        const formGroup = input.closest('.form-group');
+        if (formGroup) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.id = errorId;
+            formGroup.appendChild(errorElement);
         }
     }
-    return cookieValue;
-}
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-function showError(message) {
-    const errorDiv = document.getElementById('registroErrors');
-    if (errorDiv) {
-        errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-        errorDiv.style.display = 'block';
+    
+    if (errorElement) {
+        errorElement.textContent = message;
     }
+}
+
+function clearError(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.classList.remove('input-error');
+        
+        // Buscar el elemento de error por ID
+        const errorId = inputId + '-error';
+        const errorElement = document.getElementById(errorId);
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
+    }
+}
+
+function clearAllErrors() {
+    const inputs = [
+        'reg_username',
+        'reg_email',
+        'reg_password1',
+        'reg_password2'
+    ];
+
+    inputs.forEach(id => clearError(id));
 }
