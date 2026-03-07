@@ -1,4 +1,147 @@
-/* Modal Eliminar Habitación */
-#modal-eliminar-habitacion .modal-footer {
-    justify-content: space-between;
+/* Estilos para Modal Eliminar Habitación */
+
+#modal-eliminar-habitacion .modal-header {
+    background: #dc3545;
+    color: white;
+    padding: 18px 22px;
 }
+
+#modal-eliminar-habitacion .modal-header .modal-title {
+    color: white;
+    font-weight: 700;
+}
+
+#modal-eliminar-habitacion .btn-close {
+    color: white;
+    filter: brightness(1.2);
+}
+
+#modal-eliminar-habitacion .modal-body {
+    padding: 22px;
+    text-align: center;
+}
+
+#modal-eliminar-habitacion .confirm-message {
+    text-align: left;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 3px;
+    padding: 16px;
+}
+
+#modal-eliminar-habitacion .confirm-message > i {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(220, 53, 69, 0.12);
+    color: rgba(220, 53, 69, 0.95);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#modal-eliminar-habitacion .confirm-habitacion {
+    margin: 6px 0 10px;
+    font-size: 15px;
+    font-weight: 900;
+    color: rgba(17, 24, 39, 0.92);
+}
+
+#modal-eliminar-habitacion .confirm-warning {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(245, 158, 11, 0.20);
+    background: rgba(255, 251, 235, 0.9);
+    color: rgba(146, 64, 14, 0.95);
+    font-weight: 700;
+}
+
+#modal-eliminar-habitacion .confirm-warning i {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(245, 158, 11, 0.18);
+    color: rgba(245, 158, 11, 0.95);
+}
+
+#modal-eliminar-habitacion .confirm-message p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: rgba(17, 24, 39, 0.85);
+    line-height: 1.55;
+}
+
+#modal-eliminar-habitacion strong {
+    color: #dc3545;
+    font-weight: 700;
+}
+
+#modal-eliminar-habitacion .text-muted {
+    color: #999 !important;
+    font-size: 13px;
+}
+
+#modal-eliminar-habitacion .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+    border-top: 1px solid rgba(17, 24, 39, 0.10);
+}
+
+#modal-eliminar-habitacion .btn {
+    padding: 12px 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    min-width: 180px;
+}
+
+#modal-eliminar-habitacion .btn-danger {
+    background: #dc3545;
+    color: white;
+    opacity: 1;
+}
+
+#modal-eliminar-habitacion .btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(220, 53, 69, 0.22);
+}
+
+#modal-eliminar-habitacion .btn-secondary {
+    background: rgba(17, 24, 39, 0.06);
+    color: rgba(17, 24, 39, 0.88);
+}
+
+#modal-eliminar-habitacion .btn-secondary:hover {
+    background: rgba(17, 24, 39, 0.10);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    #modal-eliminar-habitacion .modal-body {
+        padding: 20px;
+    }
+    
+    #modal-eliminar-habitacion .modal-footer {
+        flex-direction: column;
+    }
+    
+    #modal-eliminar-habitacion .btn {
+        width: 100%;
+        min-width: 0;
+    }
+}
+

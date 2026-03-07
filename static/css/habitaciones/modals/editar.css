@@ -1,4 +1,98 @@
-/* Modal Editar Habitación */
+/* Estilos para Modal Editar Habitación */
+
+/* Header amarillo para modal editar */
+#modal-editar-habitacion .modal-header {
+    background: #ffc107;
+    color: #212529;
+}
+
+#modal-editar-habitacion .modal-header .close-modal {
+    color: #212529;
+}
+
+#modal-editar-habitacion .modal-header .close-modal:hover {
+    background: rgba(33, 37, 41, 0.1);
+}
+
+#modal-editar-habitacion .modal-body {
+    padding-top: 18px;
+}
+
+#modal-editar-habitacion #form-editar-habitacion {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+#modal-editar-habitacion #form-editar-habitacion .form-group {
+    margin-bottom: 0;
+}
+
+#modal-editar-habitacion #form-editar-habitacion .form-group label {
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
+    margin-bottom: 8px;
+}
+
+#modal-editar-habitacion #form-editar-habitacion .input-with-icon .input-icon {
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+    border-radius: 3px;
+}
+
+#modal-editar-habitacion #form-editar-habitacion .form-control {
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+#modal-editar-habitacion #form-editar-habitacion .form-control:focus {
+    border-color: rgba(255, 193, 7, 0.95);
+    box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.18);
+}
+
+#modal-editar-habitacion #form-editar-habitacion .form-control.error {
+    border-color: rgba(220, 53, 69, 0.8);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.12);
+}
+
+#modal-editar-habitacion #form-editar-habitacion input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #f59e0b;
+}
+
 #modal-editar-habitacion .modal-footer {
     justify-content: space-between;
 }
+
+#modal-editar-habitacion .modal-footer .btn {
+    border-radius: 3px;
+}
+
+#modal-editar-habitacion .modal-footer .btn-primary,
+#modal-editar-habitacion .modal-footer .btn-success {
+    background: #ffc107;
+    color: #212529;
+    font-weight: 600;
+    border-color: #ffc107;
+}
+
+#modal-editar-habitacion .modal-footer .btn-primary:hover,
+#modal-editar-habitacion .modal-footer .btn-success:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+#modal-editar-habitacion .section-title i {
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+}
+
+@media (max-width: 768px) {
+    #modal-editar-habitacion .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

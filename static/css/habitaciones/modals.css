@@ -23,7 +23,7 @@ body.modal-open {
     left: 50%;
     transform: translate(-50%, -50%);
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: 4px;
     box-shadow:
         0 24px 70px rgba(0, 0, 0, 0.35),
         0 2px 0 rgba(255, 255, 255, 0.4) inset;
@@ -62,7 +62,8 @@ body.modal-open {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(118, 75, 162, 0.10));
+    background: #0a6266;
+    color: white;
 }
 
 .modal-header h3 {
@@ -70,7 +71,7 @@ body.modal-open {
     font-size: 16px;
     font-weight: 800;
     letter-spacing: 0.2px;
-    color: rgba(17, 24, 39, 0.92);
+    color: white;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -82,7 +83,7 @@ body.modal-open {
 
 .form-section {
     padding: 14px;
-    border-radius: 16px;
+    border-radius: 4px;
     border: 1px solid rgba(17, 24, 39, 0.08);
     background: rgba(248, 250, 252, 0.9);
     margin-bottom: 14px;
@@ -103,9 +104,9 @@ body.modal-open {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: rgba(102, 126, 234, 0.12);
-    color: rgba(102, 126, 234, 0.95);
+    border-radius: 3px;
+    background: rgba(13, 122, 127, 0.10);
+    color: rgba(13, 122, 127, 0.95);
     font-size: 12px;
 }
 
@@ -119,7 +120,7 @@ body.modal-open {
 }
 
 .modal-footer .btn {
-    border-radius: 12px;
+    border-radius: 3px;
     padding: 11px 16px;
     font-weight: 800;
 }
@@ -132,11 +133,21 @@ body.modal-open {
     cursor: pointer;
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: 3px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: rgba(17, 24, 39, 0.8);
+    color: white;
+    transition: background 120ms ease, transform 120ms ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.close-modal:active {
+    transform: translateY(0);
 }
 
 .form-group {
@@ -169,12 +180,12 @@ body.modal-open {
     transform: translateY(-50%);
     width: 28px;
     height: 28px;
-    border-radius: 10px;
+    border-radius: 3px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(102, 126, 234, 0.10);
-    color: rgba(102, 126, 234, 0.95);
+    background: rgba(13, 122, 127, 0.10);
+    color: rgba(13, 122, 127, 0.95);
     pointer-events: none;
 }
 
@@ -186,9 +197,10 @@ body.modal-open {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid rgba(17, 24, 39, 0.14);
-    border-radius: 12px;
+    border-radius: 3px;
     font-size: 14px;
     background: #fff;
+    transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 
 textarea.form-control {
@@ -201,7 +213,7 @@ textarea.form-control {
 
 .foto-preview {
     margin-top: 10px;
-    border-radius: 14px;
+    border-radius: 4px;
     overflow: hidden;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: rgba(248, 250, 252, 0.9);
@@ -229,7 +241,7 @@ textarea.form-control {
 
 .foto-thumb {
     position: relative;
-    border-radius: 14px;
+    border-radius: 4px;
     overflow: hidden;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: rgba(248, 250, 252, 0.9);
@@ -237,7 +249,7 @@ textarea.form-control {
 }
 
 .foto-thumb:hover {
-    border-color: rgba(102, 126, 234, 0.3);
+    border-color: rgba(13, 122, 127, 0.3);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
 }
@@ -283,10 +295,10 @@ textarea.form-control {
 .btn-agregar-foto {
     width: 100%;
     padding: 12px;
-    border-radius: 14px;
-    border: 2px dashed rgba(102, 126, 234, 0.3);
-    background: rgba(102, 126, 234, 0.05);
-    color: rgba(102, 126, 234, 0.95);
+    border-radius: 3px;
+    border: 2px dashed rgba(13, 122, 127, 0.3);
+    background: rgba(13, 122, 127, 0.05);
+    color: rgba(13, 122, 127, 0.95);
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -297,8 +309,8 @@ textarea.form-control {
 }
 
 .btn-agregar-foto:hover {
-    background: rgba(102, 126, 234, 0.1);
-    border-color: rgba(102, 126, 234, 0.5);
+    background: rgba(13, 122, 127, 0.1);
+    border-color: rgba(13, 122, 127, 0.5);
     transform: translateY(-1px);
 }
 
@@ -314,7 +326,7 @@ textarea.form-control {
     justify-content: center;
     gap: 8px;
     padding: 20px;
-    border-radius: 14px;
+    border-radius: 4px;
     background: rgba(248, 250, 252, 0.9);
     border: 2px dashed rgba(17, 24, 39, 0.10);
     color: rgba(107, 114, 128, 0.8);
@@ -340,14 +352,14 @@ textarea.form-control {
 }
 
 .form-help span {
-    color: rgba(102, 126, 234, 0.95);
+    color: rgba(13, 122, 127, 0.95);
     font-weight: 800;
 }
 
 .amenidades-section {
     margin-top: 6px;
     padding: 14px;
-    border-radius: 16px;
+    border-radius: 4px;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: rgba(248, 250, 252, 0.9);
 }
@@ -372,7 +384,7 @@ textarea.form-control {
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-radius: 14px;
+    border-radius: 4px;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: #fff;
     cursor: pointer;
@@ -382,7 +394,7 @@ textarea.form-control {
 .amenidad input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: rgba(102, 126, 234, 0.95);
+    accent-color: rgba(13, 122, 127, 0.95);
 }
 
 .amenidad span i {
@@ -391,9 +403,9 @@ textarea.form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 7px;
-    background: rgba(102, 126, 234, 0.10);
-    color: rgba(102, 126, 234, 0.95);
+    border-radius: 3px;
+    background: rgba(13, 122, 127, 0.10);
+    color: rgba(13, 122, 127, 0.95);
     margin-right: 8px;
     font-size: 11px;
 }
@@ -403,7 +415,7 @@ textarea.form-control {
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-radius: 14px;
+    border-radius: 4px;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: #fff;
     font-size: 13px;
@@ -417,9 +429,9 @@ textarea.form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 7px;
-    background: rgba(102, 126, 234, 0.10);
-    color: rgba(102, 126, 234, 0.95);
+    border-radius: 3px;
+    background: rgba(13, 122, 127, 0.10);
+    color: rgba(13, 122, 127, 0.95);
     font-size: 11px;
 }
 
@@ -434,8 +446,8 @@ textarea.form-control {
 
 .form-control:focus {
     outline: none;
-    border-color: rgba(102, 126, 234, 0.8);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.16);
+    border-color: #0a6266;
+    box-shadow: 0 0 0 3px rgba(10, 98, 102, 0.1);
 }
 
 .input-with-icon select.form-control {
@@ -464,7 +476,7 @@ textarea.form-control {
     padding: 12px 14px;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: rgba(248, 250, 252, 0.9);
-    border-radius: 14px;
+    border-radius: 4px;
     margin-bottom: 10px;
 }
 
@@ -484,9 +496,9 @@ textarea.form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 7px;
-    background: rgba(102, 126, 234, 0.10);
-    color: rgba(102, 126, 234, 0.95);
+    border-radius: 3px;
+    background: rgba(13, 122, 127, 0.10);
+    color: rgba(13, 122, 127, 0.95);
     margin-right: 8px;
     font-size: 11px;
 }

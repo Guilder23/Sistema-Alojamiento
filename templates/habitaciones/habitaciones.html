@@ -33,7 +33,10 @@
                     </div>
 
                     <div class="filters-container">
-                        <input type="text" id="search-habitaciones" class="search-input" placeholder="🔍 Buscar por número o descripción...">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-habitaciones" class="search-input" placeholder="Buscar por número o descripción...">
+                        </div>
                         <select id="filter-tipo" class="filter-select">
                             <option value="">Filtrar por Tipo</option>
                             {% for value,label in tipos_habitacion %}
