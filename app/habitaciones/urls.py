@@ -5,6 +5,7 @@ app_name = 'habitaciones'
 
 urlpatterns = [
     path('', views.habitaciones_view, name='list'),
+    path('mapa/', views.mapa_habitaciones_view, name='mapa'),
     path('buscar/', views.buscar_habitaciones_view, name='buscar'),
 
     # APIs para administradores

@@ -27,9 +27,14 @@
                 <section class="habitaciones-section">
                     <div class="section-header">
                         <h2><i class="fas fa-bed"></i> Gestión de Habitaciones</h2>
-                        <button class="btn btn-primary" onclick="abrirModalCrearHabitacion()">
-                            <i class="fas fa-plus"></i> Crear Nueva Habitación
-                        </button>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="{% url 'habitaciones:mapa' %}" class="btn btn-info">
+                                <i class="fas fa-building"></i> Vista Edificio
+                            </a>
+                            <button class="btn btn-primary" onclick="abrirModalCrearHabitacion()">
+                                <i class="fas fa-plus"></i> Crear Nueva Habitación
+                            </button>
+                        </div>
                     </div>
 
                     <div class="filters-container">

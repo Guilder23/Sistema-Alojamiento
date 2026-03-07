@@ -29,6 +29,16 @@ def habitaciones_view(request):
 
 
 @login_required(login_url='autenticacion:login')
+@user_passes_test(es_administrador)
+def mapa_habitaciones_view(request):
+    """Vista de mapa de habitaciones por pisos"""
+    context = {
+        'titulo': 'Mapa de Habitaciones',
+    }
+    return render(request, 'habitaciones/mapa_habitaciones.html', context)
+
+
+@login_required(login_url='autenticacion:login')
 def buscar_habitaciones_view(request):
     """Vista para que los clientes puedan buscar y reservar habitaciones disponibles"""
     habitaciones = Habitacion.objects.filter(estado='disponible').prefetch_related('fotos').order_by('numero')
