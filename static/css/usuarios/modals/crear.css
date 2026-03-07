@@ -1,5 +1,11 @@
 /* Estilos para Modal Crear Usuario */
 
+/* Header verde oscuro para modal crear (mismo color del encabezado) */
+#modal-crear-usuario .modal-header {
+    background: #0a6266;
+    color: white;
+}
+
 #modal-crear-usuario .modal-body {
     padding-top: 18px;
 }
@@ -20,14 +26,14 @@
 }
 
 #modal-crear-usuario #form-crear-usuario .form-control {
-    border-radius: 12px;
+    border-radius: 3px;
     border: 1px solid rgba(17, 24, 39, 0.14);
     background: rgba(255, 255, 255, 0.95);
 }
 
 #modal-crear-usuario #form-crear-usuario .form-control:focus {
-    border-color: rgba(102, 126, 234, 0.9);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.16);
+    border-color: rgba(10, 98, 102, 0.9);
+    box-shadow: 0 0 0 4px rgba(10, 98, 102, 0.16);
 }
 
 #modal-crear-usuario #form-crear-usuario .form-control.error {
@@ -40,6 +46,12 @@
     margin-top: 6px;
 }
 
+#modal-crear-usuario #form-crear-usuario .input-with-icon .input-icon {
+    background: rgba(10, 98, 102, 0.10);
+    color: rgba(10, 98, 102, 0.95);
+    border-radius: 3px;
+}
+
 #modal-crear-usuario #form-crear-usuario .password-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -47,8 +59,9 @@
 }
 
 #modal-crear-usuario #form-crear-usuario .password-grid .input-with-icon .input-icon {
-    background: rgba(99, 102, 241, 0.10);
-    color: rgba(99, 102, 241, 0.95);
+    background: rgba(40, 167, 69, 0.10);
+    color: rgba(40, 167, 69, 0.95);
+    border-radius: 3px;
 }
 
 #modal-crear-usuario #form-crear-usuario .password-grid .form-group {
@@ -60,7 +73,17 @@
 }
 
 #modal-crear-usuario .modal-footer .btn {
-    border-radius: 12px;
+    border-radius: 3px;
+}
+
+#modal-crear-usuario .modal-footer .btn-primary {
+    background: #0a6266;
+    color: white;
+}
+
+#modal-crear-usuario .modal-footer .btn-primary:hover {
+    background: #084e51;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.3);
 }
 
 @media (max-width: 768px) {

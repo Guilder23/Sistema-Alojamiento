@@ -1,5 +1,19 @@
 /* Estilos para Modal Editar Usuario */
 
+/* Header amarillo para modal editar */
+#modal-editar-usuario .modal-header {
+    background: #ffc107;
+    color: #212529;
+}
+
+#modal-editar-usuario .modal-header .close-modal {
+    color: #212529;
+}
+
+#modal-editar-usuario .modal-header .close-modal:hover {
+    background: rgba(33, 37, 41, 0.1);
+}
+
 #modal-editar-usuario .modal-body {
     padding-top: 18px;
 }
@@ -21,24 +35,26 @@
 }
 
 #modal-editar-usuario #form-editar-usuario .input-with-icon .input-icon {
-    background: rgba(245, 158, 11, 0.14);
-    color: rgba(245, 158, 11, 0.95);
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+    border-radius: 3px;
 }
 
 #modal-editar-usuario #password-fields-editar .input-with-icon .input-icon {
-    background: rgba(245, 158, 11, 0.14);
-    color: rgba(245, 158, 11, 0.95);
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+    border-radius: 3px;
 }
 
 #modal-editar-usuario #form-editar-usuario .form-control {
-    border-radius: 12px;
+    border-radius: 3px;
     border: 1px solid rgba(17, 24, 39, 0.14);
     background: rgba(255, 255, 255, 0.95);
 }
 
 #modal-editar-usuario #form-editar-usuario .form-control:focus {
-    border-color: rgba(245, 158, 11, 0.95);
-    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    border-color: rgba(255, 193, 7, 0.95);
+    box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.18);
 }
 
 #modal-editar-usuario #form-editar-usuario .form-control.error {
@@ -51,7 +67,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-radius: 12px;
+    border-radius: 3px;
     border: 1px solid rgba(17, 24, 39, 0.10);
     background: rgba(248, 250, 252, 0.8);
 }
@@ -70,7 +86,7 @@
 
 #modal-editar-usuario #password-fields-editar {
     padding: 12px;
-    border-radius: 14px;
+    border-radius: 3px;
     border: 1px dashed rgba(17, 24, 39, 0.18);
     background: rgba(255, 251, 235, 0.6);
 }
@@ -86,7 +102,22 @@
 }
 
 #modal-editar-usuario .modal-footer .btn {
-    border-radius: 12px;
+    border-radius: 3px;
+}
+
+#modal-editar-usuario .modal-footer .btn-primary,
+#modal-editar-usuario .modal-footer .btn-success {
+    background: #ffc107;
+    color: #212529;
+    font-weight: 600;
+    border-color: #ffc107;
+}
+
+#modal-editar-usuario .modal-footer .btn-primary:hover,
+#modal-editar-usuario .modal-footer .btn-success:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
 
 @media (max-width: 768px) {
