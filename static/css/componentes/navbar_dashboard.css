@@ -1,11 +1,15 @@
+/* =============================================
+   NAVBAR DASHBOARD CON COLORES TURQUESA
+   ============================================= */
+
 .dashboard-navbar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0a6266 0%, #062a2e 100%);
     color: white;
     padding: 0 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     position: fixed;
     top: 0;
     left: 0;
@@ -14,12 +18,38 @@
     z-index: 1000;
 }
 
+/* Lado izquierdo con botón hamburguesa */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botón hamburguesa (solo móvil) */
+.mobile-menu-btn {
+    display: none;
+    background: rgba(27, 168, 176, 0.3);
+    border: 1px solid rgba(27, 168, 176, 0.4);
+    color: #C5E8ED;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(27, 168, 176, 0.5);
+    transform: scale(1.05);
+}
+
 .dashboard-navbar h1 {
     font-size: 20px;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #C5E8ED;
 }
 
 .dashboard-navbar .user-section {
@@ -31,48 +61,66 @@
 .dashboard-navbar .user-info {
     text-align: right;
     font-size: 13px;
+    color: rgba(197, 232, 237, 0.9);
 }
 
 .dashboard-navbar .user-info .username {
     font-weight: 600;
     font-size: 15px;
+    color: #C5E8ED;
 }
 
 .dashboard-navbar .logout-btn {
     padding: 8px 16px;
-    background: rgba(255,255,255,0.2);
-    border: 1px solid white;
-    color: white;
+    background: rgba(27, 168, 176, 0.3);
+    border: 1px solid rgba(27, 168, 176, 0.5);
+    color: #C5E8ED;
     border-radius: 6px;
     cursor: pointer;
     font-size: 13px;
     transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .dashboard-navbar .logout-btn:hover {
-    background: rgba(255,255,255,0.3);
+    background: rgba(27, 168, 176, 0.5);
     transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
+
+/* =============================================
+   RESPONSIVE - MÓVIL
+   ============================================= */
 
 @media (max-width: 768px) {
     .dashboard-navbar {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
+        padding: 0 15px;
+    }
+
+    /* Mostrar botón hamburguesa en móvil */
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .dashboard-navbar h1 {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .dashboard-navbar .user-section {
-        width: 100%;
-        justify-content: space-between;
+        gap: 10px;
     }
 
     .dashboard-navbar .user-info {
+        display: none;
+    }
+
+    .dashboard-navbar .logout-btn {
+        padding: 6px 12px;
         font-size: 12px;
     }
 }

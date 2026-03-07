@@ -5,19 +5,24 @@
 
 <!-- Navbar para Dashboards -->
 <nav class="dashboard-navbar">
-    <h1>
-        {% if user.perfil.rol.nombre == 'administrador' %}
-            🏨 Panel de Administración
-        {% elif user.perfil.rol.nombre == 'recepcionista' %}
-            📋 Panel de Recepción
-        {% elif user.perfil.rol.nombre == 'gerente' %}
-            📊 Panel de Gerencia
-        {% elif user.perfil.rol.nombre == 'empleado' %}
-            🧹 Panel de Limpieza
-        {% else %}
-            👤 Mi Cuenta
-        {% endif %}
-    </h1>
+    <div class="navbar-left">
+        <button class="mobile-menu-btn" id="navbarMenuToggle" aria-label="Abrir menú">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1>
+            {% if user.perfil.rol.nombre == 'administrador' %}
+                🏨 Panel de Administración
+            {% elif user.perfil.rol.nombre == 'recepcionista' %}
+                📋 Panel de Recepción
+            {% elif user.perfil.rol.nombre == 'gerente' %}
+                📊 Panel de Gerencia
+            {% elif user.perfil.rol.nombre == 'empleado' %}
+                🧹 Panel de Limpieza
+            {% else %}
+                👤 Mi Cuenta
+            {% endif %}
+        </h1>
+    </div>
     <div class="user-section">
         <div class="user-info">
             <div class="username">{{ user.get_full_name|default:user.username }}</div>
