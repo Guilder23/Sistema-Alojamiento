@@ -1,6 +1,108 @@
 /**
  * ESTILOS PARA MODAL DE CONFIRMAR - TODAS LAS RESERVAS
  * Estilos específicos para el modal de confirmar reserva
+ * Color: Amarillo (#ffc107)
  */
 
-/* Estilos específicos del modal de confirmar si son necesarios */
+/* Header amarillo para modal confirmar */
+#modal-confirmar-reserva .modal-header,
+.modal-confirmar .modal-header {
+    background: #ffc107;
+    color: #212529;
+}
+
+#modal-confirmar-reserva .modal-header .close-modal,
+.modal-confirmar .modal-header .close-modal {
+    color: #212529;
+}
+
+#modal-confirmar-reserva .modal-header .close-modal:hover,
+.modal-confirmar .modal-header .close-modal:hover {
+    background: rgba(33, 37, 41, 0.1);
+}
+
+#modal-confirmar-reserva .modal-body,
+.modal-confirmar .modal-body {
+    padding-top: 18px;
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva,
+.modal-confirmar form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .form-group,
+.modal-confirmar form .form-group {
+    margin-bottom: 0;
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .form-group label,
+.modal-confirmar form .form-group label {
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
+    margin-bottom: 8px;
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .input-with-icon .input-icon,
+.modal-confirmar form .input-with-icon .input-icon {
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+    border-radius: 3px;
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .form-control,
+.modal-confirmar form .form-control {
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .form-control:focus,
+.modal-confirmar form .form-control:focus {
+    border-color: rgba(255, 193, 7, 0.95);
+    box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.18);
+}
+
+#modal-confirmar-reserva #form-confirmar-reserva .form-control.error,
+.modal-confirmar form .form-control.error {
+    border-color: rgba(220, 53, 69, 0.8);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.12);
+}
+
+#modal-confirmar-reserva .modal-footer,
+.modal-confirmar .modal-footer {
+    justify-content: space-between;
+}
+
+#modal-confirmar-reserva .modal-footer .btn,
+.modal-confirmar .modal-footer .btn {
+    border-radius: 3px;
+}
+
+#modal-confirmar-reserva .modal-footer .btn-primary,
+#modal-confirmar-reserva .modal-footer .btn-success,
+.modal-confirmar .modal-footer .btn-primary,
+.modal-confirmar .modal-footer .btn-success {
+    background: #ffc107;
+    color: #212529;
+    font-weight: 600;
+    border-color: #ffc107;
+}
+
+#modal-confirmar-reserva .modal-footer .btn-primary:hover,
+#modal-confirmar-reserva .modal-footer .btn-success:hover,
+.modal-confirmar .modal-footer .btn-primary:hover,
+.modal-confirmar .modal-footer .btn-success:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+@media (max-width: 768px) {
+    #modal-confirmar-reserva #form-confirmar-reserva,
+    .modal-confirmar form {
+        grid-template-columns: 1fr;
+    }
+}
