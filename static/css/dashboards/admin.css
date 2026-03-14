@@ -24,13 +24,14 @@ body {
 .main-content {
     flex: 1;
     overflow-x: hidden;
-    margin-left: 200px;
+    /* margin-left: 200px; */
     transition: margin-left 0.3s ease;
 }
 
-.sidebar.collapsed ~ .main-content {
+/* COMENTADO - El JavaScript sidebar.js controla estos márgenes */
+/* .sidebar.collapsed ~ .main-content {
     margin-left: 60px;
-}
+} */
 
 .container {
     max-width: 1200px;

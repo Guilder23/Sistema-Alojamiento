@@ -1,86 +1,67 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }} - Sistema de Alojamiento</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/componentes/navbar_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/footer_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/messages.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboards/gerente.css' %}">
-    <script src="{% static 'js/componentes/messages.js' %}"></script>
-    <script src="{% static 'js/componentes/navbar_dashboard.js' %}" defer></script>
-    <script src="{% static 'js/componentes/sidebar.js' %}" defer></script>
-    <script src="{% static 'js/componentes/footer_dashboard.js' %}" defer></script>
-    <script src="{% static 'js/dashboards/gerente.js' %}" defer></script>
-</head>
-<body>
-    {% include 'componentes/messages.html' %}
-    {% include 'componentes/navbar_dashboard.html' %}
-    
-    <!-- Page Wrapper con Sidebar -->
-    <div class="page-wrapper">
-        {% include 'componentes/sidebar.html' %}
-        
-        <div class="main-content">
-    <div class="container">
-        <!-- Tarjeta de Bienvenida -->
-        <div class="welcome-card">
-            <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
-            <p>Panel de gerente. Aquí podrás supervisar reportes y gestionar el hotel.</p>
-        </div>
 
-        <!-- Dashboard -->
-        <div class="dashboard-grid">
-            <div class="card">
-                <div class="card-icon">💰</div>
-                <h3>Ingresos Hoy</h3>
-                <p>Total generado</p>
-                <div class="card-value">$0</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <h3>Ocupación</h3>
-                <p>Del hotel</p>
-                <div class="card-value">0%</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">📋</div>
-                <h3>Reservas</h3>
-                <p>Total mes</p>
-                <div class="card-value">0</div>
-            </div>
-        </div>
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
 
-        <!-- Menú de Opciones -->
-        <div class="menu-section">
-            <h3>Herramientas Disponibles</h3>
-            <div class="menu-items">
-                <a href="#" class="menu-item">
-                    <span class="menu-item-icon">📊</span>
-                    <span>Reportes</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <span class="menu-item-icon">💹</span>
-                    <span>Estadísticas</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <span class="menu-item-icon">🔧</span>
-                    <span>Configuración</span>
-                </a>
-                <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
-                    <span class="menu-item-icon">🔑</span>
-                    <span>Cambiar Contraseña</span>
-                </a>
-            </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/gerente.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Tarjeta de Bienvenida -->
+    <div class="welcome-card">
+        <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+        <p>Panel de gerente. Aquí podrás supervisar reportes y gestionar el hotel.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <h3>Ingresos Hoy</h3>
+            <p>Total generado</p>
+            <div class="card-value">$0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Ocupación</h3>
+            <p>Del hotel</p>
+            <div class="card-value">0%</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>Reservas</h3>
+            <p>Total mes</p>
+            <div class="card-value">0</div>
         </div>
     </div>
-        </div> <!-- Cierre .main-content -->
-    </div> <!-- Cierre .page-wrapper -->
 
-    {% include 'componentes/footer_dashboard.html' %}
-</body>
-</html>
+    <!-- Menú de Opciones -->
+    <div class="menu-section">
+        <h3>Herramientas Disponibles</h3>
+        <div class="menu-items">
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">📊</span>
+                <span>Reportes</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">💹</span>
+                <span>Estadísticas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">🔧</span>
+                <span>Configuración</span>
+            </a>
+            <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                <span class="menu-item-icon">🔑</span>
+                <span>Cambiar Contraseña</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/gerente.js' %}"></script>
+{% endblock %}

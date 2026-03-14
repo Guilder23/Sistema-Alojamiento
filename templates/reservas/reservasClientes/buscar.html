@@ -1,30 +1,18 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }} - Sistema de Alojamiento</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/componentes/navbar_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/footer_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/reservas/reservasClientes/buscar.css' %}">
-</head>
-<body>
-    {% include 'componentes/messages.html' %}
-    {% include 'componentes/navbar_dashboard.html' %}
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
 
-    <div class="page-wrapper">
-        {% include 'componentes/sidebar.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reservas/reservasClientes/buscar.css' %}">
+{% endblock %}
 
-        <div class="main-content">
-            <div class="container-fluid">
-                <div class="page-header">
-                    <h1><i class="fas fa-search"></i> {{ titulo }}</h1>
-                    <p class="text-muted">Encuentra la habitación perfecta para tu estadía</p>
-                </div>
+{% block content %}
+<div class="container-fluid">
+    <div class="page-header">
+        <h1><i class="fas fa-search"></i> {{ titulo }}</h1>
+        <p class="text-muted">Encuentra la habitación perfecta para tu estadía</p>
+    </div>
 
     <!-- Filtros de búsqueda -->
     <div class="filtros-container">
@@ -218,12 +206,8 @@
 <!-- Modales -->
 {% include 'reservas/reservasClientes/modalsbuscar/modal_detalles.html' %}
 {% include 'reservas/reservasClientes/modalsbuscar/modal_reservar.html' %}
+{% endblock %}
 
-        </div> <!-- Cierra main-content -->
-    </div> <!-- Cierra page-wrapper -->
-
-    {% include 'componentes/footer_dashboard.html' %}
-
-    <script src="{% static 'js/reservas/reservasClientes/buscar.js' %}"></script>
-</body>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/reservas/reservasClientes/buscar.js' %}"></script>
+{% endblock %}

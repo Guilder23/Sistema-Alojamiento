@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🔍 Sidebar element:', sidebar);
     console.log('🔍 Collapse button:', collapseBtn);
     console.log('🔍 Main content:', mainContent);
+    console.log('🔍 Clases actuales del sidebar:', sidebar ? sidebar.className : 'N/A');
+    console.log('🔍 localStorage sidebarCollapsed:', localStorage.getItem('sidebarCollapsed'));
     
     if (!sidebar) {
         console.error('❌ Sidebar no encontrado');
@@ -30,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('❌ Botón colapsar no encontrado');
         console.log('🔍 Buscando botones en el DOM:', document.querySelectorAll('button'));
         return;
+    }
+    
+    if (!mainContent) {
+        console.warn('⚠️ Main content no encontrado - ajustes de margen no funcionarán');
     }
     
     console.log('✅ Sidebar inicializado correctamente');
@@ -57,8 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function cargarEstado() {
+        console.log('📥 Cargando estado del sidebar...');
+        console.log('📱 Es móvil:', isMobile());
+        
         if (isMobile()) {
             // Móvil: siempre expandido y oculto
+            console.log('📱 Modo móvil - removiendo collapsed');
             sidebar.classList.remove('collapsed');
             sidebar.classList.remove('mobile-open');
             if (mainContent) mainContent.style.marginLeft = '0';
@@ -67,12 +77,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Desktop: cargar estado guardado
         const guardado = localStorage.getItem('sidebarCollapsed');
+        console.log('💾 Valor en localStorage:', guardado);
+        console.log('💾 Tipo:', typeof guardado);
+        
         if (guardado === 'true') {
+            console.log('➡️ Aplicando estado: COLAPSADO');
             sidebar.classList.add('collapsed');
         } else {
+            console.log('➡️ Aplicando estado: EXPANDIDO');
             sidebar.classList.remove('collapsed');
         }
         
+        console.log('📋 Clases finales del sidebar:', sidebar.className);
         ajustarMainContent();
     }
     
@@ -169,4 +185,30 @@ document.addEventListener('DOMContentLoaded', function() {
     marcarEnlaceActivo();
     
     console.log('✅ Sidebar completamente cargado');
+    console.log('📊 Estado final del sidebar:', {
+        clases: sidebar.className,
+        ancho: window.getComputedStyle(sidebar).width,
+        collapsed: sidebar.classList.contains('collapsed'),
+        localStorage: localStorage.getItem('sidebarCollapsed')
+    });
+    
+    // Función global para debug - puede llamarse desde consola
+    window.resetSidebar = function() {
+        console.log('🔄 Reseteando sidebar...');
+        localStorage.removeItem('sidebarCollapsed');
+        sidebar.classList.remove('collapsed');
+        ajustarMainContent();
+        console.log('✅ Sidebar reseteado - recarga la página si es necesario');
+    };
+    
+    window.toggleSidebarDebug = function() {
+        console.log('🔄 Toggle manual del sidebar');
+        sidebar.classList.toggle('collapsed');
+        ajustarMainContent();
+        console.log('Estado actual:', sidebar.classList.contains('collapsed') ? 'Colapsado' : 'Expandido');
+    };
+    
+    console.log('💡 Comandos disponibles en consola:');
+    console.log('   - resetSidebar() : Resetea el estado del sidebar');
+    console.log('   - toggleSidebarDebug() : Alterna manualmente el estado');
 });

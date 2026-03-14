@@ -1,33 +1,23 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }} - Sistema de Alojamiento</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'css/habitaciones/habitaciones.css' %}">
-    <link rel="stylesheet" href="{% static 'css/habitaciones/modals.css' %}">
-    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/crear.css' %}">
-    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/ver.css' %}">
-    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/editar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/habitaciones/modals/eliminar.css' %}">
-</head>
-<body>
-    {% include 'componentes/messages.html' %}
-    {% include 'componentes/navbar_dashboard.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/habitaciones/habitaciones.css' %}">
+<link rel="stylesheet" href="{% static 'css/habitaciones/modals.css' %}">
+<link rel="stylesheet" href="{% static 'css/habitaciones/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/habitaciones/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/habitaciones/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/habitaciones/modals/eliminar.css' %}">
+{% endblock %}
 
-    <div class="page-wrapper">
-        {% include 'componentes/sidebar.html' %}
-
-        <div class="main-content">
-            <div class="container-habitaciones">
-                <section class="habitaciones-section">
-                    <div class="section-header">
-                        <h2><i class="fas fa-bed"></i> Gestión de Habitaciones</h2>
-                        <div style="display: flex; gap: 10px;">
+{% block content %}
+<div class="container-habitaciones">
+    <section class="habitaciones-section">
+        <div class="section-header">
+            <h2><i class="fas fa-bed"></i> Gestión de Habitaciones</h2>
+            <div style="display: flex; gap: 10px;">
                             <a href="{% url 'habitaciones:mapa' %}" class="btn btn-info">
                                 <i class="fas fa-building"></i> Vista Edificio
                             </a>
@@ -99,20 +89,19 @@
                 </section>
             </div>
         </div>
-    </div>
+    </section>
+</div>
 
-    {% include 'componentes/footer_dashboard.html' %}
+{% include 'habitaciones/modals/crear.html' %}
+{% include 'habitaciones/modals/ver.html' %}
+{% include 'habitaciones/modals/editar.html' %}
+{% include 'habitaciones/modals/eliminar.html' %}
+{% endblock %}
 
-    {% include 'habitaciones/modals/crear.html' %}
-    {% include 'habitaciones/modals/ver.html' %}
-    {% include 'habitaciones/modals/editar.html' %}
-    {% include 'habitaciones/modals/eliminar.html' %}
-
-    <script src="{% static 'js/componentes/sidebar.js' %}"></script>
-    <script src="{% static 'js/habitaciones/habitaciones.js' %}"></script>
-    <script src="{% static 'js/habitaciones/modals/crear.js' %}"></script>
-    <script src="{% static 'js/habitaciones/modals/ver.js' %}"></script>
-    <script src="{% static 'js/habitaciones/modals/editar.js' %}"></script>
-    <script src="{% static 'js/habitaciones/modals/eliminar.js' %}"></script>
-</body>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/habitaciones/habitaciones.js' %}"></script>
+<script src="{% static 'js/habitaciones/modals/crear.js' %}"></script>
+<script src="{% static 'js/habitaciones/modals/ver.js' %}"></script>
+<script src="{% static 'js/habitaciones/modals/editar.js' %}"></script>
+<script src="{% static 'js/habitaciones/modals/eliminar.js' %}"></script>
+{% endblock %}

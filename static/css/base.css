@@ -29,19 +29,19 @@ body {
     min-height: 100vh;
 }
 
-/* Navbar */
-nav {
+/* Navbar público */
+nav:not(.sidebar-nav) {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     box-shadow: var(--shadow);
     padding: 1rem 0;
 }
 
-nav a {
+nav:not(.sidebar-nav) a {
     color: white;
     text-decoration: none;
 }
 
-nav a:hover {
+nav:not(.sidebar-nav) a:hover {
     opacity: 0.8;
 }
 
@@ -217,6 +217,12 @@ button[type="submit"]:hover {
 
 .main-content {
     animation: fadeIn 0.3s ease;
+}
+
+/* Main content sin sidebar (usuarios no autenticados) */
+.main-content.no-sidebar {
+    margin-left: 0 !important;
+    width: 100% !important;
 }
 
 /* Responsive */

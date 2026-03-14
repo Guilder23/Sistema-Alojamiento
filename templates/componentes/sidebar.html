@@ -1,13 +1,10 @@
 {% load static %}
 
-<!-- CSS del Sidebar -->
-<link rel="stylesheet" href="{% static 'css/componentes/sidebar.css' %}">
-
 <!-- Barra Lateral para Dashboards -->
 {% if user.is_authenticated %}
 <aside id="sidebar">
     <div class="sidebar-header">
-        <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Contraer/Expandir Sidebar" onclick="console.log('Botón clickeado!'); document.getElementById('sidebar').classList.toggle('collapsed');">
+        <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Contraer/Expandir Sidebar">
             <i class="fas fa-angle-double-left"></i>
         </button>
         <span class="sidebar-title">Menú</span>
@@ -125,7 +122,4 @@
         </a>
     </div>
 </aside>
-
-<!-- JS del Sidebar -->
-<script src="{% static 'js/componentes/sidebar.js' %}"></script>
 {% endif %}

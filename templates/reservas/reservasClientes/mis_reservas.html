@@ -1,196 +1,120 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Reservas - Sistema de Alojamiento</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/usuarios/navbar_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/inicio/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/inicio/footer_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/reservas/reservasClientes/mis_reservas.css' %}">
-</head>
-<body>
-    <!-- Navbar -->
-    {% include 'componentes/navbar_dashboard.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
-    <div class="page-wrapper">
-        <!-- Sidebar -->
-        {% include 'componentes/sidebar.html' %}
+{% block title %}Mis Reservas - Sistema de Alojamiento{% endblock %}
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="container-fluid">
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="page-header">
-                            <h1><i class="fas fa-calendar-check"></i> Mis Reservas</h1>
-                            <p class="text-muted">Gestiona tus reservas de habitaciones</p>
-                        </div>
-                    </div>
-                </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reservas/reservasClientes/mis_reservas.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1><i class="fas fa-calendar-check"></i> Mis Reservas</h1>
+                <p class="text-muted">Gestiona tus reservas de habitaciones</p>
+            </div>
+        </div>
+    </div>
 
                 {% if reservas %}
-                <!-- Estadísticas Rápidas -->
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <div class="stat-card stat-pendiente">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>{{ reservas|length }}</h3>
-                                <p>Total Reservas</p>
-                            </div>
+                <!-- Estadísticas Compactas -->
+                <div class="stats-row">
+                    <div class="stat-item stat-total">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">{{ reservas|length }}</span>
+                            <span class="stat-label">Total</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="stat-card stat-confirmada">
-                            <div class="stat-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>{{ reservas|length }}</h3>
-                                <p>Confirmadas</p>
-                            </div>
+                    <div class="stat-item stat-confirmada">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">{{ reservas|length }}</span>
+                            <span class="stat-label">Confirmadas</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="stat-card stat-activa">
-                            <div class="stat-icon">
-                                <i class="fas fa-calendar"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>0</h3>
-                                <p>Activas</p>
-                            </div>
+                    <div class="stat-item stat-activa">
+                        <i class="fas fa-calendar"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Activas</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="stat-card stat-cancelada">
-                            <div class="stat-icon">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>0</h3>
-                                <p>Canceladas</p>
-                            </div>
+                    <div class="stat-item stat-cancelada">
+                        <i class="fas fa-times-circle"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Canceladas</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Lista de Reservas -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="reservas-container">
+                <!-- Tabla de Reservas -->
+                <div class="table-container">
+                    <table class="reservas-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Habitación</th>
+                                <th>Fechas</th>
+                                <th>Huéspedes</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {% for reserva in reservas %}
-                            <div class="reserva-card" data-reserva-id="{{ reserva.id }}" data-estado="{{ reserva.estado }}">
-                                <div class="reserva-header">
-                                    <div class="reserva-numero">
-                                        <i class="fas fa-hashtag"></i> Reserva #{{ reserva.id }}
+                            <tr data-reserva-id="{{ reserva.id }}" data-estado="{{ reserva.estado }}">
+                                <td><strong>#{{ reserva.id }}</strong></td>
+                                <td>
+                                    <div class="habitacion-info">
+                                        <span class="habitacion-numero">{{ reserva.habitacion.numero }}</span>
+                                        <span class="habitacion-tipo">{{ reserva.habitacion.get_tipo_display }}</span>
                                     </div>
-                                    <div class="reserva-estado">
-                                        <span class="badge badge-{{ reserva.estado }}">
-                                            {{ reserva.get_estado_display }}
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div class="reserva-body">
-                                    <div class="row">
-                                        <!-- Información de la Habitación -->
-                                        <div class="col-md-4">
-                                            <div class="info-section">
-                                                <h5><i class="fas fa-bed"></i> Habitación</h5>
-                                                <p class="habitacion-numero">{{ reserva.habitacion.numero }}</p>
-                                                <p class="habitacion-tipo">{{ reserva.habitacion.get_tipo_display }}</p>
-                                                <p class="text-muted small">
-                                                    <i class="fas fa-users"></i> {{ reserva.num_huespedes }} huésped{{ reserva.num_huespedes|pluralize:"es" }}
-                                                </p>
-                                            </div>
+                                </td>
+                                <td>
+                                    <div class="fechas-info">
+                                        <div class="fecha-line">
+                                            <i class="fas fa-sign-in-alt"></i> {{ reserva.fecha_entrada|date:"d/m/Y" }}
                                         </div>
-                                        
-                                        <!-- Fechas -->
-                                        <div class="col-md-4">
-                                            <div class="info-section">
-                                                <h5><i class="fas fa-calendar-alt"></i> Fechas</h5>
-                                                <div class="fecha-info">
-                                                    <div class="fecha-item">
-                                                        <span class="fecha-label">Entrada:</span>
-                                                        <span class="fecha-valor">{{ reserva.fecha_entrada|date:"d/m/Y" }}</span>
-                                                    </div>
-                                                    <div class="fecha-item">
-                                                        <span class="fecha-label">Salida:</span>
-                                                        <span class="fecha-valor">{{ reserva.fecha_salida|date:"d/m/Y" }}</span>
-                                                    </div>
-                                                    {% with dias_diff=reserva.fecha_salida|timesince:reserva.fecha_entrada %}
-                                                    <p class="text-muted small mt-2">
-                                                        <i class="fas fa-moon"></i> 
-                                                        {% widthratio reserva.fecha_salida.toordinal reserva.fecha_entrada.toordinal 1 as noches %}
-                                                        {{ noches|add:"-1" }} noche{{ noches|add:"-1"|pluralize:"s" }}
-                                                    </p>
-                                                    {% endwith %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Precio -->
-                                        <div class="col-md-4">
-                                            <div class="info-section">
-                                                <h5><i class="fas fa-dollar-sign"></i> Precio</h5>
-                                                <p class="precio-total">${{ reserva.precio_total|floatformat:2 }}</p>
-                                                <p class="text-muted small">Total a pagar</p>
-                                            </div>
+                                        <div class="fecha-line">
+                                            <i class="fas fa-sign-out-alt"></i> {{ reserva.fecha_salida|date:"d/m/Y" }}
                                         </div>
                                     </div>
-                                    
-                                    <!-- Notas (si existen) -->
-                                    {% if reserva.notas %}
-                                    <div class="row mt-3">
-                                        <div class="col-12">
-                                            <div class="reserva-notas">
-                                                <h6><i class="fas fa-sticky-note"></i> Notas:</h6>
-                                                <p>{{ reserva.notas }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-users"></i> {{ reserva.num_huespedes }}
+                                </td>
+                                <td>
+                                    <span class="precio-valor">${{ reserva.precio_total|floatformat:2 }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-{{ reserva.estado }}">
+                                        {{ reserva.get_estado_display }}
+                                    </span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-info btn-sm btn-ver-detalles" data-reserva-id="{{ reserva.id }}" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    {% if reserva.estado == 'confirmada' %}
+                                    <a href="{% url 'pagos:mis_pagos' %}" class="btn btn-success btn-sm" title="Ver pagos">
+                                        <i class="fas fa-wallet"></i>
+                                    </a>
                                     {% endif %}
-                                </div>
-                                
-                                <div class="reserva-footer">
-                                    <div class="reserva-actions">
-                                        <button class="btn btn-sm btn-outline-primary btn-ver-detalles" data-reserva-id="{{ reserva.id }}">
-                                            <i class="fas fa-eye"></i> Ver Detalles
-                                        </button>
-                                        {% if reserva.estado == 'confirmada' %}
-                                        <a href="{% url 'pagos:mis_pagos' %}" class="btn btn-sm btn-success">
-                                            <i class="fas fa-wallet"></i> Ver Pagos
-                                        </a>
-                                        {% endif %}
-                                        {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
-                                        <button class="btn btn-sm btn-outline-danger btn-cancelar-reserva" data-reserva-id="{{ reserva.id }}">
-                                            <i class="fas fa-times"></i> Cancelar
-                                        </button>
-                                        {% endif %}
-                                    </div>
-                                    <div class="reserva-fecha-creacion">
-                                        <small class="text-muted">
-                                            <i class="fas fa-clock"></i> Creada: {{ reserva.creado|date:"d/m/Y H:i" }}
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
+                                    {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
+                                    <button class="btn btn-danger btn-sm btn-cancelar-reserva" data-reserva-id="{{ reserva.id }}" title="Cancelar reserva">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
                             {% endfor %}
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
                 {% else %}
                 <!-- Sin Reservas -->
@@ -210,20 +134,13 @@
                 </div>
                 {% endif %}
             </div>
-        </main>
-    </div>
-
+    
     <!-- Modales -->
     {% include 'reservas/reservasClientes/modalMis_reservas/modal_detalles.html' %}
     {% include 'reservas/reservasClientes/modalMis_reservas/modal_cancelar.html' %}
-
-    <!-- Footer -->
-    {% include 'componentes/footer_dashboard.html' %}
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    {% load static %}
-    <script src="{% static 'js/reservas/reservasClientes/mis_reservas.js' %}"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reservas/reservasClientes/mis_reservas.js' %}"></script>
+{% endblock %}

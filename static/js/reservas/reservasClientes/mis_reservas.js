@@ -25,28 +25,30 @@ const csrftoken = getCookie('csrftoken');
  * Ver detalles de una reserva
  */
 function verDetalles(reservaId) {
-    // Obtener la tarjeta de reserva
-    const reservaCard = document.querySelector(`[data-reserva-id="${reservaId}"]`);
+    // Obtener la fila de la tabla de reserva
+    const reservaRow = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
     
-    if (!reservaCard) {
+    if (!reservaRow) {
         alert('No se pudo encontrar la información de la reserva');
         return;
     }
     
-    // Obtener datos de la tarjeta
-    const numero = reservaCard.querySelector('.reserva-numero').textContent.trim();
-    const estadoBadge = reservaCard.querySelector('.badge');
+    // Obtener datos de la fila de tabla
+    const cells = reservaRow.querySelectorAll('td');
+    const numero = cells[0].textContent.trim(); // #ID
+    const estadoBadge = reservaRow.querySelector('.badge');
     const estado = estadoBadge.textContent.trim();
-    const habitacion = reservaCard.querySelector('.habitacion-numero').textContent.trim();
-    const tipo = reservaCard.querySelector('.habitacion-tipo').textContent.trim();
-    const huespedes = reservaCard.querySelector('.text-muted.small').textContent.trim();
-    const fechaEntrada = reservaCard.querySelector('.fecha-item:nth-child(1) .fecha-valor').textContent.trim();
-    const fechaSalida = reservaCard.querySelector('.fecha-item:nth-child(2) .fecha-valor').textContent.trim();
-    const precio = reservaCard.querySelector('.precio-total').textContent.trim();
+    const habitacion = reservaRow.querySelector('.habitacion-numero').textContent.trim();
+    const tipo = reservaRow.querySelector('.habitacion-tipo').textContent.trim();
+    const huespedesIcon = cells[3].textContent.trim(); // Huéspedes con icono
+    const huespedes = huespedesIcon.replace(/\s+/g, ' ').trim();
+    const fechaLines = reservaRow.querySelectorAll('.fecha-line');
+    const fechaEntrada = fechaLines[0].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+    const fechaSalida = fechaLines[1].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+    const precio = reservaRow.querySelector('.precio-valor').textContent.trim();
     
-    // Obtener notas si existen
-    const notasElement = reservaCard.querySelector('.reserva-notas p');
-    const notas = notasElement ? notasElement.textContent.trim() : null;
+    // No hay notas en la tabla, establecer como null
+    const notas = null;
     
     // Llenar el modal con los datos
     document.getElementById('modal-reserva-numero').textContent = numero;
@@ -79,21 +81,23 @@ function verDetalles(reservaId) {
  * Cancelar una reserva (abre modal)
  */
 function cancelarReserva(reservaId) {
-    // Obtener la tarjeta de reserva
-    const reservaCard = document.querySelector(`[data-reserva-id="${reservaId}"]`);
+    // Obtener la fila de la tabla de reserva
+    const reservaRow = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
     
-    if (!reservaCard) {
+    if (!reservaRow) {
         alert('No se pudo encontrar la información de la reserva');
         return;
     }
     
-    // Obtener datos de la tarjeta
-    const numero = reservaCard.querySelector('.reserva-numero').textContent.trim();
-    const habitacion = reservaCard.querySelector('.habitacion-numero').textContent.trim();
-    const tipo = reservaCard.querySelector('.habitacion-tipo').textContent.trim();
-    const fechaEntrada = reservaCard.querySelector('.fecha-item:nth-child(1) .fecha-valor').textContent.trim();
-    const fechaSalida = reservaCard.querySelector('.fecha-item:nth-child(2) .fecha-valor').textContent.trim();
-    const precio = reservaCard.querySelector('.precio-total').textContent.trim();
+    // Obtener datos de la fila de tabla
+    const cells = reservaRow.querySelectorAll('td');
+    const numero = cells[0].textContent.trim(); // #ID
+    const habitacion = reservaRow.querySelector('.habitacion-numero').textContent.trim();
+    const tipo = reservaRow.querySelector('.habitacion-tipo').textContent.trim();
+    const fechaLines = reservaRow.querySelectorAll('.fecha-line');
+    const fechaEntrada = fechaLines[0].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+    const fechaSalida = fechaLines[1].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+    const precio = reservaRow.querySelector('.precio-valor').textContent.trim();
     
     // Llenar datos en el modal
     document.getElementById('cancelar-numero').textContent = numero;
@@ -136,22 +140,22 @@ async function ejecutarCancelacion(reservaId) {
             alert(data.message);
             
             // Actualizar la interfaz
-            const reservaCard = document.querySelector(`[data-reserva-id="${reservaId}"]`);
-            if (reservaCard) {
+            const reservaRow = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
+            if (reservaRow) {
                 // Actualizar badge de estado
-                const badge = reservaCard.querySelector('.badge');
+                const badge = reservaRow.querySelector('.badge');
                 badge.className = 'badge badge-cancelada';
                 badge.textContent = 'CANCELADA';
                 
                 // Actualizar el data-estado
-                reservaCard.setAttribute('data-estado', 'cancelada');
+                reservaRow.setAttribute('data-estado', 'cancelada');
                 
                 // Remover botones de acción
-                const actionsDiv = reservaCard.querySelector('.reserva-actions');
-                if (actionsDiv) {
-                    actionsDiv.innerHTML = `
-                        <button class="btn btn-sm btn-outline-primary" onclick="verDetalles(${reservaId})">
-                            <i class="fas fa-eye"></i> Ver Detalles
+                const actionsCell = reservaRow.querySelector('.actions-cell');
+                if (actionsCell) {
+                    actionsCell.innerHTML = `
+                        <button class="btn btn-info btn-sm btn-ver-detalles" data-reserva-id="${reservaId}" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
                         </button>
                     `;
                 }
@@ -173,9 +177,9 @@ async function ejecutarCancelacion(reservaId) {
  * Calcular estadísticas al cargar la página
  */
 function actualizarEstadisticas() {
-    const cards = document.querySelectorAll('.reserva-card');
+    const rows = document.querySelectorAll('tr[data-reserva-id]');
     
-    let totalReservas = cards.length;
+    let totalReservas = rows.length;
     let confirmadas = 0;
     let activas = 0;
     let canceladas = 0;
@@ -184,8 +188,8 @@ function actualizarEstadisticas() {
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0);
     
-    cards.forEach(card => {
-        const estado = card.getAttribute('data-estado');
+    rows.forEach(row => {
+        const estado = row.getAttribute('data-estado');
         
         // Contar por estado
         if (estado === 'confirmada') confirmadas++;
@@ -193,32 +197,35 @@ function actualizarEstadisticas() {
         if (estado === 'pendiente') pendientes++;
         
         // Verificar si está activa (fecha_entrada <= hoy <= fecha_salida)
-        const fechaEntradaText = card.querySelector('.fecha-item:nth-child(1) .fecha-valor').textContent.trim();
-        const fechaSalidaText = card.querySelector('.fecha-item:nth-child(2) .fecha-valor').textContent.trim();
-        
-        // Parsear fechas DD/MM/YYYY
-        const [diaE, mesE, anioE] = fechaEntradaText.split('/');
-        const [diaS, mesS, anioS] = fechaSalidaText.split('/');
-        
-        const fechaEntrada = new Date(anioE, mesE - 1, diaE);
-        const fechaSalida = new Date(anioS, mesS - 1, diaS);
-        
-        if (fechaEntrada <= hoy && hoy <= fechaSalida && (estado === 'confirmada' || estado === 'pendiente')) {
-            activas++;
+        const fechaLines = row.querySelectorAll('.fecha-line');
+        if (fechaLines.length >= 2) {
+            const fechaEntradaText = fechaLines[0].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+            const fechaSalidaText = fechaLines[1].textContent.replace(/.*\s/, '').trim(); // Eliminar icono
+            
+            // Parsear fechas DD/MM/YYYY
+            const [diaE, mesE, anioE] = fechaEntradaText.split('/');
+            const [diaS, mesS, anioS] = fechaSalidaText.split('/');
+            
+            const fechaEntrada = new Date(anioE, mesE - 1, diaE);
+            const fechaSalida = new Date(anioS, mesS - 1, diaS);
+            
+            if (fechaEntrada <= hoy && hoy <= fechaSalida && (estado === 'confirmada' || estado === 'pendiente')) {
+                activas++;
+            }
         }
     });
     
-    // Actualizar los contadores en la interfaz
-    const statCards = document.querySelectorAll('.stat-card h3');
-    if (statCards.length >= 4) {
-        statCards[0].textContent = totalReservas; // Total
-        statCards[1].textContent = confirmadas; // Confirmadas
-        statCards[2].textContent = activas; // Activas
-        statCards[3].textContent = canceladas; // Canceladas
+    // Actualizar los contadores en la interfaz (ahora son stat-number en lugar de stat-card h3)
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length >= 4) {
+        statNumbers[0].textContent = totalReservas; // Total
+        statNumbers[1].textContent = confirmadas; // Confirmadas
+        statNumbers[2].textContent = activas; // Activas
+        statNumbers[3].textContent = canceladas; // Canceladas
     }
 }
 
-// Inicialización
+// Inicializacióntr[data-reserva-id]
 document.addEventListener('DOMContentLoaded', function() {
     // Actualizar estadísticas
     if (document.querySelectorAll('.reserva-card').length > 0) {

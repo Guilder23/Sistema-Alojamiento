@@ -9,7 +9,8 @@
     left: 0;
     bottom: 0;
     width: 250px;
-    background: #f8f9fa;
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
     border-right: 1px solid #e0e0e0;
     padding: 20px 0;
     overflow-x: hidden;
@@ -17,6 +18,12 @@
     z-index: 50;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.3s ease;
+}
+
+/* Asegurar fondo claro con múltiples selectores */
+aside#sidebar {
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
 }
 
 /* SIDEBAR COLAPSADO - Solo iconos (70px) */
@@ -118,7 +125,7 @@
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    color: #333;
+    color: #333 !important;
     text-decoration: none;
     border-radius: 10px;
     font-size: 14px;
@@ -145,7 +152,7 @@
 /* TEXTO */
 .sidebar-link .link-text {
     margin-left: 12px;
-    color: #555;
+    color: #555 !important;
 }
 
 #sidebar.collapsed .sidebar-link .link-text {

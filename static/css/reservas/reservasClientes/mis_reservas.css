@@ -1,23 +1,38 @@
 /* ============================================
-   MIS RESERVAS - ESTILOS
+   MIS RESERVAS - ESTILOS COMPACTOS
    ============================================ */
+
+/* Variables CSS */
+:root {
+    --primary-color: #0D7A7F;
+    --primary-dark: #062A2E;
+    --primary-light: #1BA8B0;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --border-color: #e0e0e0;
+    --text-dark: #333;
+    --text-light: #666;
+    --bg-light: #f8f9fb;
+}
 
 /* Layout Principal */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--bg-light);
+    padding-top: 54px;
 }
 
 .page-wrapper {
     display: flex;
     min-height: 100vh;
-    padding-top: 60px;
 }
 
 .main-content {
     flex: 1;
-    margin-left: 250px;
-    padding: 2rem;
+    margin-left: 200px;
+    padding: 20px;
     transition: margin-left 0.3s ease;
 }
 
@@ -28,342 +43,448 @@ body {
 
 /* Page Header */
 .page-header {
-    margin-bottom: 2rem;
+    background: #0a6266;
+    color: white;
+    padding: 20px 25px;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
 }
 
 .page-header h1 {
-    font-size: 2rem;
+    font-size: 24px;
     font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+    color: white;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .page-header h1 i {
-    color: #3498db;
-    margin-right: 0.5rem;
+    color: white;
+    font-size: 26px;
 }
 
-/* Estadísticas Rápidas */
-.stat-card {
+.page-header .text-muted {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Estadísticas Compactas */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-item {
     background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    gap: 15px;
+    transition: all 0.2s ease;
 }
 
-.stat-card:hover {
+.stat-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
-.stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+.stat-item i {
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    border-radius: 3px;
 }
 
-.stat-pendiente .stat-icon {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+.stat-total i {
+    background: rgba(103, 126, 234, 0.15);
+    color: #667eea;
 }
 
-.stat-confirmada .stat-icon {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
+.stat-confirmada i {
+    background: rgba(40, 167, 69, 0.15);
+    color: var(--success-color);
 }
 
-.stat-activa .stat-icon {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: white;
+.stat-activa i {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
 }
 
-.stat-cancelada .stat-icon {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
+.stat-cancelada i {
+    background: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color);
 }
 
-.stat-info h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin: 0;
-    color: #2c3e50;
-}
-
-.stat-info p {
-    margin: 0;
-    color: #7f8c8d;
-    font-size: 0.9rem;
-}
-
-/* Contenedor de Reservas */
-.reservas-container {
+.stat-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
 }
 
-/* Tarjeta de Reserva */
-.reserva-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.stat-number {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 4px;
 }
 
-.reserva-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-/* Header de Reserva */
-.reserva-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.reserva-numero {
-    color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-.reserva-numero i {
-    margin-right: 0.5rem;
-}
-
-/* Badge de Estado */
-.badge {
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
+.stat-label {
+    font-size: 13px;
+    color: var(--text-light);
     font-weight: 500;
-    font-size: 0.85rem;
+}
+
+/* Tabla de Reservas */
+.table-container {
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.reservas-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.reservas-table thead {
+    background: #14959c;
+    color: white;
+}
+
+.reservas-table th {
+    padding: 14px 15px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
     text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
-.badge-pendiente {
-    background-color: #ffc107;
-    color: #000;
+.reservas-table th.text-center {
+    text-align: center;
 }
 
-.badge-confirmada {
-    background-color: #28a745;
-    color: white;
+.reservas-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
 }
 
-.badge-cancelada {
-    background-color: #dc3545;
-    color: white;
+.reservas-table tbody tr:hover {
+    background-color: #f5f9fb;
 }
 
-.badge-finalizada {
-    background-color: #6c757d;
-    color: white;
+.reservas-table tbody tr:last-child {
+    border-bottom: none;
 }
 
-.badge-no_show {
-    background-color: #e74c3c;
-    color: white;
+.reservas-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: var(--text-dark);
+    vertical-align: middle;
 }
 
-/* Body de Reserva */
-.reserva-body {
-    padding: 1.5rem;
-}
-
-.info-section {
-    margin-bottom: 1rem;
-}
-
-.info-section h5 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.8rem;
+/* Información de habitación en tabla */
+.habitacion-info {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.info-section h5 i {
-    color: #3498db;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .habitacion-numero {
-    font-size: 1.5rem;
     font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 0.2rem;
+    font-size: 15px;
+    color: var(--text-dark);
 }
 
 .habitacion-tipo {
-    color: #7f8c8d;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-size: 12px;
+    color: var(--text-light);
 }
 
-.fecha-info {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-.fecha-item {
+/* Fechas en tabla */
+.fechas-info {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.fecha-label {
-    color: #7f8c8d;
-    font-weight: 500;
-}
-
-.fecha-valor {
-    color: #2c3e50;
-    font-weight: 600;
-}
-
-.precio-total {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #27ae60;
-    margin-bottom: 0.2rem;
-}
-
-.reserva-notas {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 1rem;
-    border-radius: 4px;
-}
-
-.reserva-notas h6 {
-    font-weight: 600;
-    color: #856404;
-    margin-bottom: 0.5rem;
-}
-
-.reserva-notas p {
-    color: #856404;
-    margin: 0;
-}
-
-/* Footer de Reserva */
-.reserva-footer {
-    padding: 1rem 1.5rem;
-    background: #f8f9fa;
+.fecha-line {
+    font-size: 13px;
+    color: var(--text-dark);
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #e9ecef;
+    gap: 6px;
 }
 
-.reserva-actions {
+.fecha-line i {
+    color: var(--primary-color);
+    font-size: 11px;
+    width: 14px;
+}
+
+/* Precio en tabla */
+.precio-valor {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--success-color);
+}
+
+/* Badges de Estado */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-pendiente {
+    background: rgba(255, 193, 7, 0.15);
+    color: #856404;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.badge-confirmada {
+    background: rgba(40, 167, 69, 0.15);
+    color: #1e7e34;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.badge-cancelada {
+    background: rgba(220, 53, 69, 0.15);
+    color: #c82333;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.badge-finalizada {
+    background: rgba(108, 117, 125, 0.15);
+    color: #495057;
+    border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+.badge-no_show {
+    background: rgba(231, 76, 60, 0.15);
+    color: #c0392b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Botones de Acción */
+.actions-cell {
     display: flex;
-    gap: 0.5rem;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
 }
 
 .btn-sm {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-    border-radius: 6px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 14px;
 }
 
-.btn-outline-primary {
-    border-color: #3498db;
-    color: #3498db;
+.btn-sm i {
+    margin: 0;
 }
 
-.btn-outline-primary:hover {
-    background-color: #3498db;
+.btn-info {
+    background: var(--info-color);
     color: white;
+    border: 1px solid var(--info-color);
 }
 
-.btn-outline-danger {
-    border-color: #e74c3c;
-    color: #e74c3c;
+.btn-info:hover {
+    background: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.4);
+    transform: translateY(-1px);
 }
 
-.btn-outline-danger:hover {
-    background-color: #e74c3c;
+.btn-success {
+    background: var(--success-color);
     color: white;
+    border: 1px solid var(--success-color);
+    text-decoration: none;
 }
 
-.reserva-fecha-creacion small {
-    color: #7f8c8d;
+.btn-success:hover {
+    background: #218838;
+    border-color: #1e7e34;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+    border: 1px solid var(--danger-color);
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+    transform: translateY(-1px);
 }
 
 /* Estado Vacío */
 .empty-state {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 60px 30px;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
 }
 
 .empty-icon {
-    font-size: 5rem;
+    font-size: 80px;
     color: #bdc3c7;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .empty-state h3 {
-    font-size: 1.5rem;
+    font-size: 22px;
     font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
 }
 
 .empty-state p {
-    color: #7f8c8d;
-    margin-bottom: 2rem;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    font-size: 15px;
 }
 
 .btn-lg {
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 15px;
+    border-radius: 3px;
+    background: var(--primary-light);
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.btn-lg:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 122, 127, 0.3);
 }
 
 /* Responsive */
+/* Sidebar colapsado en desktop - ajustar margen */
+body.sidebar-collapsed .main-content {
+    margin-left: 70px;
+}
+
+@media (max-width: 1200px) {
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    /* Sin sidebar en móvil */
     .main-content {
-        margin-left: 0;
-        padding: 1rem;
+        margin-left: 0 !important;
+        padding: 10px;
     }
-    
-    .reserva-header {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+
+    .page-header {
+        padding: 15px 20px;
     }
-    
-    .reserva-footer {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+
+    .page-header h1 {
+        font-size: 20px;
     }
-    
-    .reserva-actions {
-        width: 100%;
-        justify-content: center;
+
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
-    
-    .stat-card {
-        margin-bottom: 1rem;
+
+    .stat-item {
+        padding: 15px;
+    }
+
+    .stat-item i {
+        font-size: 28px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .stat-number {
+        font-size: 22px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .reservas-table {
+        min-width: 700px;
+    }
+
+    .reservas-table th,
+    .reservas-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .actions-cell {
+        gap: 4px;
+    }
+
+    .btn-sm {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .habitacion-numero {
+        font-size: 14px;
+    }
+
+    .precio-valor {
+        font-size: 14px;
     }
 }

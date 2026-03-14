@@ -1,32 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }} - Sistema de Alojamiento</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/componentes/navbar_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/footer_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/componentes/messages.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboards/admin.css' %}">
-    <script src="{% static 'js/componentes/messages.js' %}"></script>
-    <script src="{% static 'js/componentes/navbar_dashboard.js' %}" defer></script>
-    <script src="{% static 'js/componentes/sidebar.js' %}" defer></script>
-    <script src="{% static 'js/componentes/footer_dashboard.js' %}" defer></script>
-    <script src="{% static 'js/dashboards/admin.js' %}" defer></script>
-</head>
-<body>
-    {% include 'componentes/messages.html' %}
-    {% include 'componentes/navbar_dashboard.html' %}
-    
-    <!-- Page Wrapper con Sidebar -->
-    <div class="page-wrapper">
-        {% include 'componentes/sidebar.html' %}
-        
-        <div class="main-content">
-    <div class="container">
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
         <!-- Tarjeta de Bienvenida -->
         <div class="welcome-card">
             <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
@@ -62,9 +44,8 @@
             </div>
         </div>
     </div>
-        </div> <!-- Cierre .main-content -->
-    </div> <!-- Cierre .page-wrapper -->
+{% endblock %}
 
-    {% include 'componentes/footer_dashboard.html' %}
-</body>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/dashboards/admin.js' %}"></script>
+{% endblock %}

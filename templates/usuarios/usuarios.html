@@ -1,32 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo }} - Sistema de Alojamiento</title>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- CSS Usuarios -->
-    <link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
-    <link rel="stylesheet" href="{% static 'css/usuarios/modals.css' %}">
-    <link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
-    <link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
-    <link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
-</head>
-<body>
-    {% include 'componentes/messages.html' %}
-    {% include 'componentes/navbar_dashboard.html' %}
-    
-    <!-- Page Wrapper con Sidebar -->
-    <div class="page-wrapper">
-        {% include 'componentes/sidebar.html' %}
-        
-        <div class="main-content">
-            <div class="container-usuarios">
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-usuarios">
                 <!-- Sección de Usuarios -->
                 <section class="usuarios-section">
                     <div class="section-header">
@@ -90,22 +77,18 @@
                 </div>
                 </section>
             </div> <!-- Cierre .container-usuarios -->
-        </div> <!-- Cierre .main-content -->
-    </div> <!-- Cierre .page-wrapper -->
 
-    {% include 'componentes/footer_dashboard.html' %}
+{% include 'usuarios/modals/crear.html' %}
+{% include 'usuarios/modals/ver.html' %}
+{% include 'usuarios/modals/editar.html' %}
+{% include 'usuarios/modals/eliminar.html' %}
+{% endblock %}
 
-    {% include 'usuarios/modals/crear.html' %}
-    {% include 'usuarios/modals/ver.html' %}
-    {% include 'usuarios/modals/editar.html' %}
-    {% include 'usuarios/modals/eliminar.html' %}
-
-    <!-- Scripts -->
-    <script src="{% static 'js/componentes/sidebar.js' %}"></script>
-    <script src="{% static 'js/usuarios/usuarios.js' %}"></script>
-    <script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
-    <script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
-    <script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
-    <script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
-</body>
+{% block extra_js %}
+<script src="{% static 'js/usuarios/usuarios.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
+{% endblock %}
 </html>
