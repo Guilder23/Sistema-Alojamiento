@@ -3,13 +3,13 @@
 .page-wrapper {
     display: flex;
     min-height: 100vh;
-    padding-top: 60px;
+    padding-top: 0; /* Eliminado el padding superior */
 }
 
 .main-content {
     flex: 1;
     margin-left: 250px;
-    padding: 2rem;
+    padding: 1rem 1.5rem; /* Reducido de 2rem */
     transition: margin-left 0.3s ease;
 }
 
@@ -20,39 +20,39 @@
 }
 
 .page-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem; /* Reducido de 2rem */
+    padding-bottom: 0.75rem; /* Reducido de 1rem */
     border-bottom: 2px solid #e5e7eb;
 }
 
 .page-header h1 {
     color: #1f2937;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
+    margin-bottom: 0.25rem; /* Reducido de 0.5rem */
+    font-size: 1.5rem; /* Reducido de 2rem */
     font-weight: 600;
 }
 
 .page-header .text-muted {
     color: #6b7280;
-    font-size: 1rem;
+    font-size: 0.875rem; /* Reducido de 1rem */
 }
 
 /* Resumen de Pagos */
 .resumen-pagos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas */
+    gap: 1rem; /* Reducido de 1.5rem */
+    margin-bottom: 1.5rem; /* Reducido de 2rem */
 }
 
 .resumen-card {
     background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 8px; /* Reducido de 12px */
+    padding: 1rem; /* Reducido de 1.5rem */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem; /* Reducido de 1.5rem */
     transition: transform 0.2s, box-shadow 0.2s;
     border-left: 4px solid #3b82f6;
 }
@@ -63,15 +63,15 @@
 }
 
 .resumen-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+    width: 48px; /* Reducido de 60px */
+    height: 48px; /* Reducido de 60px */
+    border-radius: 8px; /* Reducido de 12px */
     background: #f0f9ff;
     color: #3b82f6;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.75rem;
+    font-size: 1.25rem; /* Reducido de 1.75rem */
     flex-shrink: 0;
 }
 
@@ -98,15 +98,15 @@
     display: block;
     color: #6b7280;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.75rem; /* Reducido de 0.875rem */
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem; /* Reducido de 0.5rem */
 }
 
 .resumen-content h3 {
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 1.5rem; /* Reducido de 1.75rem */
     color: #1f2937;
     font-weight: 700;
 }
@@ -114,19 +114,19 @@
 /* Tabla de Pagos */
 .pagos-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 8px; /* Reducido de 12px */
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pagos-header {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem; /* Reducido de 1.5rem */
     border-bottom: 2px solid #f3f4f6;
 }
 
 .pagos-header h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Reducido de 1.5rem */
     color: #1f2937;
     font-weight: 600;
 }
@@ -144,17 +144,17 @@
 }
 
 .pagos-table th {
-    padding: 1rem;
+    padding: 0.75rem 1rem; /* Reducido de 1rem */
     color: #374151;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.8125rem; /* Reducido de 0.875rem */
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-bottom: 2px solid #e5e7eb;
 }
 
 .pagos-table td {
-    padding: 1rem;
+    padding: 0.75rem 1rem; /* Reducido de 1rem */
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -429,13 +429,21 @@
     background: #4b5563;
 }
 
+/* Tablet */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .resumen-pagos {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+    }
+}
+
+/* Móvil */
 @media (max-width: 768px) {
     .resumen-pagos {
         grid-template-columns: 1fr;
     }
 
     .page-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.25rem; /* Más pequeño en móvil */
     }
 
     .table-responsive {
