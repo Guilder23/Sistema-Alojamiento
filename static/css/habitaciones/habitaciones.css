@@ -175,11 +175,11 @@ body {
 
 .filters-container {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     background: white;
-    padding: 20px;
+    padding: 12px 15px; /* Reducido verticalmente */
     border-radius: 3px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid #e8e8e8;
@@ -187,26 +187,29 @@ body {
 
 .search-wrapper {
     flex: 1;
-    min-width: 250px;
+    min-width: 180px;
+    max-width: 280px;
     position: relative;
 }
 
 .search-wrapper i {
     position: absolute;
-    left: 15px;
+    left: 10px; /* Más cerca del borde */
     top: 50%;
     transform: translateY(-50%);
     color: #6c757d;
     pointer-events: none;
+    font-size: 12px; /* Icono más pequeño */
 }
 
 .search-input {
     width: 100%;
-    padding: 10px 15px 10px 40px;
+    padding: 6px 10px 6px 28px; /* Reducido: altura menor */
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 13px;
     transition: border-color 0.2s ease;
+    height: 32px; /* Altura fija más pequeña */
 }
 
 .search-input:focus {
@@ -216,13 +219,16 @@ body {
 }
 
 .filter-select {
-    padding: 10px 15px;
+    padding: 6px 10px; /* Reducido para menor altura */
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 13px;
     background: white;
     cursor: pointer;
     transition: border-color 0.2s ease;
+    min-width: 140px;
+    max-width: 160px;
+    height: 32px; /* Altura fija igual al input */
 }
 
 .filter-select:focus {
@@ -333,6 +339,7 @@ body {
     }
     .filters-container {
         flex-direction: column;
+        flex-wrap: wrap;
     }
     .table-container {
         overflow-x: auto;
