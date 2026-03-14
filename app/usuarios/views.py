@@ -119,6 +119,9 @@ def api_usuario_crear(request):
     if not password or len(password) < 6:
         return JsonResponse({'success': False, 'error': 'Contraseña debe tener al menos 6 caracteres'})
     
+    if not rol:
+        return JsonResponse({'success': False, 'error': 'Debe seleccionar un rol'})
+    
     # Verificar usuario duplicado
     if User.objects.filter(username=username).exists():
         return JsonResponse({'success': False, 'error': 'Usuario ya existe'})
@@ -137,17 +140,17 @@ def api_usuario_crear(request):
             last_name=last_name
         )
         
-        # Asignar rol
-        if rol:
-            try:
-                rol_obj = Rol.objects.get(nombre=rol)
-                PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
-            except Rol.DoesNotExist:
-                pass
+        # Asignar rol (obligatorio)
+        try:
+            rol_obj = Rol.objects.get(nombre=rol)
+            PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
+        except Rol.DoesNotExist:
+            usuario.delete()  # Eliminar usuario si el rol no existe
+            return JsonResponse({'success': False, 'error': f'El rol "{rol}" no existe en el sistema'})
         
         return JsonResponse({
             'success': True,
-            'message': f'Usuario {username} creado exitosamente',
+            'message': f'Usuario {username} creado exitosamente con rol {rol}',
             'usuario': {
                 'id': usuario.id,
                 'username': usuario.username,
@@ -198,7 +201,7 @@ def api_usuario_actualizar(request, usuario_id):
         
         usuario.save()
         
-        # Actualizar rol
+        # Actualizar rol (obligatorio)
         if 'rol' in datos and datos['rol']:
             try:
                 rol_obj = Rol.objects.get(nombre=datos['rol'])
@@ -209,7 +212,7 @@ def api_usuario_actualizar(request, usuario_id):
                 except PerfilUsuario.DoesNotExist:
                     PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
             except Rol.DoesNotExist:
-                pass
+                return JsonResponse({'success': False, 'error': f'El rol "{datos["rol"]}" no existe en el sistema'})
         
         return JsonResponse({
             'success': True,
