@@ -1,0 +1,325 @@
+/* MODAL LOGIN - COMPACTO Y BLANCO */
+
+:root {
+    --primary: #0D7A7F;
+    --accent: #062A2E;
+    --light: #1BA8B0;
+}
+
+/* MODAL PRINCIPAL */
+#modalLogin.auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: transparent;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#modalLogin.auth-modal.shown {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#modalLogin.auth-modal.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+#modalLogin .auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    cursor: pointer;
+}
+
+#modalLogin .auth-modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1001;
+    min-height: auto;
+}
+
+#modalLogin .auth-modal-card {
+    background: #FFFFFF !important;
+    border-radius: 12px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+#modalLogin .auth-modal-header {
+    background: var(--primary) !important;
+    color: white !important;
+    padding: 1rem 1.2rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#modalLogin .auth-modal-title-section {
+    flex: 1;
+}
+
+#modalLogin .auth-modal-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: white !important;
+}
+
+#modalLogin .auth-modal-subtitle {
+    font-size: 0.75rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0.2rem 0 0 0 !important;
+    font-weight: 500 !important;
+}
+
+#modalLogin .auth-modal-close {
+    background: none !important;
+    border: none !important;
+    color: white !important;
+    cursor: pointer;
+    padding: 0.2rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    opacity: 0.85;
+    transition: all 0.2s;
+}
+
+#modalLogin .auth-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    opacity: 1;
+}
+
+#modalLogin .auth-modal-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* BODY */
+#modalLogin .auth-modal-body {
+    padding: 1rem 1.2rem !important;
+    background: #FFFFFF !important;
+}
+
+/* FORMULARIO */
+#modalLogin .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+#modalLogin .auth-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+#modalLogin .auth-form-label {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+}
+
+#modalLogin .auth-form-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#modalLogin .auth-form-input-icon {
+    position: absolute;
+    left: 0.7rem;
+    color: var(--light) !important;
+    width: 16px;
+    height: 16px;
+}
+
+#modalLogin .auth-form-input {
+    width: 100% !important;
+    padding: 0.6rem 0.8rem 0.6rem 2.2rem !important;
+    border: 1.5px solid #E9D5FF !important;
+    border-radius: 5px;
+    font-size: 0.8rem !important;
+    background: #FFFFFF !important;
+    color: #333 !important;
+    transition: all 0.2s;
+    font-family: inherit !important;
+}
+
+#modalLogin .auth-form-input::placeholder {
+    color: #999 !important;
+}
+
+#modalLogin .auth-form-input:focus {
+    outline: none !important;
+    border-color: var(--accent) !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 0 0 3px rgba(13, 122, 127, 0.08);
+}
+
+#modalLogin .auth-form-input.input-error {
+    border-color: #dc3545 !important;
+}
+
+#modalLogin .auth-form-input.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+#modalLogin .auth-error-message {
+    font-size: 0.62rem;
+    color: #c82333;
+    background: rgba(220, 53, 69, 0.12);
+    padding: 0.35rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.2rem;
+    min-height: 0;
+    overflow: hidden;
+    display: none;
+}
+
+#modalLogin .auth-error-message:not(:empty) {
+    display: block;
+}
+
+/* BOTÓN */
+#modalLogin .auth-btn-primary {
+    padding: 0.65rem 1rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--primary) !important;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-top: 0.2rem;
+    transition: all 0.2s;
+}
+
+#modalLogin .auth-btn-primary:hover {
+    transform: translateY(-2px);
+    background: #056066 !important;
+    box-shadow: 0 8px 20px rgba(13, 122, 127, 0.25);
+}
+
+#modalLogin .auth-btn-primary:active {
+    transform: translateY(0);
+}
+
+/* FOOTER */
+#modalLogin .auth-modal-footer {
+    padding: 0.8rem 1.2rem !important;
+    background: #F8F7FF !important;
+    border-top: 1px solid #E9D5FF !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#modalLogin .auth-footer-text {
+    text-align: center;
+    margin: 0 !important;
+    font-size: 0.75rem !important;
+    color: #666 !important;
+}
+
+#modalLogin .auth-footer-link,
+#modalLogin .auth-footer-link-highlight {
+    color: var(--primary) !important;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#modalLogin .auth-footer-link:hover,
+#modalLogin .auth-footer-link-highlight:hover {
+    color: var(--accent) !important;
+}
+
+#modalLogin .auth-footer-link-group {
+    text-align: center;
+    margin: 0 !important;
+}
+
+#modalLogin .auth-footer-divider {
+    height: 1px;
+    background: #E9D5FF !important;
+}
+
+/* ANIMACIÓN */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    #modalLogin .auth-modal-container {
+        max-width: 90vw;
+    }
+
+    #modalLogin .auth-modal-header {
+        padding: 0.9rem 1rem !important;
+    }
+
+    #modalLogin .auth-modal-title {
+        font-size: 1.1rem !important;
+    }
+
+    #modalLogin .auth-modal-body {
+        padding: 0.9rem 1rem !important;
+    }
+
+    #modalLogin .auth-form-input {
+        font-size: 16px;
+    }
+}

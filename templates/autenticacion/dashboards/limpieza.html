@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/limpieza.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Tarjeta de Bienvenida -->
+    <div class="welcome-card">
+        <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+        <p>Panel de limpieza. Aquí puedes ver las habitaciones que necesitan mantenimiento.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-icon">🛏️</div>
+            <h3>Por Limpiar</h3>
+            <p>Habitaciones</p>
+            <div class="card-value">0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">✅</div>
+            <h3>Completadas</h3>
+            <p>Hoy</p>
+            <div class="card-value">0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Tareas</h3>
+            <p>Asignadas</p>
+            <div class="card-value">0</div>
+        </div>
+    </div>
+
+    <!-- Menú de Opciones -->
+    <div class="menu-section">
+        <h3>Mis Tareas</h3>
+        <div class="menu-items">
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">📋</span>
+                <span>Mis Tareas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">🛏️</span>
+                <span>Habitaciones</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">⚙️</span>
+                <span>Reportar Daño</span>
+            </a>
+            <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                <span class="menu-item-icon">🔑</span>
+                <span>Cambiar Contraseña</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/limpieza.js' %}"></script>
+{% endblock %}

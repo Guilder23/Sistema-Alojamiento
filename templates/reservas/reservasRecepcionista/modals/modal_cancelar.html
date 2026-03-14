@@ -1,0 +1,36 @@
+<!-- Modal Cancelar Reserva -->
+<div class="modal fade" id="modalCancelar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-times-circle"></i> Cancelar Reserva
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <i class="fas fa-exclamation-triangle fa-4x text-danger mb-3"></i>
+                    <h5>¿Cancelar esta reserva?</h5>
+                </div>
+                <div class="alert alert-warning">
+                    <p class="mb-2"><strong>Habitación:</strong> <span id="cancelar-habitacion"></span></p>
+                    <p class="mb-2"><strong>Cliente:</strong> <span id="cancelar-cliente"></span></p>
+                    <p class="mb-2"><strong>Fechas:</strong> <span id="cancelar-fechas"></span></p>
+                    <p class="mb-0"><strong>Total:</strong> <span id="cancelar-total"></span></p>
+                </div>
+                <p class="text-danger small">
+                    <i class="fas fa-exclamation-circle"></i> <strong>Esta acción no se puede deshacer.</strong> La habitación quedará disponible y el cliente será notificado.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <button type="button" class="btn btn-danger" id="btn-cancelar-final">
+                    <i class="fas fa-times"></i> Sí, Cancelar Reserva
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

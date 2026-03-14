@@ -1,0 +1,79 @@
+<!-- Modal Editar Usuario -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-editar-usuario" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-user-edit"></i> Editar Usuario</h3>
+        <button class="close-modal" id="close-modal-editar">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-editar-usuario">
+            <input type="hidden" id="editar-id">
+            <div class="form-group">
+                <label for="editar-username">Nombre de Usuario <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="editar-username" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-email">Email <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" id="editar-email" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-rol">Rol <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-briefcase"></i></span>
+                    <select id="editar-rol" class="form-control" required>
+                        <option value="">Seleccionar rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-is-active">
+                    <input type="checkbox" id="editar-is-active"> <i class="fas fa-toggle-on"></i> Usuario Activo
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="cambiar-password">
+                <label for="cambiar-password"><i class="fas fa-key"></i> Cambiar Contraseña</label>
+            </div>
+            <div id="password-fields-editar" style="display: none;">
+                <div class="password-grid">
+                    <div class="form-group">
+                        <label for="editar-password">Nueva Contraseña</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="editar-password" class="form-control" placeholder="Mínimo 6 caracteres">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editar-password-confirm">Confirmar Contraseña</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon"><i class="fas fa-shield-alt"></i></span>
+                            <input type="password" id="editar-password-confirm" class="form-control">
+                        </div>
+                        <div class="form-error"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-editar-usuario')">Cancelar</button>
+        <button type="submit" form="form-editar-usuario" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+    </div>
+</div>

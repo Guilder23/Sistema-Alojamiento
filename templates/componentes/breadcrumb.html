@@ -1,0 +1,31 @@
+{% load static %}
+
+<!-- CSS del Breadcrumb -->
+<link rel="stylesheet" href="{% static 'css/componentes/breadcrumb.css' %}">
+
+<!-- Breadcrumb Navegación -->
+{% if page_title or breadcrumbs %}
+<nav aria-label="breadcrumb" class="breadcrumb-container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">🏠 Inicio</a>
+        </li>
+        {% if breadcrumbs %}
+            {% for breadcrumb in breadcrumbs %}
+                {% if breadcrumb.url %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a>
+                    </li>
+                {% else %}
+                    <li class="breadcrumb-item active">{{ breadcrumb.label }}</li>
+                {% endif %}
+            {% endfor %}
+        {% elif page_title %}
+            <li class="breadcrumb-item active">{{ page_title }}</li>
+        {% endif %}
+    </ol>
+</nav>
+
+<!-- JS del Breadcrumb -->
+<script src="{% static 'js/componentes/breadcrumb.js' %}" defer></script>
+{% endif %}

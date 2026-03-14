@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/gerente.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Tarjeta de Bienvenida -->
+    <div class="welcome-card">
+        <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+        <p>Panel de gerente. Aquí podrás supervisar reportes y gestionar el hotel.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <h3>Ingresos Hoy</h3>
+            <p>Total generado</p>
+            <div class="card-value">$0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Ocupación</h3>
+            <p>Del hotel</p>
+            <div class="card-value">0%</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>Reservas</h3>
+            <p>Total mes</p>
+            <div class="card-value">0</div>
+        </div>
+    </div>
+
+    <!-- Menú de Opciones -->
+    <div class="menu-section">
+        <h3>Herramientas Disponibles</h3>
+        <div class="menu-items">
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">📊</span>
+                <span>Reportes</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">💹</span>
+                <span>Estadísticas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">🔧</span>
+                <span>Configuración</span>
+            </a>
+            <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                <span class="menu-item-icon">🔑</span>
+                <span>Cambiar Contraseña</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/gerente.js' %}"></script>
+{% endblock %}

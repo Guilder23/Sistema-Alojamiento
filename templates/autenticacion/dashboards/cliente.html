@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/cliente.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+        <!-- Tarjeta de Bienvenida -->
+        <div class="welcome-card">
+            <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+            <p>Aquí podrás gestionar tus reservas, ver tu historial y contactar con nosotros.</p>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <h3>Mis Reservas</h3>
+                <p>Activas</p>
+                <div class="card-value">0</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">💳</div>
+                <h3>Pagos</h3>
+                <p>Pendientes</p>
+                <div class="card-value">$0</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">⭐</div>
+                <h3>Puntos</h3>
+                <p>Acumulados</p>
+                <div class="card-value">0</div>
+            </div>
+        </div>
+
+        <!-- Menú de Opciones -->
+        <div class="menu-section">
+            <h3>Mi Cuenta</h3>
+            <div class="menu-items">
+                <a href="#" class="menu-item">
+                    <span class="menu-item-icon">📋</span>
+                    <span>Mis Reservas</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-item-icon">➕</span>
+                    <span>Nueva Reserva</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-item-icon">💬</span>
+                    <span>Contáctanos</span>
+                </a>
+                <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                    <span class="menu-item-icon">🔑</span>
+                    <span>Cambiar Contraseña</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/cliente.js' %}"></script>
+{% endblock %}

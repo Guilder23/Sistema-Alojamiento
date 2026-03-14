@@ -1,0 +1,448 @@
+/* ============================================
+   TODAS RESERVAS - ESTILOS RECEPCIONISTA
+   ============================================ */
+
+/* Variables CSS - Colores del tema principal */
+:root {
+    --primary-color: #0D7A7F;
+    --primary-dark: #062A2E;
+    --primary-light: #1BA8B0;
+    --border-color: #C5E8ED;
+    --text-dark: #1a1a1a;
+    --text-light: #666666;
+    --bg-light: #f8f9fb;
+}
+
+/* Layout Principal */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 54px;
+}
+
+.page-wrapper {
+    display: flex;
+    flex: 1;
+    margin-top: 0;
+}
+
+.main-content {
+    flex: 1;
+    overflow-x: hidden;
+    margin-left: 200px;
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+/* Page Header */
+.page-header {
+    background: #0a6266;
+    color: white;
+    padding: 25px 30px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
+}
+
+.page-header h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.page-header h1 i {
+    color: white;
+    font-size: 26px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 5px 0 0 0;
+}
+
+/* Estadísticas Rápidas */
+.stat-card {
+    background: white;
+    border-radius: 3px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.stat-total .stat-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+}
+
+.stat-pendiente .stat-icon {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: white;
+}
+
+.stat-confirmada .stat-icon {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.stat-activa .stat-icon {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+}
+
+.stat-cancelada .stat-icon {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.stat-info h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.stat-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* Filtros */
+.filtros-card {
+    background: white;
+    border-radius: 3px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+    margin-bottom: 20px;
+}
+
+.filtros-card h5 {
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.filtros-card h5 i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.filtros-card label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.filtros-card .form-select,
+.filtros-card .form-control {
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+    padding: 10px 15px;
+}
+
+.filtros-card .form-select:focus,
+.filtros-card .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(10, 98, 102, 0.1);
+}
+
+/* Tabla */
+.table-card {
+    background: white;
+    border-radius: 3px;
+    padding: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background: #14959c;
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 16px 15px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.table thead th:first-child {
+    border-top-left-radius: 0;
+}
+
+.table thead th:last-child {
+    border-top-right-radius: 0;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f5f9fb;
+}
+
+.table tbody td {
+    padding: 14px 15px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #333;
+}
+
+.cliente-info strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.habitacion-info strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Badge de Estado */
+.badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.badge-pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-confirmada {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-cancelada {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-finalizada {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-no_show {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Botones */
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: var(--primary-light);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #14959c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 98, 102, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-group .btn {
+    margin: 0 2px;
+}
+
+.btn-sm {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-sm i {
+    margin: 0;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.4);
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+    border: 1px solid #ffc107;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+    border-color: #d39e00;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .stat-card {
+        margin-bottom: 10px;
+        padding: 15px;
+    }
+    
+    .table-responsive {
+        font-size: 13px;
+    }
+    
+    .btn-group {
+        display: flex;
+        gap: 4px;
+    }
+    
+    .btn-group .btn {
+        margin: 0;
+    }
+}
+
+/* Modal Detalles */
+.modal-header {
+    background: var(--primary-color);
+    color: white;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.detalle-section {
+    background: #f8f9fa;
+    border-radius: 3px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.detalle-titulo {
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 15px;
+}
+
+.detalle-titulo i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.detalle-section p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.detalle-section strong {
+    color: var(--text-light);
+    min-width: 120px;
+    display: inline-block;
+    font-weight: 600;
+}
+

@@ -1,0 +1,490 @@
+/* ============================================
+   MIS RESERVAS - ESTILOS COMPACTOS
+   ============================================ */
+
+/* Variables CSS */
+:root {
+    --primary-color: #0D7A7F;
+    --primary-dark: #062A2E;
+    --primary-light: #1BA8B0;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --border-color: #e0e0e0;
+    --text-dark: #333;
+    --text-light: #666;
+    --bg-light: #f8f9fb;
+}
+
+/* Layout Principal */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    padding-top: 54px;
+}
+
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+/* Page Header */
+.page-header {
+    background: #0a6266;
+    color: white;
+    padding: 20px 25px;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
+}
+
+.page-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-header h1 i {
+    color: white;
+    font-size: 26px;
+}
+
+.page-header .text-muted {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Estadísticas Compactas */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-item {
+    background: white;
+    border-radius: 3px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.stat-item i {
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+.stat-total i {
+    background: rgba(103, 126, 234, 0.15);
+    color: #667eea;
+}
+
+.stat-confirmada i {
+    background: rgba(40, 167, 69, 0.15);
+    color: var(--success-color);
+}
+
+.stat-activa i {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+}
+
+.stat-cancelada i {
+    background: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Tabla de Reservas */
+.table-container {
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.reservas-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.reservas-table thead {
+    background: #14959c;
+    color: white;
+}
+
+.reservas-table th {
+    padding: 14px 15px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.reservas-table th.text-center {
+    text-align: center;
+}
+
+.reservas-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.reservas-table tbody tr:hover {
+    background-color: #f5f9fb;
+}
+
+.reservas-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.reservas-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: var(--text-dark);
+    vertical-align: middle;
+}
+
+/* Información de habitación en tabla */
+.habitacion-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.habitacion-numero {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+
+.habitacion-tipo {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* Fechas en tabla */
+.fechas-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fecha-line {
+    font-size: 13px;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fecha-line i {
+    color: var(--primary-color);
+    font-size: 11px;
+    width: 14px;
+}
+
+/* Precio en tabla */
+.precio-valor {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--success-color);
+}
+
+/* Badges de Estado */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-pendiente {
+    background: rgba(255, 193, 7, 0.15);
+    color: #856404;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.badge-confirmada {
+    background: rgba(40, 167, 69, 0.15);
+    color: #1e7e34;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.badge-cancelada {
+    background: rgba(220, 53, 69, 0.15);
+    color: #c82333;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.badge-finalizada {
+    background: rgba(108, 117, 125, 0.15);
+    color: #495057;
+    border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+.badge-no_show {
+    background: rgba(231, 76, 60, 0.15);
+    color: #c0392b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Botones de Acción */
+.actions-cell {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.btn-sm {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 14px;
+}
+
+.btn-sm i {
+    margin: 0;
+}
+
+.btn-info {
+    background: var(--info-color);
+    color: white;
+    border: 1px solid var(--info-color);
+}
+
+.btn-info:hover {
+    background: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+    border: 1px solid var(--success-color);
+    text-decoration: none;
+}
+
+.btn-success:hover {
+    background: #218838;
+    border-color: #1e7e34;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+    border: 1px solid var(--danger-color);
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Estado Vacío */
+.empty-state {
+    text-align: center;
+    padding: 60px 30px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+}
+
+.empty-icon {
+    font-size: 80px;
+    color: #bdc3c7;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: var(--text-light);
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.btn-lg {
+    padding: 12px 30px;
+    font-size: 15px;
+    border-radius: 3px;
+    background: var(--primary-light);
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.btn-lg:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 122, 127, 0.3);
+}
+
+/* Responsive */
+/* Sidebar colapsado en desktop - ajustar margen */
+body.sidebar-collapsed .main-content {
+    margin-left: 70px;
+}
+
+@media (max-width: 1200px) {
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    /* Sin sidebar en móvil */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 10px;
+    }
+
+    .page-header {
+        padding: 15px 20px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .stat-item {
+        padding: 15px;
+    }
+
+    .stat-item i {
+        font-size: 28px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .stat-number {
+        font-size: 22px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .reservas-table {
+        min-width: 700px;
+    }
+
+    .reservas-table th,
+    .reservas-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .actions-cell {
+        gap: 4px;
+    }
+
+    .btn-sm {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .habitacion-numero {
+        font-size: 14px;
+    }
+
+    .precio-valor {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,171 @@
+/**
+ * ESTILOS PARA MODAL DE CANCELAR - TODAS LAS RESERVAS
+ * Estilos específicos para el modal de cancelar reserva
+ * Color: Rojo (#dc3545)
+ */
+
+#modal-cancelar-reserva .modal-header,
+.modal-cancelar .modal-header {
+    background: #dc3545;
+    color: white;
+    padding: 18px 22px;
+}
+
+#modal-cancelar-reserva .modal-header .modal-title,
+.modal-cancelar .modal-header .modal-title {
+    color: white;
+    font-weight: 700;
+}
+
+#modal-cancelar-reserva .btn-close,
+.modal-cancelar .btn-close {
+    color: white;
+    filter: brightness(1.2);
+}
+
+#modal-cancelar-reserva .modal-body,
+.modal-cancelar .modal-body {
+    padding: 22px;
+    text-align: center;
+}
+
+#modal-cancelar-reserva .confirm-message,
+.modal-cancelar .confirm-message {
+    text-align: left;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 3px;
+    padding: 16px;
+}
+
+#modal-cancelar-reserva .confirm-message > i,
+.modal-cancelar .confirm-message > i {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(220, 53, 69, 0.12);
+    color: rgba(220, 53, 69, 0.95);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#modal-cancelar-reserva .confirm-reserva,
+.modal-cancelar .confirm-reserva {
+    margin: 6px 0 10px;
+    font-size: 15px;
+    font-weight: 900;
+    color: rgba(17, 24, 39, 0.92);
+}
+
+#modal-cancelar-reserva .confirm-warning,
+.modal-cancelar .confirm-warning {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(245, 158, 11, 0.20);
+    background: rgba(255, 251, 235, 0.9);
+    color: rgba(146, 64, 14, 0.95);
+    font-weight: 700;
+}
+
+#modal-cancelar-reserva .confirm-warning i,
+.modal-cancelar .confirm-warning i {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(245, 158, 11, 0.18);
+    color: rgba(245, 158, 11, 0.95);
+}
+
+#modal-cancelar-reserva .confirm-message p,
+.modal-cancelar .confirm-message p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: rgba(17, 24, 39, 0.85);
+    line-height: 1.55;
+}
+
+#modal-cancelar-reserva strong,
+.modal-cancelar strong {
+    color: #dc3545;
+    font-weight: 700;
+}
+
+#modal-cancelar-reserva .text-muted,
+.modal-cancelar .text-muted {
+    color: #999 !important;
+    font-size: 13px;
+}
+
+#modal-cancelar-reserva .modal-footer,
+.modal-cancelar .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+    border-top: 1px solid rgba(17, 24, 39, 0.10);
+}
+
+#modal-cancelar-reserva .btn,
+.modal-cancelar .btn {
+    padding: 12px 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    min-width: 180px;
+}
+
+#modal-cancelar-reserva .btn-danger,
+.modal-cancelar .btn-danger {
+    background: #dc3545;
+    color: white;
+    opacity: 1;
+}
+
+#modal-cancelar-reserva .btn-danger:hover,
+.modal-cancelar .btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(220, 53, 69, 0.22);
+}
+
+#modal-cancelar-reserva .btn-secondary,
+.modal-cancelar .btn-secondary {
+    background: rgba(17, 24, 39, 0.06);
+    color: rgba(17, 24, 39, 0.88);
+}
+
+#modal-cancelar-reserva .btn-secondary:hover,
+.modal-cancelar .btn-secondary:hover {
+    background: rgba(17, 24, 39, 0.10);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    #modal-cancelar-reserva .modal-body,
+    .modal-cancelar .modal-body {
+        padding: 20px;
+    }
+    
+    #modal-cancelar-reserva .modal-footer,
+    .modal-cancelar .modal-footer {
+        flex-direction: column;
+    }
+    
+    #modal-cancelar-reserva .btn,
+    .modal-cancelar .btn {
+        width: 100%;
+        min-width: 0;
+    }
+}

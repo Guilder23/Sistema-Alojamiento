@@ -1,0 +1,24 @@
+<!-- Modal Eliminar Usuario -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-eliminar-usuario" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-exclamation-triangle"></i> Eliminar Usuario</h3>
+        <button class="close-modal" id="close-modal-eliminar">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="confirm-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>¿Estás seguro de que deseas eliminar el usuario?</p>
+            <p class="confirm-username" id="eliminar-username"></p>
+            <div class="confirm-warning">
+                <i class="fas fa-info-circle"></i> Esta acción no se puede deshacer
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancelar-eliminar"><i class="fas fa-times"></i> Cancelar</button>
+        <button class="btn btn-danger" id="btn-confirmar-eliminar">
+            <i class="fas fa-trash"></i> Eliminar Permanentemente
+        </button>
+    </div>
+</div>

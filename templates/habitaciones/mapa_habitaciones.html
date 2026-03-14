@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/habitaciones/mapa_habitaciones.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-mapa">
+    <!-- Header -->
+    <div class="section-header">
+                    <div>
+                        <h2><i class="fas fa-building"></i> Mapa de Habitaciones</h2>
+                        <p class="subtitle">Vista general por pisos del edificio</p>
+                    </div>
+                    <a href="{% url 'habitaciones:list' %}" class="btn btn-secondary">
+                        <i class="fas fa-list"></i> Vista de Tabla
+                    </a>
+                </div>
+
+                <!-- Leyenda de estados -->
+                <div class="leyenda-container">
+                    <h3><i class="fas fa-info-circle"></i> Estados de Habitaciones</h3>
+                    <div class="leyenda-items">
+                        <div class="leyenda-item">
+                            <span class="estado-badge estado-disponible"></span>
+                            <span>Disponible</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="estado-badge estado-ocupada"></span>
+                            <span>Ocupada</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="estado-badge estado-limpieza"></span>
+                            <span>En Limpieza</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="estado-badge estado-mantenimiento"></span>
+                            <span>Mantenimiento</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <span class="estado-badge estado-fuera_servicio"></span>
+                            <span>Fuera de Servicio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edificio - Pisos -->
+                <div class="edificio-container" id="edificio-container">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Cargando habitaciones...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/habitaciones/mapa_habitaciones.js' %}"></script>
+{% endblock %}

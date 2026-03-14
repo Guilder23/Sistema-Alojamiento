@@ -1,0 +1,61 @@
+<div class="modal fade" id="modalPagarQR" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-qrcode"></i> Pagar con QR
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Información de pago -->
+                <div class="info-pago">
+                    <div class="info-item">
+                        <span class="info-label">Reserva</span>
+                        <span class="info-value" id="info-reserva"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Habitación</span>
+                        <span class="info-value" id="info-habitacion"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Monto a Pagar</span>
+                        <span class="info-value precio" id="info-monto"></span>
+                    </div>
+                </div>
+
+                <!-- QR Code -->
+                <div class="qr-container">
+                    <h6 class="text-center mb-3">Escanea este código QR</h6>
+                    <div class="qr-image-wrapper" id="qr-image-wrapper">
+                        <div class="spinner-border spinner-sm" role="status">
+                            <span class="visually-hidden">Cargando QR...</span>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted mt-3" id="qr-descripcion"></p>
+                </div>
+
+                <!-- Instrucciones -->
+                <div class="instrucciones">
+                    <h6><i class="fas fa-list-check"></i> Pasos:</h6>
+                    <ol>
+                        <li>Abre tu aplicación bancaria o de pagos</li>
+                        <li>Escanea el código QR</li>
+                        <li>Revisa los datos de pago</li>
+                        <li>Realiza la transferencia</li>
+                        <li>Guarda el comprobante de transferencia</li>
+                        <li>Sube el comprobante en el siguiente paso</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-siguiente-comprobante">
+                    <i class="fas fa-arrow-right"></i> Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+/* Modal Editar QR - Estilos */
+
+#modalEditarQR .modal-header {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: #212529;
+}
+
+#modalEditarQR .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#modalEditarQR .form-label i {
+    color: #ffc107;
+    font-size: 1.1rem;
+}
+
+#modalEditarQR .form-control,
+#modalEditarQR .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#modalEditarQR .form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
+}
+
+/* Imagen actual */
+#imagen_actual_container {
+    border: 2px dashed #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: #f8f9fa;
+}
+
+#qr_actual_img {
+    border: 3px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Preview de nueva imagen */
+#preview_editar {
+    border: 2px dashed #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: #fff3cd;
+    transition: all 0.3s ease;
+}
+
+#preview_img_editar {
+    border: 3px solid #ffc107;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: white;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+/* Form Check */
+#modalEditarQR .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+#modalEditarQR .form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}

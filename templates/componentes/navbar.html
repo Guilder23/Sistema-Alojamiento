@@ -1,0 +1,71 @@
+{% load static %}
+
+<!-- CSS del Navbar -->
+<link rel="stylesheet" href="{% static 'css/componentes/navbar.css' %}">
+
+<!-- Navegación Principal -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- Logo -->
+        <div class="navbar-logo">
+            <a href="/">
+                <i class="fas fa-building"></i>
+                <span>SistemaAlojamiento</span>
+            </a>
+        </div>
+
+        <!-- Menu Toggle (Mobile) -->
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul class="navbar-menu" id="navbarMenu">
+            <li class="navbar-item">
+                <a href="/" class="navbar-link">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+            </li>
+            
+            {% if user.is_authenticated %}
+                <!-- Usuario Autenticado -->
+                <li class="navbar-item dropdown">
+                    <a href="#" class="navbar-link dropdown-toggle" id="userDropdown">
+                        <i class="fas fa-user-circle"></i> {{ user.username }}
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu" id="userDropdownMenu">
+                        <li><a href="#" class="dropdown-item">
+                            <i class="fas fa-id-card"></i> Mi Perfil
+                        </a></li>
+                        <li><a href="{% url 'autenticacion:password_change' %}" class="dropdown-item">
+                            <i class="fas fa-key"></i> Cambiar Contraseña
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="{% url 'autenticacion:logout' %}" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <!-- Usuario No Autenticado -->
+                <li class="navbar-item">
+                    <a href="javascript:void(0)" onclick="openLoginModal()" class="navbar-link">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </a>
+                </li>
+                <li class="navbar-item">
+                    <a href="javascript:void(0)" onclick="openRegistroModal()" class="navbar-link btn-registro">
+                        <i class="fas fa-user-plus"></i> Registrarse
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- JavaScript del Navbar -->
+<script src="{% static 'js/componentes/navbar.js' %}" defer></script>
+

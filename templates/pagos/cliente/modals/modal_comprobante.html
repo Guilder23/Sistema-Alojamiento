@@ -1,0 +1,59 @@
+<div class="modal fade" id="modalComprobante" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-image"></i> Enviar Comprobante de Pago
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-info mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Por favor,</strong> sube una captura de pantalla o imagen del comprobante de transferencia. 
+                    La recepcionista lo validará y confirmar el pago.
+                </div>
+
+                <!-- Área de carga de archivo -->
+                <div class="form-group">
+                    <label for="comprobante-input" class="form-label">
+                        <i class="fas fa-upload"></i> Seleccionar Comprobante
+                    </label>
+                    <input type="file" 
+                           id="comprobante-input" 
+                           class="form-control" 
+                           accept="image/*"
+                           required>
+                    <small class="form-text text-muted">
+                        Formatos aceptados: JPG, PNG, GIF (máx 5MB)
+                    </small>
+                </div>
+
+                <!-- Vista previa -->
+                <div class="preview-container" id="preview-container" style="display:none;">
+                    <label class="form-label">Vista Previa</label>
+                    <img id="preview-image" src="" alt="Previsualización" class="img-fluid rounded">
+                </div>
+
+                <!-- Información adicional -->
+                <div class="form-group mt-3">
+                    <label for="comentario-pago" class="form-label">
+                        <i class="fas fa-comment"></i> Comentarios (Opcional)
+                    </label>
+                    <textarea id="comentario-pago" 
+                              class="form-control" 
+                              rows="3" 
+                              placeholder="Ej: Transferencia realizada desde cuenta..."></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btn-enviar-comprobante" disabled>
+                    <i class="fas fa-check"></i> Enviar Comprobante
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,353 @@
+/* Estilos para Gestión de Habitaciones */
+
+/* Variables CSS - Colores del tema principal */
+:root {
+    --primary-color: #0D7A7F;
+    --primary-dark: #062A2E;
+    --primary-light: #1BA8B0;
+    --border-color: #C5E8ED;
+    --text-dark: #1a1a1a;
+    --text-light: #666666;
+    --bg-light: #f8f9fb;
+}
+
+/* Reset y Layout Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 54px; /* Espacio para navbar fijo */
+}
+
+.page-wrapper {
+    display: flex;
+    flex: 1;
+    margin-top: 0;
+}
+
+.main-content {
+    flex: 1;
+    overflow-x: hidden;
+    margin-left: 200px;
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+.container-habitaciones {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-header {
+    background: #0a6266;
+    color: white;
+    padding: 25px 30px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
+}
+
+.section-header h2 {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.section-header h2 i {
+    color: white;
+    font-size: 26px;
+}
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: #1BA8B0;
+    color: white;
+}
+
+.btn-primary:hover {
+    background:#14959c !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 98, 102, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
+}
+
+.btn-info:hover {
+    background: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.4);
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+    border: 1px solid #ffc107;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+    border-color: #d39e00;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+/* Botones de acción en tabla - cuadrados */
+.habitaciones-table .btn-sm {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.habitaciones-table .btn-sm i {
+    margin: 0;
+}
+
+.filters-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    background: white;
+    padding: 12px 15px; /* Reducido verticalmente */
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+}
+
+.search-wrapper {
+    flex: 1;
+    min-width: 180px;
+    max-width: 280px;
+    position: relative;
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 10px; /* Más cerca del borde */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    font-size: 12px; /* Icono más pequeño */
+}
+
+.search-input {
+    width: 100%;
+    padding: 6px 10px 6px 28px; /* Reducido: altura menor */
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+    height: 32px; /* Altura fija más pequeña */
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #0a6266;
+    box-shadow: 0 0 0 3px rgba(10, 98, 102, 0.1);
+}
+
+.filter-select {
+    padding: 6px 10px; /* Reducido para menor altura */
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    min-width: 140px;
+    max-width: 160px;
+    height: 32px; /* Altura fija igual al input */
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #0D7A7F;
+    box-shadow: 0 0 0 3px rgba(13, 122, 127, 0.1);
+}
+
+.table-container {
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+}
+
+.habitaciones-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.habitaciones-table thead {
+    background: #14959c;
+    color: white;
+}
+
+.habitaciones-table th,
+.habitaciones-table td {
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.habitaciones-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.habitaciones-table tbody tr:hover {
+    background-color: #f5f9fb;
+}
+
+.loading-row td {
+    text-align: center;
+    padding: 40px;
+    font-style: italic;
+    color: #999;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-disponible { background: #d4edda; color: #155724; }
+.badge-ocupada { background: #f8d7da; color: #721c24; }
+.badge-limpieza { background: #fff3cd; color: #856404; }
+.badge-fuera_servicio { background: #d1ecf1; color: #0c5460; }
+
+.badge-simple { background: #e7f3ff; color: #004085; }
+.badge-doble { background: #d1ecf1; color: #0c5460; }
+.badge-suite { background: #fff3cd; color: #856404; }
+.badge-deluxe { background: #d4edda; color: #155724; }
+.badge-presidencial { background: #f8d7da; color: #721c24; }
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: 2px solid #1BA8B0;
+    background: white;
+    color: #1BA8B0;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #1BA8B0;
+    color: white;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+    .filters-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .table-container {
+        overflow-x: auto;
+    }
+    .habitaciones-table {
+        min-width: 900px;
+    }
+    .actions-cell {
+        flex-direction: column;
+    }
+}

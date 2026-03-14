@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pagos/recepcionista/gestionar_qr.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagos/recepcionista/modals/modal_crear_qr.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagos/recepcionista/modals/modal_editar_qr.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="page-header mb-4">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2><i class="fas fa-qrcode"></i> Configuración de QR para Pagos</h2>
+                <p class="text-muted">Administra los códigos QR que verán los clientes al momento de pagar</p>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
+                    <i class="fas fa-plus"></i> Crear Nuevo QR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert informativo -->
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle"></i>
+        <strong>Importante:</strong> Solo puede haber un QR activo a la vez. Este será el que vean los clientes al pagar.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Lista de Configuraciones QR -->
+    <div class="row">
+        {% if configuraciones %}
+            {% for qr in configuraciones %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="qr-config-card {% if qr.estado == 'activo' %}qr-activo{% endif %}"
+                     data-qr-id="{{ qr.id }}"
+                     data-qr-codigo="{{ qr.codigo_qr }}"
+                     data-qr-descripcion="{{ qr.descripcion }}"
+                     data-qr-estado="{{ qr.estado }}"
+                     data-qr-imagen="{% if qr.imagen_qr %}{{ qr.imagen_qr.url }}{% endif %}">
+                    <!-- Header de la tarjeta -->
+                    <div class="card-header-qr">
+                        <div class="qr-estado-badge">
+                            {% if qr.estado == 'activo' %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle"></i> Activo
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-pause-circle"></i> Inactivo
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="qr-fecha">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar"></i> Creado: {{ qr.creado|date:"d/m/Y" }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Imagen QR -->
+                    <div class="qr-imagen-container">
+                        {% if qr.imagen_qr %}
+                            <img src="{{ qr.imagen_qr.url }}" alt="QR Code" class="qr-image">
+                        {% else %}
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                                <p>Sin imagen QR</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Información -->
+                    <div class="qr-info">
+                        <div class="info-item">
+                            <label><i class="fas fa-align-left"></i> Descripción:</label>
+                            <p>{{ qr.descripcion|default:"Sin descripción" }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label><i class="fas fa-key"></i> Código/Datos:</label>
+                            <p class="codigo-qr">{{ qr.codigo_qr }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label><i class="fas fa-clock"></i> Última actualización:</label>
+                            <p><small>{{ qr.actualizado|date:"d/m/Y H:i" }}</small></p>
+                        </div>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="qr-actions">
+                        <button class="btn btn-sm btn-outline-primary btn-editar-qr" data-qr-id="{{ qr.id }}">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        {% if qr.estado == 'inactivo' %}
+                        <button class="btn btn-sm btn-success btn-activar-qr" data-qr-id="{{ qr.id }}">
+                            <i class="fas fa-check"></i> Activar
+                        </button>
+                        {% endif %}
+                        <button class="btn btn-sm btn-outline-danger btn-eliminar-qr" data-qr-id="{{ qr.id }}">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Estado vacío -->
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>No hay configuraciones de QR</h3>
+                    <p>Crea tu primera configuración para que los clientes puedan pagar escaneando el QR</p>
+                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
+                        <i class="fas fa-plus"></i> Crear Configuración QR
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modales -->
+{% include 'pagos/recepcionista/modals/modal_crear_qr.html' %}
+{% include 'pagos/recepcionista/modals/modal_editar_qr.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pagos/recepcionista/gestionar_qr.js' %}"></script>
+<script src="{% static 'js/pagos/recepcionista/modals/modal_crear_qr.js' %}"></script>
+<script src="{% static 'js/pagos/recepcionista/modals/modal_editar_qr.js' %}"></script>
+{% endblock %}

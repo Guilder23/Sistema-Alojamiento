@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+        <!-- Tarjeta de Bienvenida -->
+        <div class="welcome-card">
+            <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+            <p>Accede a las opciones del sistema desde el menú de abajo. Última conexión: {{ user.last_login|date:"d/m/Y H:i" }}</p>
+        </div>
+
+        <!-- Tu contenido específico por rol irá aquí -->
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Estado</h3>
+                <p>Panel disponible</p>
+                <div class="card-value">✓</div>
+            </div>
+        </div>
+
+        <!-- Menú de Opciones -->
+        <div class="menu-section">
+            <h3>Opciones Disponibles</h3>
+            <div class="menu-items">
+                <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                    <span class="menu-item-icon"><i class="fas fa-key"></i></span>
+                    <span>Cambiar Contraseña</span>
+                </a>
+                <a href="{% url 'autenticacion:login' %}" class="menu-item">
+                    <span class="menu-item-icon"><i class="fas fa-user"></i></span>
+                    <span>Mi Perfil</span>
+                </a>
+                <a href="{% url 'inicio:inicio' %}" class="menu-item">
+                    <span class="menu-item-icon"><i class="fas fa-home"></i></span>
+                    <span>Ir al Inicio</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/admin.js' %}"></script>
+{% endblock %}

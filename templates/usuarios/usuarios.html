@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/usuarios/usuarios.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/usuarios/modals/eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-usuarios">
+                <!-- Sección de Usuarios -->
+                <section class="usuarios-section">
+                    <div class="section-header">
+                        <div>
+                            <h2><i class="fas fa-users"></i> Gestión de Usuarios</h2>
+                            <p class="subtitle">Administra el catálogo de usuarios</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="abrirModalCrear()">
+                            <i class="fas fa-plus"></i> Nuevo Usuario
+                        </button>
+                    </div>
+
+                <!-- Filtros -->
+                <div class="filters-container">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-usuarios" class="search-input" placeholder="Buscar usuario...">
+                    </div>
+                    <select id="filter-rol" class="filter-select">
+                        <option value="">Filtrar por Rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="recepcionista">Recepcionista</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="empleado_limpieza">Empleado de Limpieza</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                    <select id="filter-estado" class="filter-select">
+                        <option value="">Filtrar por Estado</option>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Tabla de Usuarios -->
+                <div class="table-container">
+                    <table id="tabla-usuarios" class="usuarios-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos se cargarán con JavaScript -->
+                            <tr class="loading-row">
+                                <td colspan="6">Cargando usuarios...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div class="pagination">
+                    <button id="prev-page" onclick="cambiarPagina('prev')">Anterior</button>
+                    <span id="page-info">Página 1 de 1</span>
+                    <button id="next-page" onclick="cambiarPagina('next')">Siguiente</button>
+                </div>
+                </section>
+            </div> <!-- Cierre .container-usuarios -->
+
+{% include 'usuarios/modals/crear.html' %}
+{% include 'usuarios/modals/ver.html' %}
+{% include 'usuarios/modals/editar.html' %}
+{% include 'usuarios/modals/eliminar.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/usuarios/usuarios.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/crear.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/ver.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/editar.js' %}"></script>
+<script src="{% static 'js/usuarios/modals/eliminar.js' %}"></script>
+{% endblock %}
+</html>

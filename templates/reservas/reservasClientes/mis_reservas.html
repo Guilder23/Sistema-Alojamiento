@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mis Reservas - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reservas/reservasClientes/mis_reservas.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header">
+                <h1><i class="fas fa-calendar-check"></i> Mis Reservas</h1>
+                <p class="text-muted">Gestiona tus reservas de habitaciones</p>
+            </div>
+        </div>
+    </div>
+
+                {% if reservas %}
+                <!-- Estadísticas Compactas -->
+                <div class="stats-row">
+                    <div class="stat-item stat-total">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">{{ reservas|length }}</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
+                    <div class="stat-item stat-confirmada">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">{{ reservas|length }}</span>
+                            <span class="stat-label">Confirmadas</span>
+                        </div>
+                    </div>
+                    <div class="stat-item stat-activa">
+                        <i class="fas fa-calendar"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Activas</span>
+                        </div>
+                    </div>
+                    <div class="stat-item stat-cancelada">
+                        <i class="fas fa-times-circle"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Canceladas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Reservas -->
+                <div class="table-container">
+                    <table class="reservas-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Habitación</th>
+                                <th>Fechas</th>
+                                <th>Huéspedes</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in reservas %}
+                            <tr data-reserva-id="{{ reserva.id }}" data-estado="{{ reserva.estado }}">
+                                <td><strong>#{{ reserva.id }}</strong></td>
+                                <td>
+                                    <div class="habitacion-info">
+                                        <span class="habitacion-numero">{{ reserva.habitacion.numero }}</span>
+                                        <span class="habitacion-tipo">{{ reserva.habitacion.get_tipo_display }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fechas-info">
+                                        <div class="fecha-line">
+                                            <i class="fas fa-sign-in-alt"></i> {{ reserva.fecha_entrada|date:"d/m/Y" }}
+                                        </div>
+                                        <div class="fecha-line">
+                                            <i class="fas fa-sign-out-alt"></i> {{ reserva.fecha_salida|date:"d/m/Y" }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-users"></i> {{ reserva.num_huespedes }}
+                                </td>
+                                <td>
+                                    <span class="precio-valor">${{ reserva.precio_total|floatformat:2 }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-{{ reserva.estado }}">
+                                        {{ reserva.get_estado_display }}
+                                    </span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-info btn-sm btn-ver-detalles" data-reserva-id="{{ reserva.id }}" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    {% if reserva.estado == 'confirmada' %}
+                                    <a href="{% url 'pagos:mis_pagos' %}" class="btn btn-success btn-sm" title="Ver pagos">
+                                        <i class="fas fa-wallet"></i>
+                                    </a>
+                                    {% endif %}
+                                    {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
+                                    <button class="btn btn-danger btn-sm btn-cancelar-reserva" data-reserva-id="{{ reserva.id }}" title="Cancelar reserva">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <!-- Sin Reservas -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-calendar-times"></i>
+                            </div>
+                            <h3>No tienes reservas aún</h3>
+                            <p>Explora nuestras habitaciones disponibles y haz tu primera reserva</p>
+                            <a href="{% url 'habitaciones:buscar' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-search"></i> Buscar Habitaciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+    
+    <!-- Modales -->
+    {% include 'reservas/reservasClientes/modalMis_reservas/modal_detalles.html' %}
+    {% include 'reservas/reservasClientes/modalMis_reservas/modal_cancelar.html' %}
+    
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reservas/reservasClientes/mis_reservas.js' %}"></script>
+{% endblock %}

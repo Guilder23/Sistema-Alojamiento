@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/recepcionista.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Tarjeta de Bienvenida -->
+    <div class="welcome-card">
+        <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
+        <p>Panel de recepcionista disponible. Aquí podrás gestionar reservas y clientes.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-icon">📅</div>
+            <h3>Reservas Hoy</h3>
+            <p>Reservas previstas</p>
+            <div class="card-value">0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>Huéspedes</h3>
+            <p>En el hotel</p>
+            <div class="card-value">0</div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔑</div>
+            <h3>Check-ins</h3>
+            <p>Pendientes</p>
+            <div class="card-value">0</div>
+        </div>
+    </div>
+
+    <!-- Menú de Opciones -->
+    <div class="menu-section">
+        <h3>Funciones Disponibles</h3>
+        <div class="menu-items">
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">📋</span>
+                <span>Ver Reservas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">➕</span>
+                <span>Nueva Reserva</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="menu-item-icon">👤</span>
+                <span>Gestionar Clientes</span>
+            </a>
+            <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
+                <span class="menu-item-icon">🔑</span>
+                <span>Cambiar Contraseña</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboards/recepcionista.js' %}"></script>
+{% endblock %}

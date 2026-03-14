@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Reserva y Pago</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pagos/cliente/pdf_confirmacion.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>✓ Confirmación de Reserva y Pago</h1>
+            <p>Documento oficial de tu reserva en Sistema de Alojamiento</p>
+        </div>
+
+        <!-- Información del Cliente -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-user"></i> Información del Cliente
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Nombre Completo</span>
+                    <span class="info-value">{{ cliente.first_name }} {{ cliente.last_name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">{{ cliente.email }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Documento</span>
+                    <span class="info-value">---</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Teléfono</span>
+                    <span class="info-value">{{ cliente.perfil.telefono|default:"---" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de la Reserva -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-key"></i> Información de la Reserva
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Número de Reserva</span>
+                    <span class="info-value">#{{ reserva.id }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado</span>
+                    <span class="badge badge-success">{{ reserva.get_estado_display }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Habitación</span>
+                    <span class="info-value">{{ reserva.habitacion.nombre }} (Piso {{ reserva.habitacion.piso }})</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tipo de Habitación</span>
+                    <span class="info-value">{{ reserva.habitacion.get_tipo_display }}</span>
+                </div>
+            </div>
+
+            <table class="table-data">
+                <tbody>
+                    <tr>
+                        <td><strong>Fecha de Entrada:</strong></td>
+                        <td>{{ reserva.fecha_entrada|date:"d \d\e F \d\e Y" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fecha de Salida:</strong></td>
+                        <td>{{ reserva.fecha_salida|date:"d \d\e F \d\e Y" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Número de Noches:</strong></td>
+                        <td>{{ reserva.noches }} noche(s)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Huéspedes:</strong></td>
+                        <td>{{ reserva.numero_huespedes }} persona(s)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Información del Pago -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-credit-card"></i> Información del Pago
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Número de Pago</span>
+                    <span class="info-value">#{{ pago.id }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado del Pago</span>
+                    <span class="badge badge-success">{{ pago.get_estado_display }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Validado Por</span>
+                    <span class="info-value">{{ pago.validado_por.get_full_name|default:"Sistema" }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Fecha de Validación</span>
+                    <span class="info-value">{{ pago.fecha_validacion|date:"d/m/Y H:i" }}</span>
+                </div>
+                {% if pago.referencia_transaccion %}
+                <div class="info-item">
+                    <span class="info-label">Referencia de Transacción</span>
+                    <span class="info-value">{{ pago.referencia_transaccion }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="resumen">
+                <div class="resumen-row">
+                    <span class="resumen-label">Monto de la Habitación ({{ reserva.noches }} noches × ${{ reserva.precio_por_noche }})</span>
+                    <span class="resumen-value">${{ reserva.subtotal }}</span>
+                </div>
+                {% if reserva.descuento_aplicado %}
+                <div class="resumen-row">
+                    <span class="resumen-label">Descuento</span>
+                    <span class="resumen-value">-${{ reserva.descuento_aplicado }}</span>
+                </div>
+                {% endif %}
+                <div class="total-row">
+                    <span>Monto Total Pagado</span>
+                    <span>${{ pago.monto }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amenidades -->
+        {% if reserva.habitacion.internet or reserva.habitacion.tv or reserva.habitacion.aire_acondicionado %}
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-wifi"></i> Amenidades de la Habitación
+            </div>
+            <table class="table-data">
+                <tbody>
+                    {% if reserva.habitacion.internet %}<tr><td>✓ Internet (WiFi)</td></tr>{% endif %}
+                    {% if reserva.habitacion.tv %}<tr><td>✓ Televisión</td></tr>{% endif %}
+                    {% if reserva.habitacion.aire_acondicionado %}<tr><td>✓ Aire Acondicionado</td></tr>{% endif %}
+                    {% if reserva.habitacion.agua_caliente %}<tr><td>✓ Agua Caliente 24h</td></tr>{% endif %}
+                    {% if reserva.habitacion.minibar %}<tr><td>✓ Minibar</td></tr>{% endif %}
+                    {% if reserva.habitacion.bano_privado %}<tr><td>✓ Baño Privado</td></tr>{% endif %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <!-- Confirmación de Estado -->
+        <div class="status-confirmed">
+            ✓ PAGO CONFIRMADO Y VALIDADO
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Este documento confirma tu reserva y pago en nuestro sistema.</p>
+            <p>Para cualquier consulta, contacta con nuestro equipo de recepción.</p>
+            <p style="margin-top: 20px;">Generado: {{ "now"|date:"d/m/Y H:i" }}</p>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/pagos/cliente/pdf_confirmacion.js' %}"></script>
+</body>
+</html>
