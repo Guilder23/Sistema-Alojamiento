@@ -34,97 +34,77 @@
     </div>
 
     <!-- Lista de Configuraciones QR -->
-    <div class="row">
-        {% if configuraciones %}
-            {% for qr in configuraciones %}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="qr-config-card {% if qr.estado == 'activo' %}qr-activo{% endif %}"
-                     data-qr-id="{{ qr.id }}"
-                     data-qr-codigo="{{ qr.codigo_qr }}"
-                     data-qr-descripcion="{{ qr.descripcion }}"
-                     data-qr-estado="{{ qr.estado }}"
-                     data-qr-imagen="{% if qr.imagen_qr %}{{ qr.imagen_qr.url }}{% endif %}">
-                    <!-- Header de la tarjeta -->
-                    <div class="card-header-qr">
-                        <div class="qr-estado-badge">
-                            {% if qr.estado == 'activo' %}
-                                <span class="badge bg-success">
-                                    <i class="fas fa-check-circle"></i> Activo
-                                </span>
-                            {% else %}
-                                <span class="badge bg-secondary">
-                                    <i class="fas fa-pause-circle"></i> Inactivo
-                                </span>
-                            {% endif %}
-                        </div>
-                        <div class="qr-fecha">
-                            <small class="text-muted">
-                                <i class="fas fa-calendar"></i> Creado: {{ qr.creado|date:"d/m/Y" }}
-                            </small>
-                        </div>
-                    </div>
-
-                    <!-- Imagen QR -->
-                    <div class="qr-imagen-container">
-                        {% if qr.imagen_qr %}
-                            <img src="{{ qr.imagen_qr.url }}" alt="QR Code" class="qr-image">
+    {% if configuraciones %}
+    <div class="table-responsive qr-table-container">
+        <table class="table table-hover align-middle qr-table">
+            <thead class="table-light">
+                <tr>
+                    <th>Estado</th>
+                    <th>Creado</th>
+                    <th>QR</th>
+                    <th>Descripción</th>
+                    <th>Código/Datos</th>
+                    <th>Actualizado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for qr in configuraciones %}
+                <tr class="{% if qr.estado == 'activo' %}table-success{% endif %}" data-qr-id="{{ qr.id }}"
+                    data-qr-codigo="{{ qr.codigo_qr }}"
+                    data-qr-descripcion="{{ qr.descripcion }}"
+                    data-qr-estado="{{ qr.estado }}"
+                    data-qr-imagen="{% if qr.imagen_qr %}{{ qr.imagen_qr.url }}{% endif %}">
+                    <td>
+                        {% if qr.estado == 'activo' %}
+                        <span class="badge bg-success"><i class="fas fa-check-circle"></i> Activo</span>
                         {% else %}
-                            <div class="qr-placeholder">
-                                <i class="fas fa-qrcode"></i>
-                                <p>Sin imagen QR</p>
-                            </div>
+                        <span class="badge bg-secondary"><i class="fas fa-pause-circle"></i> Inactivo</span>
                         {% endif %}
-                    </div>
-
-                    <!-- Información -->
-                    <div class="qr-info">
-                        <div class="info-item">
-                            <label><i class="fas fa-align-left"></i> Descripción:</label>
-                            <p>{{ qr.descripcion|default:"Sin descripción" }}</p>
-                        </div>
-                        <div class="info-item">
-                            <label><i class="fas fa-key"></i> Código/Datos:</label>
-                            <p class="codigo-qr">{{ qr.codigo_qr }}</p>
-                        </div>
-                        <div class="info-item">
-                            <label><i class="fas fa-clock"></i> Última actualización:</label>
-                            <p><small>{{ qr.actualizado|date:"d/m/Y H:i" }}</small></p>
-                        </div>
-                    </div>
-
-                    <!-- Acciones -->
-                    <div class="qr-actions">
+                    </td>
+                    <td>{{ qr.creado|date:"d/m/Y" }}</td>
+                    <td>
+                        {% if qr.imagen_qr %}
+                        <img src="{{ qr.imagen_qr.url }}" alt="QR" class="qr-table-image">
+                        {% else %}
+                        <span class="text-muted"><i class="fas fa-qrcode"></i> Sin imagen</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ qr.descripcion|default:"Sin descripción" }}</td>
+                    <td><code class="codigo-qr">{{ qr.codigo_qr }}</code></td>
+                    <td>{{ qr.actualizado|date:"d/m/Y H:i" }}</td>
+                    <td class="qr-actions-cell">
                         <button class="btn btn-sm btn-outline-primary btn-editar-qr" data-qr-id="{{ qr.id }}">
-                            <i class="fas fa-edit"></i> Editar
+                            <i class="fas fa-edit"></i>
                         </button>
                         {% if qr.estado == 'inactivo' %}
                         <button class="btn btn-sm btn-success btn-activar-qr" data-qr-id="{{ qr.id }}">
-                            <i class="fas fa-check"></i> Activar
+                            <i class="fas fa-check"></i>
                         </button>
                         {% endif %}
                         <button class="btn btn-sm btn-outline-danger btn-eliminar-qr" data-qr-id="{{ qr.id }}">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i>
                         </button>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <!-- Estado vacío -->
-            <div class="col-12">
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <h3>No hay configuraciones de QR</h3>
-                    <p>Crea tu primera configuración para que los clientes puedan pagar escaneando el QR</p>
-                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
-                        <i class="fas fa-plus"></i> Crear Configuración QR
-                    </button>
-                </div>
-            </div>
-        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% else %}
+    <!-- Estado vacío -->
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-qrcode"></i>
+        </div>
+        <h3>No hay configuraciones de QR</h3>
+        <p>Crea tu primera configuración para que los clientes puedan pagar escaneando el QR</p>
+        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
+            <i class="fas fa-plus"></i> Crear Configuración QR
+        </button>
+    </div>
+    {% endif %}
+
 </div>
 
 <!-- Modales -->

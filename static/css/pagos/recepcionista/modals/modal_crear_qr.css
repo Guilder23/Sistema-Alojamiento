@@ -1,66 +1,56 @@
-/* Modal Crear QR - Estilos */
+/* Modal Crear QR - Estilos armados al estilo Crear Usuario */
 
 #modalCrearQR .modal-header {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    background: #0a6266;
     color: white;
 }
 
-#modalCrearQR .form-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+#modalCrearQR .modal-body {
+    padding-top: 18px;
 }
 
-#modalCrearQR .form-label i {
-    color: #007bff;
-    font-size: 1.1rem;
+#modalCrearQR .form-label {
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
 }
 
 #modalCrearQR .form-control,
 #modalCrearQR .form-select {
-    border-radius: 8px;
-    border: 2px solid #e9ecef;
-    padding: 0.75rem 1rem;
-    transition: all 0.3s ease;
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
 }
 
-#modalCrearQR .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+#modalCrearQR .form-control:focus,
+#modalCrearQR .form-select:focus {
+    border-color: rgba(10, 98, 102, 0.9);
+    box-shadow: 0 0 0 4px rgba(10, 98, 102, 0.16);
 }
 
-#modalCrearQR small.text-muted {
-    font-size: 0.85rem;
-    color: #6c757d;
-    font-style: italic;
+#modalCrearQR .input-with-icon .input-icon {
+    background: rgba(10, 98, 102, 0.10);
+    color: rgba(10, 98, 102, 0.95);
+    border-radius: 3px;
 }
 
-/* Preview de imagen */
-#preview_crear {
-    border: 2px dashed #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    transition: all 0.3s ease;
+#modalCrearQR .modal-footer {
+    justify-content: space-between;
 }
 
-#preview_crear:hover {
-    border-color: #007bff;
-    background: white;
+#modalCrearQR .modal-footer .btn {
+    border-radius: 3px;
 }
 
-#preview_img_crear {
-    border: 3px solid #e9ecef;
-    border-radius: 10px;
-    padding: 0.75rem;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+#modalCrearQR .modal-footer .btn-primary {
+    background: #0a6266;
+    color: white;
 }
 
-/* Form Check Switch */
+#modalCrearQR .modal-footer .btn-primary:hover {
+    background: #084e51;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.3);
+}
+
 #modalCrearQR .form-check-input {
     width: 3rem;
     height: 1.5rem;
@@ -71,3 +61,8 @@
     background-color: #28a745;
     border-color: #28a745;
 }
+
+#preview_crear, #formCrearQR .mb-3 {
+    border-radius: 8px;
+}
+

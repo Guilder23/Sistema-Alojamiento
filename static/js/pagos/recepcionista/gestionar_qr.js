@@ -114,10 +114,10 @@ document.querySelectorAll('.btn-editar-qr').forEach(btn => {
     btn.addEventListener('click', function() {
         const qrId = this.getAttribute('data-qr-id');
         
-        // Encontrar la tarjeta que contiene los datos
-        const card = document.querySelector(`.qr-config-card[data-qr-id="${qrId}"]`);
+        // Encontrar la fila que contiene los datos
+        const row = this.closest('[data-qr-id="' + qrId + '"]');
         
-        if (!card) {
+        if (!row) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -127,10 +127,10 @@ document.querySelectorAll('.btn-editar-qr').forEach(btn => {
         }
         
         // Obtener datos de los data attributes
-        const codigo = card.getAttribute('data-qr-codigo');
-        const descripcion = card.getAttribute('data-qr-descripcion');
-        const estado = card.getAttribute('data-qr-estado');
-        const imagenUrl = card.getAttribute('data-qr-imagen');
+        const codigo = row.getAttribute('data-qr-codigo');
+        const descripcion = row.getAttribute('data-qr-descripcion');
+        const estado = row.getAttribute('data-qr-estado');
+        const imagenUrl = row.getAttribute('data-qr-imagen');
         
         // Poblar el modal con los datos
         document.getElementById('qr_id_editar').value = qrId;

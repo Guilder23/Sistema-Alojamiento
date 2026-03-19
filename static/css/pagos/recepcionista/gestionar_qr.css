@@ -40,11 +40,12 @@
 
 /* Container */
 .container-fluid {
-    padding: 2rem;
+    padding: 1rem 1.25rem 1.5rem 1.25rem;
 }
 
 .page-header {
-    margin-bottom: 2rem;
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 1.25rem;
     padding-bottom: 1.5rem;
     border-bottom: 3px solid var(--primary-color);
     background: white;
@@ -398,6 +399,48 @@
     border-radius: 50px;
     box-shadow: var(--shadow-md);
     font-weight: 700;
+}
+
+/* Tabla de QR */
+.qr-table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.qr-table {
+    margin-bottom: 0;
+}
+
+.qr-table th,
+.qr-table td {
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.qr-table-image {
+    max-width: 80px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.qr-actions-cell .btn {
+    margin-right: 0.25rem;
+}
+
+.qr-actions-cell .btn:last-child {
+    margin-right: 0;
+}
+
+.codigo-qr {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 0.35rem 0.55rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    word-break: break-all;
 }
 
 /* Modales */
