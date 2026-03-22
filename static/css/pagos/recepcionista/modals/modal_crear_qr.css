@@ -1,17 +1,91 @@
 /* Modal Crear QR - Estilos armados al estilo Crear Usuario */
 
+#modalCrearQR .modal-content {
+    border-radius: 4px;
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.35),
+        0 2px 0 rgba(255, 255, 255, 0.4) inset;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    overflow: hidden;
+}
+
 #modalCrearQR .modal-header {
-    background: #0a6266;
+    background: #0a6266 !important;
     color: white;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+#modalCrearQR .modal-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalCrearQR .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+}
+
+#modalCrearQR .btn-close:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 #modalCrearQR .modal-body {
-    padding-top: 18px;
+    padding: 22px;
+}
+
+#formCrearQR {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+#formCrearQR .form-group {
+    margin-bottom: 0;
 }
 
 #modalCrearQR .form-label {
     font-weight: 700;
     color: rgba(17, 24, 39, 0.85);
+    margin-bottom: 8px;
+}
+
+#modalCrearQR .required {
+    color: #dc3545;
+}
+
+#modalCrearQR .input-with-icon {
+    position: relative;
+}
+
+#modalCrearQR .input-with-icon .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 98, 102, 0.10);
+    color: rgba(10, 98, 102, 0.95);
+    pointer-events: none;
+}
+
+#modalCrearQR .textarea-with-icon .input-icon {
+    top: 15px;
+    transform: none;
 }
 
 #modalCrearQR .form-control,
@@ -21,24 +95,37 @@
     background: rgba(255, 255, 255, 0.95);
 }
 
+#modalCrearQR .input-with-icon .form-control {
+    padding-left: 52px;
+}
+
+#modalCrearQR .textarea-with-icon .form-control {
+    padding-top: 10px;
+}
+
 #modalCrearQR .form-control:focus,
 #modalCrearQR .form-select:focus {
     border-color: rgba(10, 98, 102, 0.9);
     box-shadow: 0 0 0 4px rgba(10, 98, 102, 0.16);
 }
 
-#modalCrearQR .input-with-icon .input-icon {
-    background: rgba(10, 98, 102, 0.10);
-    color: rgba(10, 98, 102, 0.95);
-    border-radius: 3px;
+#modalCrearQR small.text-muted {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
 }
 
 #modalCrearQR .modal-footer {
+    padding: 18px 22px;
+    border-top: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(248, 250, 252, 0.9);
     justify-content: space-between;
 }
 
 #modalCrearQR .modal-footer .btn {
     border-radius: 3px;
+    padding: 11px 16px;
+    font-weight: 800;
 }
 
 #modalCrearQR .modal-footer .btn-primary {
@@ -49,6 +136,15 @@
 #modalCrearQR .modal-footer .btn-primary:hover {
     background: #084e51;
     box-shadow: 0 2px 8px rgba(10, 98, 102, 0.3);
+}
+
+#modalCrearQR .modal-footer .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+#modalCrearQR .modal-footer .btn-secondary:hover {
+    background: #5a6268;
 }
 
 #modalCrearQR .form-check-input {
@@ -62,7 +158,8 @@
     border-color: #28a745;
 }
 
-#preview_crear, #formCrearQR .mb-3 {
+#preview_crear,
+#formCrearQR .form-group {
     border-radius: 8px;
 }
 

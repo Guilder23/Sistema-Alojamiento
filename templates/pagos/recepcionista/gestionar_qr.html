@@ -7,22 +7,21 @@
 <link rel="stylesheet" href="{% static 'css/pagos/recepcionista/gestionar_qr.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagos/recepcionista/modals/modal_crear_qr.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagos/recepcionista/modals/modal_editar_qr.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagos/recepcionista/modals/modal_eliminar_qr.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
+<div class="container-usuarios qr-usuarios-like">
+    <section class="usuarios-section">
     <!-- Header -->
-    <div class="page-header mb-4">
-        <div class="row align-items-center">
-            <div class="col">
-                <h2><i class="fas fa-qrcode"></i> Configuración de QR para Pagos</h2>
-                <p class="text-muted">Administra los códigos QR que verán los clientes al momento de pagar</p>
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
-                    <i class="fas fa-plus"></i> Crear Nuevo QR
-                </button>
-            </div>
+    <div class="section-header">
+        <div>
+            <h2><i class="fas fa-qrcode"></i> Configuración de QR para Pagos</h2>
+            <p class="subtitle">Administra los códigos QR que verán los clientes al momento de pagar</p>
+        </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearQR">
+            <i class="fas fa-plus"></i> Crear Nuevo QR
+        </button>
         </div>
     </div>
 
@@ -35,13 +34,13 @@
 
     <!-- Lista de Configuraciones QR -->
     {% if configuraciones %}
-    <div class="table-responsive qr-table-container">
-        <table class="table table-hover align-middle qr-table">
-            <thead class="table-light">
+    <div class="table-container">
+        <table class="usuarios-table qr-table">
+            <thead>
                 <tr>
+                    <th>QR</th>
                     <th>Estado</th>
                     <th>Creado</th>
-                    <th>QR</th>
                     <th>Descripción</th>
                     <th>Código/Datos</th>
                     <th>Actualizado</th>
@@ -50,19 +49,7 @@
             </thead>
             <tbody>
                 {% for qr in configuraciones %}
-                <tr class="{% if qr.estado == 'activo' %}table-success{% endif %}" data-qr-id="{{ qr.id }}"
-                    data-qr-codigo="{{ qr.codigo_qr }}"
-                    data-qr-descripcion="{{ qr.descripcion }}"
-                    data-qr-estado="{{ qr.estado }}"
-                    data-qr-imagen="{% if qr.imagen_qr %}{{ qr.imagen_qr.url }}{% endif %}">
-                    <td>
-                        {% if qr.estado == 'activo' %}
-                        <span class="badge bg-success"><i class="fas fa-check-circle"></i> Activo</span>
-                        {% else %}
-                        <span class="badge bg-secondary"><i class="fas fa-pause-circle"></i> Inactivo</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ qr.creado|date:"d/m/Y" }}</td>
+                <tr data-qr-id="{{ qr.id }}">
                     <td>
                         {% if qr.imagen_qr %}
                         <img src="{{ qr.imagen_qr.url }}" alt="QR" class="qr-table-image">
@@ -70,11 +57,24 @@
                         <span class="text-muted"><i class="fas fa-qrcode"></i> Sin imagen</span>
                         {% endif %}
                     </td>
+                    <td>
+                        {% if qr.estado == 'activo' %}
+                        <span class="badge badge-activo">Activo</span>
+                        {% else %}
+                        <span class="badge badge-inactivo">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ qr.creado|date:"d/m/Y" }}</td>
                     <td>{{ qr.descripcion|default:"Sin descripción" }}</td>
-                    <td><code class="codigo-qr">{{ qr.codigo_qr }}</code></td>
+                    <td><span class="badge codigo-qr">{{ qr.codigo_qr }}</span></td>
                     <td>{{ qr.actualizado|date:"d/m/Y H:i" }}</td>
-                    <td class="qr-actions-cell">
-                        <button class="btn btn-sm btn-outline-primary btn-editar-qr" data-qr-id="{{ qr.id }}">
+                    <td class="actions-cell qr-actions-cell">
+                        <button class="btn btn-warning btn-sm btn-editar-qr"
+                                data-qr-id="{{ qr.id }}"
+                                data-qr-codigo="{{ qr.codigo_qr|urlencode }}"
+                                data-qr-descripcion="{{ qr.descripcion|default:''|urlencode }}"
+                                data-qr-estado="{{ qr.estado }}"
+                                data-qr-imagen="{% if qr.imagen_qr %}{{ qr.imagen_qr.url }}{% endif %}">
                             <i class="fas fa-edit"></i>
                         </button>
                         {% if qr.estado == 'inactivo' %}
@@ -82,7 +82,7 @@
                             <i class="fas fa-check"></i>
                         </button>
                         {% endif %}
-                        <button class="btn btn-sm btn-outline-danger btn-eliminar-qr" data-qr-id="{{ qr.id }}">
+                        <button class="btn btn-danger btn-sm btn-eliminar-qr" data-qr-id="{{ qr.id }}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
@@ -105,15 +105,18 @@
     </div>
     {% endif %}
 
+    </section>
 </div>
 
 <!-- Modales -->
 {% include 'pagos/recepcionista/modals/modal_crear_qr.html' %}
 {% include 'pagos/recepcionista/modals/modal_editar_qr.html' %}
+{% include 'pagos/recepcionista/modals/modal_eliminar_qr.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/pagos/recepcionista/gestionar_qr.js' %}"></script>
 <script src="{% static 'js/pagos/recepcionista/modals/modal_crear_qr.js' %}"></script>
 <script src="{% static 'js/pagos/recepcionista/modals/modal_editar_qr.js' %}"></script>
+<script src="{% static 'js/pagos/recepcionista/modals/modal_eliminar_qr.js' %}"></script>
 {% endblock %}

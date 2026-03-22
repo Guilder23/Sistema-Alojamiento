@@ -1,78 +1,249 @@
 /* Modal Editar QR - Estilos */
 
+#modalEditarQR .modal-content {
+    border-radius: 4px;
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.35),
+        0 2px 0 rgba(255, 255, 255, 0.4) inset;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    overflow: hidden;
+}
+
+#modalEditarQR .modal-dialog {
+    max-width: min(860px, 94vw);
+}
+
 #modalEditarQR .modal-header {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
-    color: #212529;
+    background: #ffc107 !important;
+    color: #ffffff;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+#modalEditarQR .modal-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalEditarQR .btn-close {
+    opacity: 0.8;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+}
+
+#modalEditarQR .btn-close:hover {
+    background: rgba(33, 37, 41, 0.1);
+}
+
+#modalEditarQR .modal-body {
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+}
+
+#formEditarQR {
+    display: block;
+}
+
+#formEditarQR .form-group {
+    margin-bottom: 0;
+}
+
+#modalEditarQR .group-full {
+    grid-column: 1 / -1;
+}
+
+#modalEditarQR .group-half {
+    grid-column: span 1;
 }
 
 #modalEditarQR .form-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
+    margin-bottom: 6px;
 }
 
-#modalEditarQR .form-label i {
-    color: #ffc107;
-    font-size: 1.1rem;
+#modalEditarQR .required {
+    color: #dc3545;
+}
+
+#modalEditarQR .input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+#modalEditarQR .input-with-icon .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 193, 7, 0.14);
+    color: rgba(255, 193, 7, 0.95);
+    pointer-events: none;
+}
+
+#modalEditarQR .textarea-with-icon .input-icon {
+    top: 15px;
+    transform: none;
 }
 
 #modalEditarQR .form-control,
 #modalEditarQR .form-select {
-    border-radius: 8px;
-    border: 2px solid #e9ecef;
-    padding: 0.75rem 1rem;
-    transition: all 0.3s ease;
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
 }
 
-#modalEditarQR .form-control:focus {
-    border-color: #ffc107;
-    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
+#modalEditarQR .input-with-icon .form-control {
+    padding-left: 52px;
 }
 
-/* Imagen actual */
-#imagen_actual_container {
-    border: 2px dashed #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem;
-    background: #f8f9fa;
+#modalEditarQR .textarea-with-icon .form-control {
+    padding-top: 10px;
+}
+
+#modalEditarQR .form-control:focus,
+#modalEditarQR .form-select:focus {
+    border-color: rgba(255, 193, 7, 0.95);
+    box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.18);
+}
+
+.imagenes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+#modalEditarQR .imagen-card {
+    border: 1px dashed rgba(17, 24, 39, 0.18);
+    border-radius: 3px;
+    padding: 10px;
+    background: rgba(255, 251, 235, 0.45);
+    min-height: 250px;
 }
 
 #qr_actual_img {
-    border: 3px solid #e9ecef;
-    border-radius: 10px;
-    padding: 0.75rem;
+    border: 1px solid rgba(17, 24, 39, 0.18);
+    border-radius: 3px;
+    padding: 0.6rem;
     background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.12);
 }
 
-/* Preview de nueva imagen */
 #preview_editar {
-    border: 2px dashed #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem;
-    background: #fff3cd;
-    transition: all 0.3s ease;
+    background: rgba(255, 251, 235, 0.35);
 }
 
 #preview_img_editar {
-    border: 3px solid #ffc107;
-    border-radius: 10px;
-    padding: 0.75rem;
+    border: 1px solid rgba(255, 193, 7, 0.8);
+    border-radius: 3px;
+    padding: 0.6rem;
     background: white;
-    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.22);
 }
 
-/* Form Check */
-#modalEditarQR .form-check-input {
-    width: 3rem;
-    height: 1.5rem;
+#qr_actual_sin_imagen {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#modalEditarQR .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.8);
+}
+
+#modalEditarQR .checkbox-group .form-check-label {
+    margin: 0;
+    font-weight: 700;
     cursor: pointer;
+}
+
+#modalEditarQR .form-check-input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #f59e0b;
 }
 
 #modalEditarQR .form-check-input:checked {
     background-color: #28a745;
     border-color: #28a745;
+}
+
+#modalEditarQR .form-switch .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+}
+
+#modalEditarQR .modal-footer {
+    padding: 12px 18px;
+    border-top: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(248, 250, 252, 0.9);
+    justify-content: space-between;
+}
+
+#modalEditarQR .modal-footer .btn {
+    border-radius: 3px;
+    padding: 11px 16px;
+    font-weight: 700;
+}
+
+#modalEditarQR .modal-footer .btn-success,
+#modalEditarQR .modal-footer .btn-warning {
+    background: #ffc107;
+    color: #ffffff;
+    border-color: #ffc107;
+}
+
+#modalEditarQR .modal-footer .btn-success:hover,
+#modalEditarQR .modal-footer .btn-warning:hover {
+    background: #e0a800;
+    border-color: #e0a800;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+@media (max-width: 768px) {
+    #modalEditarQR .modal-dialog {
+        max-width: calc(100vw - 20px);
+    }
+
+    #modalEditarQR .modal-body {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #modalEditarQR .group-half,
+    #modalEditarQR .group-full {
+        grid-column: 1 / -1;
+    }
+
+    .imagenes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #modalEditarQR .imagen-card {
+        min-height: auto;
+    }
 }
