@@ -7,8 +7,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
 
 urlpatterns = [
+    # Evita 404 del favicon cuando el navegador solicita /favicon.ico
+    path('favicon.ico', lambda request: HttpResponse(status=204)),
+
     # Admin
     path('admin/', admin.site.urls),
     

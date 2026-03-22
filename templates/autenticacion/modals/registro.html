@@ -98,3 +98,13 @@
 </div>
 
 <link rel="stylesheet" href="{% static 'css/autenticacion/modals/registro.css' %}">
+
+{% if abrir_modal_registro %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof openRegistroModal === 'function') {
+        openRegistroModal();
+    }
+});
+</script>
+{% endif %}
