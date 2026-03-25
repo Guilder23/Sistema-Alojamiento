@@ -23,6 +23,7 @@ body {
 .main-content {
     flex: 1;
     overflow-x: hidden;
+    color-scheme:calc(0.5 * 100%);
     /* margin-left: 200px; */
     transition: margin-left 0.3s ease;
 }
