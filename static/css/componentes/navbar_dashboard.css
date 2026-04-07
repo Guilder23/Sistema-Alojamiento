@@ -52,6 +52,17 @@
     color: #C5E8ED;
 }
 
+.dashboard-navbar .navbar-title-icon {
+    font-size: 20px;
+    line-height: 1;
+    color: #C5E8ED;
+}
+
+.dashboard-navbar .navbar-title-text {
+    display: inline-block;
+    white-space: nowrap;
+}
+
 .dashboard-navbar .user-section {
     display: flex;
     gap: 20px;
@@ -109,6 +120,15 @@
 
     .dashboard-navbar h1 {
         font-size: 16px;
+    }
+
+    /* En movil: ocultar texto y dejar solo icono */
+    .dashboard-navbar .navbar-title-text {
+        display: none;
+    }
+
+    .dashboard-navbar .navbar-title-icon {
+        font-size: 18px;
     }
 
     .dashboard-navbar .user-section {

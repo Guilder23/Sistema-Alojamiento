@@ -10,16 +10,24 @@
             <i class="fas fa-bars"></i>
         </button>
         <h1>
-            {% if user.perfil.rol.nombre == 'administrador' %}
-                🏨 Panel de Administración
-            {% elif user.perfil.rol.nombre == 'recepcionista' %}
-                📋 Panel de Recepción
-            {% elif user.perfil.rol.nombre == 'gerente' %}
-                📊 Panel de Gerencia
-            {% elif user.perfil.rol.nombre == 'empleado' %}
-                🧹 Panel de Limpieza
+            {% if user.is_superuser %}
+                <i class="fas fa-hotel navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Panel de Administración</span>
+            {% elif user.perfil and user.perfil.rol.nombre == 'administrador' %}
+                <i class="fas fa-hotel navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Panel de Administración</span>
+            {% elif user.perfil and user.perfil.rol.nombre == 'recepcionista' %}
+                <i class="fas fa-clipboard-list navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Panel de Recepción</span>
+            {% elif user.perfil and user.perfil.rol.nombre == 'gerente' %}
+                <i class="fas fa-chart-line navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Panel de Gerencia</span>
+            {% elif user.perfil and user.perfil.rol.nombre == 'empleado_limpieza' %}
+                <i class="fas fa-broom navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Panel de Limpieza</span>
             {% else %}
-                👤 Mi Cuenta
+                <i class="fas fa-user navbar-title-icon" aria-hidden="true"></i>
+                <span class="navbar-title-text">Mi Cuenta</span>
             {% endif %}
         </h1>
     </div>

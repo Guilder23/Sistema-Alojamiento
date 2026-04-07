@@ -70,26 +70,51 @@ function renderizarEdificio() {
     }, 50);
 }
 
-// Agrupar habitaciones por piso (primer dígito del número)
+// Agrupar habitaciones por piso (usa el campo `piso` como fuente de verdad)
 function agruparPorPiso(habitaciones) {
     const pisos = {};
-    
+
     habitaciones.forEach(habitacion => {
-        // Extraer el piso del número de habitación
-        const numero = habitacion.numero.toString();
-        let piso = 1; // Por defecto piso 1
-        
-        if (numero.length >= 2) {
-            piso = parseInt(numero.charAt(0));
+        let piso = null;
+
+        // 1) Piso real desde la API (preferido)
+        if (habitacion.piso !== undefined && habitacion.piso !== null && habitacion.piso !== '') {
+            const parsed = parseInt(habitacion.piso, 10);
+            if (!Number.isNaN(parsed)) {
+                piso = parsed;
+            }
         }
-        
+
+        // 2) Fallback: primer dígito del número (solo si no viene `piso`)
+        if (piso === null) {
+            const numero = String(habitacion.numero ?? '').trim();
+            const primerDigito = numero.length >= 2 ? parseInt(numero.charAt(0), 10) : Number.NaN;
+            piso = !Number.isNaN(primerDigito) ? primerDigito : 1;
+        }
+
         if (!pisos[piso]) {
             pisos[piso] = [];
         }
-        
+
         pisos[piso].push(habitacion);
     });
-    
+
+    // Ordenar habitaciones dentro de cada piso por número
+    Object.keys(pisos).forEach(pisoKey => {
+        pisos[pisoKey].sort((a, b) => {
+            const aNumRaw = String(a.numero ?? '').trim();
+            const bNumRaw = String(b.numero ?? '').trim();
+            const aNum = parseInt(aNumRaw, 10);
+            const bNum = parseInt(bNumRaw, 10);
+
+            if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
+                return aNum - bNum;
+            }
+
+            return aNumRaw.localeCompare(bNumRaw, 'es', { numeric: true, sensitivity: 'base' });
+        });
+    });
+
     return pisos;
 }
 
