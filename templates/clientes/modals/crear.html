@@ -1,0 +1,139 @@
+<!-- Modal Crear Cliente -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-crear-cliente" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> Crear Nuevo Cliente</h3>
+        <button class="close-modal" id="close-modal-crear">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-crear-cliente">
+            <div class="form-group">
+                <label for="crear-nombre">Nombre <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="crear-nombre" class="form-control" required placeholder="Ej: Juan">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-apellido">Apellido <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="crear-apellido" class="form-control" required placeholder="Ej: Garcia">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-username">Nombre de Usuario <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user-tag"></i></span>
+                    <input type="text" id="crear-username" class="form-control" required placeholder="Ej: juan.garcia">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-email">Email <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" id="crear-email" class="form-control" required placeholder="Ej: cliente@correo.com">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="password-grid">
+                <div class="form-group">
+                    <label for="crear-password">Contrasena <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="crear-password" class="form-control" required placeholder="Minimo 6 caracteres">
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="crear-password-confirm">Confirmar Contrasena <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <span class="input-icon"><i class="fas fa-shield-alt"></i></span>
+                        <input type="password" id="crear-password-confirm" class="form-control" required placeholder="Repetir contrasena">
+                    </div>
+                    <div class="form-error"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="crear-tipo-documento">Tipo de Documento <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-id-card"></i></span>
+                    <select id="crear-tipo-documento" class="form-control" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="ci">Cedula de Identidad</option>
+                        <option value="pasaporte">Pasaporte</option>
+                        <option value="ruc">RUC</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-numero-documento">Numero de Documento <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-id-badge"></i></span>
+                    <input type="text" id="crear-numero-documento" class="form-control" required placeholder="Ej: 12345678">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-telefono">Telefono <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-phone"></i></span>
+                    <input type="text" id="crear-telefono" class="form-control" required placeholder="Ej: +58 412 0000000">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-pais">Pais <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-flag"></i></span>
+                    <select id="crear-pais" class="form-control" required>
+                        <option value="">Seleccionar pais</option>
+                        <option value="VE">Venezuela</option>
+                        <option value="CO">Colombia</option>
+                        <option value="PE">Peru</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="BO">Bolivia</option>
+                        <option value="CL">Chile</option>
+                        <option value="AR">Argentina</option>
+                        <option value="BR">Brasil</option>
+                        <option value="MX">Mexico</option>
+                        <option value="OTRO">Otro pais</option>
+                    </select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-ciudad">Ciudad</label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-city"></i></span>
+                    <input type="text" id="crear-ciudad" class="form-control" placeholder="Ej: Caracas">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-direccion">Direccion</label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-map-marked-alt"></i></span>
+                    <textarea id="crear-direccion" class="form-control" rows="3" placeholder="Direccion completa"></textarea>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-activo">
+                    <input type="checkbox" id="crear-activo" checked> <i class="fas fa-toggle-on"></i> Cliente Activo
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-cliente')">Cancelar</button>
+        <button type="submit" form="form-crear-cliente" class="btn btn-primary">
+            <i class="fas fa-save"></i> Crear Cliente
+        </button>
+    </div>
+</div>

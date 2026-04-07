@@ -1,0 +1,114 @@
+<!-- Modal Editar Cliente -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-editar-cliente" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-user-edit"></i> Editar Cliente</h3>
+        <button class="close-modal" id="close-modal-editar">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-editar-cliente">
+            <input type="hidden" id="editar-id">
+            <div class="form-group">
+                <label for="editar-nombre">Nombre <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="editar-nombre" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-apellido">Apellido <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="editar-apellido" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-tipo-documento">Tipo de Documento <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-id-card"></i></span>
+                    <select id="editar-tipo-documento" class="form-control" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="ci">Cedula de Identidad</option>
+                        <option value="pasaporte">Pasaporte</option>
+                        <option value="ruc">RUC</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-numero-documento">Numero de Documento <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-id-badge"></i></span>
+                    <input type="text" id="editar-numero-documento" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-telefono">Telefono <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-phone"></i></span>
+                    <input type="text" id="editar-telefono" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-email">Email <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" id="editar-email" class="form-control" required>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-pais">Pais <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-flag"></i></span>
+                    <select id="editar-pais" class="form-control" required>
+                        <option value="">Seleccionar pais</option>
+                        <option value="VE">Venezuela</option>
+                        <option value="CO">Colombia</option>
+                        <option value="PE">Peru</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="BO">Bolivia</option>
+                        <option value="CL">Chile</option>
+                        <option value="AR">Argentina</option>
+                        <option value="BR">Brasil</option>
+                        <option value="MX">Mexico</option>
+                        <option value="OTRO">Otro pais</option>
+                    </select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-ciudad">Ciudad</label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-city"></i></span>
+                    <input type="text" id="editar-ciudad" class="form-control">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-direccion">Direccion</label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-map-marked-alt"></i></span>
+                    <textarea id="editar-direccion" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="editar-activo">
+                    <input type="checkbox" id="editar-activo"> <i class="fas fa-toggle-on"></i> Cliente Activo
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-editar-cliente')">Cancelar</button>
+        <button type="submit" form="form-editar-cliente" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+    </div>
+</div>

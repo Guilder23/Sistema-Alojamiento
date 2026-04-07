@@ -1,0 +1,83 @@
+/* Estilos para Modal Ver Cliente */
+
+#modal-ver-cliente .modal-header {
+    background: #17a2b8;
+    color: white;
+}
+
+#modal-ver-cliente .modal-body {
+    padding-top: 18px;
+}
+
+#modal-ver-cliente .detail-group {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 12px 14px;
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+#modal-ver-cliente .detail-label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(17, 24, 39, 0.55);
+    font-weight: 800;
+}
+
+#modal-ver-cliente .detail-label i {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(23, 162, 184, 0.10);
+    color: rgba(23, 162, 184, 0.95);
+    margin-right: 8px;
+    font-size: 11px;
+}
+
+#modal-ver-cliente .detail-value {
+    font-size: 14px;
+    font-weight: 650;
+    color: rgba(17, 24, 39, 0.90);
+    word-break: break-word;
+}
+
+#modal-ver-cliente .detail-value .badge {
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+#modal-ver-cliente .modal-footer {
+    justify-content: flex-end;
+}
+
+#modal-ver-cliente .modal-footer .btn {
+    border-radius: 3px;
+}
+
+#modal-ver-cliente .modal-footer .btn-secondary {
+    background: #17a2b8;
+    color: white;
+}
+
+#modal-ver-cliente .modal-footer .btn-secondary:hover {
+    background: #138496;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+}
+
+@media (max-width: 768px) {
+    #modal-ver-cliente .detail-group {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
