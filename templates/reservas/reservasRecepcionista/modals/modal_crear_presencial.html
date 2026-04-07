@@ -1,0 +1,123 @@
+<!-- Modal Crear Reserva Presencial -->
+<div class="modal fade" id="modalCrearPresencial" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nueva Reserva Presencial
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info small mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    Este formulario crea la reserva para un cliente (walk-in) y opcionalmente registra el pago en recepción.
+                </div>
+
+                <form id="form-crear-presencial" autocomplete="off">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Cliente</label>
+                            <select class="form-select" id="presencial-cliente" required>
+                                <option value="">Cargando clientes...</option>
+                            </select>
+                            <div class="form-text">Si no existe, créalo primero en Gestión de Clientes.</div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Fecha entrada</label>
+                            <input type="date" class="form-control" id="presencial-fecha-inicio" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Fecha salida</label>
+                            <input type="date" class="form-control" id="presencial-fecha-fin" required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Huéspedes</label>
+                            <input type="number" min="1" class="form-control" id="presencial-num-personas" value="1" required>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label">Habitación</label>
+                            <div class="input-group">
+                                <select class="form-select" id="presencial-habitacion" required>
+                                    <option value="">Primero busca disponibilidad</option>
+                                </select>
+                                <button class="btn btn-outline-primary" type="button" id="btn-buscar-habitaciones">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">Usa la lupa para buscar habitaciones disponibles en ese rango.</div>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="presencial-checkin" checked>
+                                <label class="form-check-label" for="presencial-checkin">
+                                    Check-in inmediato (ocupar habitación)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Observaciones</label>
+                            <textarea class="form-control" id="presencial-observaciones" rows="2" placeholder="Notas (opcional)"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <hr>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h6 class="mb-0"><i class="fas fa-users"></i> Acompañantes (opcional)</h6>
+                                <button class="btn btn-sm btn-outline-secondary" type="button" id="btn-agregar-acompanante">
+                                    <i class="fas fa-user-plus"></i> Agregar
+                                </button>
+                            </div>
+                            <div id="presencial-acompanantes" class="mt-3"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="presencial-registrar-pago">
+                                <label class="form-check-label" for="presencial-registrar-pago">
+                                    Registrar pago presencial ahora
+                                </label>
+                            </div>
+
+                            <div id="presencial-pago-fields" class="row g-3" style="display:none;">
+                                <div class="col-md-4">
+                                    <label class="form-label">Tipo de pago</label>
+                                    <select class="form-select" id="presencial-tipo-pago">
+                                        <option value="efectivo">Efectivo</option>
+                                        <option value="transferencia">Transferencia</option>
+                                        <option value="tarjeta">Tarjeta</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Referencia (opcional)</label>
+                                    <input type="text" class="form-control" id="presencial-referencia" placeholder="Nro referencia / voucher">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Comentario (opcional)</label>
+                                    <input type="text" class="form-control" id="presencial-comentario-pago" placeholder="Observación">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="alert alert-danger mt-3" id="presencial-error" style="display:none;"></div>
+                <div class="alert alert-success mt-3" id="presencial-ok" style="display:none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-crear-presencial">
+                    <i class="fas fa-save"></i> Crear Reserva
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

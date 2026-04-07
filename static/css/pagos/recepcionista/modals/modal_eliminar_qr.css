@@ -1,0 +1,164 @@
+/* ========================================
+   MODAL ELIMINAR QR - ESTILOS
+   ======================================== */
+
+/* Modal Content */
+#modalEliminarQR .modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Modal Header */
+#modalEliminarQR .modal-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+    padding: 20px 25px;
+}
+
+#modalEliminarQR .modal-header .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+#modalEliminarQR .modal-header .modal-title i {
+    font-size: 20px;
+}
+
+/* Modal Body */
+#modalEliminarQR .modal-body {
+    padding: 25px;
+    background: #ffffff;
+}
+
+#modalEliminarQR .alert {
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+#modalEliminarQR .alert-danger {
+    background: rgba(220, 53, 69, 0.12);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    color: #c82333;
+}
+
+#modalEliminarQR .alert-danger i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+#modalEliminarQR .modal-body p {
+    color: #333;
+    font-size: 14px;
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+/* Modal Footer */
+#modalEliminarQR .modal-footer {
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+#modalEliminarQR .modal-footer .btn {
+    padding: 8px 18px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+#modalEliminarQR .modal-footer .btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+}
+
+#modalEliminarQR .modal-footer .btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+}
+
+#modalEliminarQR .modal-footer .btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+}
+
+#modalEliminarQR .modal-footer .btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+#modalEliminarQR .modal-footer .btn-danger:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#modalEliminarQR .modal-footer .btn i {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #modalEliminarQR .modal-dialog {
+        margin: 10px;
+    }
+
+    #modalEliminarQR .modal-body {
+        padding: 20px;
+    }
+
+    #modalEliminarQR .modal-footer {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #modalEliminarQR .modal-footer .btn {
+        flex: 1;
+        min-width: 100px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #modalEliminarQR .modal-header .modal-title {
+        font-size: 16px;
+        gap: 8px;
+    }
+
+    #modalEliminarQR .modal-header .modal-title i {
+        font-size: 18px;
+    }
+
+    #modalEliminarQR .modal-body {
+        padding: 15px;
+    }
+
+    #modalEliminarQR .modal-body p {
+        font-size: 13px;
+    }
+
+    #modalEliminarQR .modal-footer .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-width: 90px;
+    }
+}

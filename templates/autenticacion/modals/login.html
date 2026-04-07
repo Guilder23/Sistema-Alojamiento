@@ -24,6 +24,14 @@
                 <form method="post" action="{% url 'autenticacion:login' %}" class="auth-form" novalidate id="loginForm">
                     {% csrf_token %}
 
+                    {% if form.non_field_errors %}
+                    <div class="auth-error-message" style="margin-bottom: 12px;">
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     <!-- Campo Usuario/Email -->
                     <div class="auth-form-group">
                         <label for="modal_username" class="auth-form-label">Usuario o Email</label>
@@ -38,11 +46,16 @@
                                 name="username"
                                 class="auth-form-input"
                                 placeholder="usuario@correo.com"
+                                value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
                                 required
                                 autocomplete="username"
                             >
                         </div>
-                        <div class="auth-error-message" id="modal_username-error"></div>
+                        <div class="auth-error-message" id="modal_username-error">
+                            {% if form.username.errors %}
+                                {{ form.username.errors|join:', ' }}
+                            {% endif %}
+                        </div>
                     </div>
 
                     <!-- Campo Contraseña -->
@@ -63,7 +76,11 @@
                                 autocomplete="current-password"
                             >
                         </div>
-                        <div class="auth-error-message" id="modal_password-error"></div>
+                        <div class="auth-error-message" id="modal_password-error">
+                            {% if form.password.errors %}
+                                {{ form.password.errors|join:', ' }}
+                            {% endif %}
+                        </div>
                     </div>
 
                     <!-- Botón Envío -->
@@ -93,3 +110,13 @@
 </div>
 
 <link rel="stylesheet" href="{% static 'css/autenticacion/modals/login.css' %}">
+
+{% if abrir_modal_login or form.errors %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof openLoginModal === 'function') {
+        openLoginModal();
+    }
+});
+</script>
+{% endif %}

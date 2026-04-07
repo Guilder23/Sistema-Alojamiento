@@ -1,0 +1,26 @@
+<!-- Modal Check-in -->
+<div class="modal fade" id="modalCheckin" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-door-open"></i> Check-in</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">¿Marcar check-in y ocupar la habitación?</p>
+                <div class="alert alert-info mb-0">
+                    <div><strong>Reserva:</strong> <span id="checkin-reserva"></span></div>
+                    <div><strong>Cliente:</strong> <span id="checkin-cliente"></span></div>
+                    <div><strong>Habitación:</strong> <span id="checkin-habitacion"></span></div>
+                </div>
+                <div class="alert alert-danger mt-3" id="checkin-error" style="display:none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btn-checkin-confirmar">
+                    <i class="fas fa-check"></i> Confirmar Check-in
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

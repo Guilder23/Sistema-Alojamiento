@@ -40,7 +40,9 @@ def usuarios_view(request):
 @require_http_methods(["GET"])
 def api_usuarios_lista(request):
     """API: Obtener lista de usuarios en formato JSON"""
-    usuarios = User.objects.all().select_related('perfil__rol').values(
+    usuarios = User.objects.select_related('perfil__rol').exclude(
+        perfil__rol__nombre='cliente'
+    ).values(
         'id', 'username', 'email', 'first_name', 'last_name', 
         'is_active', 'perfil__rol__nombre'
     )
@@ -71,6 +73,8 @@ def api_usuario_detalle(request, usuario_id):
     """API: Obtener detalles de un usuario específico"""
     try:
         usuario = User.objects.select_related('perfil__rol').get(pk=usuario_id)
+        if hasattr(usuario, 'perfil') and usuario.perfil.rol.nombre == 'cliente':
+            return JsonResponse({'success': False, 'error': 'No se puede ver clientes en gestion de usuarios'}, status=403)
         
         return JsonResponse({
             'success': True,
@@ -119,6 +123,12 @@ def api_usuario_crear(request):
     if not password or len(password) < 6:
         return JsonResponse({'success': False, 'error': 'Contraseña debe tener al menos 6 caracteres'})
     
+    if not rol:
+        return JsonResponse({'success': False, 'error': 'Debe seleccionar un rol'})
+
+    if rol == 'cliente':
+        return JsonResponse({'success': False, 'error': 'No se puede crear clientes en gestion de usuarios'})
+    
     # Verificar usuario duplicado
     if User.objects.filter(username=username).exists():
         return JsonResponse({'success': False, 'error': 'Usuario ya existe'})
@@ -137,17 +147,17 @@ def api_usuario_crear(request):
             last_name=last_name
         )
         
-        # Asignar rol
-        if rol:
-            try:
-                rol_obj = Rol.objects.get(nombre=rol)
-                PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
-            except Rol.DoesNotExist:
-                pass
+        # Asignar rol (obligatorio)
+        try:
+            rol_obj = Rol.objects.get(nombre=rol)
+            PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
+        except Rol.DoesNotExist:
+            usuario.delete()  # Eliminar usuario si el rol no existe
+            return JsonResponse({'success': False, 'error': f'El rol "{rol}" no existe en el sistema'})
         
         return JsonResponse({
             'success': True,
-            'message': f'Usuario {username} creado exitosamente',
+            'message': f'Usuario {username} creado exitosamente con rol {rol}',
             'usuario': {
                 'id': usuario.id,
                 'username': usuario.username,
@@ -166,6 +176,9 @@ def api_usuario_crear(request):
 def api_usuario_actualizar(request, usuario_id):
     """API: Actualizar usuario existente"""
     usuario = get_object_or_404(User, pk=usuario_id)
+
+    if hasattr(usuario, 'perfil') and usuario.perfil.rol.nombre == 'cliente':
+        return JsonResponse({'success': False, 'error': 'No se puede editar clientes en gestion de usuarios'}, status=403)
     
     try:
         datos = json.loads(request.body)
@@ -198,8 +211,10 @@ def api_usuario_actualizar(request, usuario_id):
         
         usuario.save()
         
-        # Actualizar rol
+        # Actualizar rol (obligatorio)
         if 'rol' in datos and datos['rol']:
+            if datos['rol'] == 'cliente':
+                return JsonResponse({'success': False, 'error': 'No se puede asignar rol cliente en gestion de usuarios'})
             try:
                 rol_obj = Rol.objects.get(nombre=datos['rol'])
                 try:
@@ -209,7 +224,7 @@ def api_usuario_actualizar(request, usuario_id):
                 except PerfilUsuario.DoesNotExist:
                     PerfilUsuario.objects.create(usuario=usuario, rol=rol_obj)
             except Rol.DoesNotExist:
-                pass
+                return JsonResponse({'success': False, 'error': f'El rol "{datos["rol"]}" no existe en el sistema'})
         
         return JsonResponse({
             'success': True,
@@ -225,6 +240,9 @@ def api_usuario_actualizar(request, usuario_id):
 def api_usuario_eliminar(request, usuario_id):
     """API: Eliminar usuario"""
     usuario = get_object_or_404(User, pk=usuario_id)
+
+    if hasattr(usuario, 'perfil') and usuario.perfil.rol.nombre == 'cliente':
+        return JsonResponse({'success': False, 'error': 'No se puede eliminar clientes en gestion de usuarios'}, status=403)
     
     # Evitar eliminación de uno mismo
     if usuario.id == request.user.id:

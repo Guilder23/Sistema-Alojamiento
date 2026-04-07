@@ -76,16 +76,10 @@ document.getElementById('formCrearQR')?.addEventListener('submit', async functio
         const data = await response.json();
         
         if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: data.message,
-                confirmButtonColor: '#28a745',
-                timer: 2000,
-                timerProgressBar: true
-            }).then(() => {
+            // Recargar sin mostrar modal
+            setTimeout(() => {
                 location.reload();
-            });
+            }, 800);
         } else {
             submitBtn.disabled = false;
             submitBtn.innerHTML = btnOriginalText;
@@ -113,24 +107,14 @@ document.getElementById('formCrearQR')?.addEventListener('submit', async functio
 document.querySelectorAll('.btn-editar-qr').forEach(btn => {
     btn.addEventListener('click', function() {
         const qrId = this.getAttribute('data-qr-id');
-        
-        // Encontrar la tarjeta que contiene los datos
-        const card = document.querySelector(`.qr-config-card[data-qr-id="${qrId}"]`);
-        
-        if (!card) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo cargar la información del QR'
-            });
-            return;
-        }
-        
-        // Obtener datos de los data attributes
-        const codigo = card.getAttribute('data-qr-codigo');
-        const descripcion = card.getAttribute('data-qr-descripcion');
-        const estado = card.getAttribute('data-qr-estado');
-        const imagenUrl = card.getAttribute('data-qr-imagen');
+
+        const codigoRaw = this.getAttribute('data-qr-codigo') || '';
+        const descripcionRaw = this.getAttribute('data-qr-descripcion') || '';
+        const estado = this.getAttribute('data-qr-estado') || 'inactivo';
+        const imagenUrl = this.getAttribute('data-qr-imagen') || '';
+
+        const codigo = decodeURIComponent(codigoRaw);
+        const descripcion = decodeURIComponent(descripcionRaw);
         
         // Poblar el modal con los datos
         document.getElementById('qr_id_editar').value = qrId;
@@ -139,11 +123,20 @@ document.querySelectorAll('.btn-editar-qr').forEach(btn => {
         document.getElementById('estado_editar').checked = (estado === 'activo');
         
         // Mostrar imagen actual
+        const textoSinImagen = document.getElementById('qr_actual_sin_imagen');
+
         if (imagenUrl) {
             document.getElementById('qr_actual_img').src = imagenUrl;
             document.getElementById('imagen_actual_container').style.display = 'block';
+            if (textoSinImagen) {
+                textoSinImagen.style.display = 'none';
+            }
         } else {
-            document.getElementById('imagen_actual_container').style.display = 'none';
+            document.getElementById('qr_actual_img').src = '';
+            document.getElementById('imagen_actual_container').style.display = 'block';
+            if (textoSinImagen) {
+                textoSinImagen.style.display = 'block';
+            }
         }
         
         // Limpiar preview de nueva imagen
@@ -197,16 +190,10 @@ document.getElementById('formEditarQR')?.addEventListener('submit', async functi
         const data = await response.json();
         
         if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: '¡Actualizado!',
-                text: data.message,
-                confirmButtonColor: '#28a745',
-                timer: 2000,
-                timerProgressBar: true
-            }).then(() => {
+            // Recargar sin mostrar modal
+            setTimeout(() => {
                 location.reload();
-            });
+            }, 800);
         } else {
             submitBtn.disabled = false;
             submitBtn.innerHTML = btnOriginalText;
@@ -301,69 +288,8 @@ document.querySelectorAll('.btn-activar-qr').forEach(btn => {
 
 // Eliminar configuración QR
 document.querySelectorAll('.btn-eliminar-qr').forEach(btn => {
-    btn.addEventListener('click', async function() {
+    btn.addEventListener('click', function() {
         const qrId = this.getAttribute('data-qr-id');
-        
-        const result = await Swal.fire({
-            title: '¿Eliminar esta configuración?',
-            text: 'Esta acción no se puede deshacer',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#dc3545',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: '<i class="fas fa-trash"></i> Sí, eliminar',
-            cancelButtonText: '<i class="fas fa-times"></i> Cancelar'
-        });
-        
-        if (result.isConfirmed) {
-            // Mostrar loading
-            Swal.fire({
-                title: 'Eliminando...',
-                html: 'Por favor espera',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-            
-            try {
-                const response = await fetch(`/pagos/configurar-qr/eliminar/${qrId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken')
-                    }
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Eliminado!',
-                        text: data.message,
-                        confirmButtonColor: '#28a745',
-                        timer: 2000,
-                        timerProgressBar: true
-                    }).then(() => {
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.error,
-                        confirmButtonColor: '#dc3545'
-                    });
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ocurrió un error al eliminar la configuración',
-                    confirmButtonColor: '#dc3545'
-                });
-            }
-        }
+        abrirModalEliminar(qrId);
     });
 });

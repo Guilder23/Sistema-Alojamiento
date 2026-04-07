@@ -22,112 +22,204 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 /**
- * Aplicar filtros a la tabla
+ * Filtros compactos (tiempo real)
  */
 function aplicarFiltros() {
-    const estadoFiltro = document.getElementById('filtro-estado').value.toLowerCase();
-    const habitacionFiltro = document.getElementById('filtro-habitacion').value.toLowerCase();
-    const clienteFiltro = document.getElementById('filtro-cliente').value.toLowerCase();
-    
+    const q = (document.getElementById('search-reservas')?.value || '').trim().toLowerCase();
+    const estadoFiltro = (document.getElementById('filter-estado')?.value || '').trim().toLowerCase();
+    const pagoFiltro = (document.getElementById('filter-pago')?.value || '').trim().toLowerCase();
+    const checkinFiltro = (document.getElementById('filter-checkin')?.value || '').trim();
+    const checkoutFiltro = (document.getElementById('filter-checkout')?.value || '').trim();
+
     const filas = document.querySelectorAll('#tabla-reservas tr[data-reserva-id]');
     let visibles = 0;
-    
+
     filas.forEach(fila => {
-        const estado = fila.getAttribute('data-estado');
-        const habitacion = fila.getAttribute('data-habitacion').toLowerCase();
-        const cliente = fila.getAttribute('data-cliente').toLowerCase();
-        
+        const estado = (fila.getAttribute('data-estado') || '').toLowerCase();
+        const habitacion = (fila.getAttribute('data-habitacion') || '').toLowerCase();
+        const cliente = (fila.getAttribute('data-cliente') || '').toLowerCase();
+        const checkin = fila.getAttribute('data-checkin') || '';
+        const checkout = fila.getAttribute('data-checkout') || '';
+        const pagoEstado = (fila.getAttribute('data-pago') || 'sin').toLowerCase();
+        const pagoValidacion = (fila.getAttribute('data-pago-validacion') || '').toLowerCase();
+
         let mostrar = true;
-        
-        // Filtrar por estado
-        if (estadoFiltro && estado !== estadoFiltro) {
+
+        // Búsqueda general (cliente u habitación)
+        if (q) {
+            const hayMatch = cliente.includes(q) || habitacion.includes(q);
+            if (!hayMatch) mostrar = false;
+        }
+
+        // Estado
+        if (mostrar && estadoFiltro && estado !== estadoFiltro) {
             mostrar = false;
         }
-        
-        // Filtrar por habitación
-        if (habitacionFiltro && !habitacion.includes(habitacionFiltro)) {
-            mostrar = false;
+
+        // Pago
+        if (mostrar && pagoFiltro) {
+            if (pagoFiltro === 'sin') {
+                if (pagoEstado !== 'sin') mostrar = false;
+            } else if (pagoFiltro === 'rechazado') {
+                if (pagoValidacion !== 'rechazado') mostrar = false;
+            } else {
+                // validado/enviado/pendiente
+                if (pagoEstado !== pagoFiltro) mostrar = false;
+            }
         }
-        
-        // Filtrar por cliente
-        if (clienteFiltro && !cliente.includes(clienteFiltro)) {
-            mostrar = false;
+
+        // Check-in
+        if (mostrar && (checkinFiltro === '0' || checkinFiltro === '1')) {
+            if (checkin !== checkinFiltro) mostrar = false;
         }
-        
+
+        // Check-out
+        if (mostrar && (checkoutFiltro === '0' || checkoutFiltro === '1')) {
+            if (checkout !== checkoutFiltro) mostrar = false;
+        }
+
         fila.style.display = mostrar ? '' : 'none';
         if (mostrar) visibles++;
     });
-    
-    console.log(`Filtros aplicados: ${visibles} reservas visibles`);
-}
 
-/**
- * Limpiar filtros
- */
-function limpiarFiltros() {
-    document.getElementById('filtro-estado').value = '';
-    document.getElementById('filtro-habitacion').value = '';
-    document.getElementById('filtro-cliente').value = '';
-    
-    const filas = document.querySelectorAll('#tabla-reservas tr[data-reserva-id]');
-    filas.forEach(fila => {
-        fila.style.display = '';
-    });
-    
-    console.log('Filtros limpiados');
+    console.log(`Filtros aplicados: ${visibles} reservas visibles`);
 }
 
 /**
  * Ver detalles de una reserva
  */
 function verDetalles(reservaId) {
-    const fila = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
-    
-    if (!fila) {
-        alert('No se pudo encontrar la información de la reserva');
-        return;
-    }
-    
-    // Obtener datos de la fila
-    const cliente = fila.querySelector('.cliente-info strong').textContent.trim();
-    const email = fila.querySelector('.cliente-info small').textContent.trim();
-    const habitacion = fila.querySelector('.habitacion-info strong').textContent.trim();
-    const tipo = fila.querySelector('.habitacion-info small').textContent.trim();
-    const fechaEntrada = fila.cells[3].textContent.trim();
-    const fechaSalida = fila.cells[4].textContent.trim();
-    const huespedes = fila.cells[5].textContent.trim();
-    const total = fila.cells[6].textContent.trim();
-    const estadoBadge = fila.querySelector('.badge');
-    const estado = estadoBadge.textContent.trim();
-    const notas = fila.getAttribute('data-notas') || '';
-    
-    // Llenar el modal con los datos
+    // Pintar placeholders
     document.getElementById('modal-reserva-numero').textContent = `#${reservaId}`;
-    document.getElementById('modal-cliente-nombre').textContent = cliente;
-    document.getElementById('modal-cliente-email').textContent = email;
-    document.getElementById('modal-habitacion-numero').textContent = habitacion;
-    document.getElementById('modal-habitacion-tipo').textContent = tipo;
-    document.getElementById('modal-fecha-entrada').textContent = fechaEntrada;
-    document.getElementById('modal-fecha-salida').textContent = fechaSalida;
-    document.getElementById('modal-huespedes').textContent = huespedes;
-    document.getElementById('modal-precio-total').textContent = total;
-    
-    // Crear badge para el estado
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+
+    setText('modal-cliente-nombre', 'Cargando...');
+    setText('modal-cliente-email', 'Cargando...');
+    setText('modal-cliente-telefono', 'Cargando...');
+    setText('modal-cliente-documento', 'Cargando...');
+
+    setText('modal-habitacion-numero', 'Cargando...');
+    setText('modal-habitacion-tipo', 'Cargando...');
+    setText('modal-huespedes', 'Cargando...');
+
+    setText('modal-fecha-entrada', 'Cargando...');
+    setText('modal-fecha-salida', 'Cargando...');
+    setText('modal-precio-total', 'Cargando...');
+    setText('modal-checkin', 'Cargando...');
+    setText('modal-checkout', 'Cargando...');
+    setText('modal-origen', 'Cargando...');
+    setText('modal-pago', 'Cargando...');
+    setText('modal-creador-nombre', 'Cargando...');
+    setText('modal-creador-rol', 'Cargando...');
+
     const estadoSpan = document.getElementById('modal-estado-reserva');
-    estadoSpan.innerHTML = `<span class="badge ${estadoBadge.className}">${estado}</span>`;
-    
-    // Mostrar/ocultar notas
+    if (estadoSpan) estadoSpan.textContent = 'Cargando...';
+
+    const acompSection = document.getElementById('modal-acompanantes-section');
+    const acompList = document.getElementById('modal-acompanantes-list');
+    if (acompSection) acompSection.style.display = 'none';
+    if (acompList) acompList.innerHTML = '';
+
     const notasSection = document.getElementById('modal-notas-section');
-    if (notas && notas.trim() !== '') {
-        document.getElementById('modal-notas-contenido').textContent = notas;
-        notasSection.style.display = 'block';
-    } else {
-        notasSection.style.display = 'none';
-    }
-    
+    if (notasSection) notasSection.style.display = 'none';
+
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('modalDetalles'));
     modal.show();
+
+    // Cargar detalle completo
+    fetch(`/reservas/api/detalle/${reservaId}/`)
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) return;
+
+            // Cliente
+            setText('modal-cliente-nombre', data.cliente?.nombre || 'N/A');
+            setText('modal-cliente-email', data.cliente?.email || 'N/A');
+            setText('modal-cliente-telefono', data.cliente?.telefono || 'N/A');
+            setText('modal-cliente-documento', data.cliente?.documento || 'N/A');
+
+            // Habitación
+            setText('modal-habitacion-numero', data.habitacion?.numero != null ? String(data.habitacion.numero) : 'N/A');
+            setText('modal-habitacion-tipo', data.habitacion?.tipo || 'N/A');
+            setText('modal-huespedes', data.reserva?.num_huespedes != null ? String(data.reserva.num_huespedes) : 'N/A');
+
+            // Reserva
+            setText('modal-fecha-entrada', data.reserva?.fecha_entrada || 'N/A');
+            setText('modal-fecha-salida', data.reserva?.fecha_salida || 'N/A');
+
+            const total = (data.reserva?.precio_total != null) ? `$${Number(data.reserva.precio_total).toFixed(2)}` : 'N/A';
+            setText('modal-precio-total', total);
+
+            const estado = data.reserva?.estado || '';
+            const estadoDisplay = data.reserva?.estado_display || 'N/A';
+            if (estadoSpan) {
+                estadoSpan.innerHTML = estado ? `<span class="badge badge-${estado}">${estadoDisplay}</span>` : estadoDisplay;
+            }
+
+            // Origen
+            const origen = data.reserva?.origen || 'online';
+            const origenDisplay = data.reserva?.origen_display || (origen === 'presencial' ? 'Presencial' : 'En línea');
+            const origenEl = document.getElementById('modal-origen');
+            if (origenEl) {
+                if (origen === 'presencial') {
+                    origenEl.innerHTML = '<span class="badge badge-origen-presencial">PRESENCIAL</span>';
+                } else {
+                    origenEl.innerHTML = '<span class="badge badge-origen-online">EN LÍNEA</span>';
+                }
+            } else {
+                setText('modal-origen', origenDisplay);
+            }
+
+            // Check-in/out
+            setText('modal-checkin', data.reserva?.fecha_checkin || (data.reserva?.checkin_realizado ? 'Sí' : 'No'));
+            setText('modal-checkout', data.reserva?.fecha_checkout || (data.reserva?.checkout_realizado ? 'Sí' : 'No'));
+
+            // Pago
+            const pago = data.pago || {};
+            const pagoEl = document.getElementById('modal-pago');
+            if (pagoEl) {
+                if (!pago.existe) {
+                    pagoEl.innerHTML = '<span class="badge badge-origen-online">NO REGISTRADO</span>';
+                } else if (pago.pagado) {
+                    pagoEl.innerHTML = '<span class="badge badge-pago-validado">PAGADO</span>';
+                } else {
+                    const est = (pago.estado || 'pendiente').toUpperCase();
+                    pagoEl.innerHTML = `<span class="badge badge-pago-${(pago.estado || 'pendiente')}">${est}</span>`;
+                }
+            }
+
+            // Creador + rol
+            const creador = data.creador || {};
+            setText('modal-creador-nombre', creador.nombre || 'N/A');
+            setText('modal-creador-rol', creador.rol_display || creador.rol || 'N/A');
+
+            // Notas
+            if (notasSection) {
+                const notas = data.reserva?.notas || '';
+                if (notas.trim()) {
+                    const notasContenido = document.getElementById('modal-notas-contenido');
+                    if (notasContenido) notasContenido.textContent = notas;
+                    notasSection.style.display = 'block';
+                }
+            }
+
+            // Acompañantes
+            const acomp = data.acompanantes || [];
+            if (acompList && acompSection) {
+                if (acomp.length > 0) {
+                    acompList.innerHTML = acomp.map(a => {
+                        const doc = a.numero_documento ? ` - ${String(a.tipo_documento || '').toUpperCase()}: ${a.numero_documento}` : '';
+                        return `<li>${a.nombre} ${a.apellido || ''}${doc}</li>`;
+                    }).join('');
+                    acompSection.style.display = 'block';
+                }
+            }
+        })
+        .catch(err => console.error('Error detalle reserva:', err));
 }
 
 /**
@@ -277,10 +369,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Gestión de reservas cargada correctamente');
     
     // Event listeners para filtros en tiempo real
-    document.getElementById('filtro-estado')?.addEventListener('change', aplicarFiltros);
-    document.getElementById('filtro-habitacion')?.addEventListener('input', aplicarFiltros);
-    document.getElementById('filtro-cliente')?.addEventListener('input', aplicarFiltros);
+    document.getElementById('search-reservas')?.addEventListener('input', aplicarFiltros);
+    document.getElementById('filter-estado')?.addEventListener('change', aplicarFiltros);
+    document.getElementById('filter-pago')?.addEventListener('change', aplicarFiltros);
+    document.getElementById('filter-checkin')?.addEventListener('change', aplicarFiltros);
+    document.getElementById('filter-checkout')?.addEventListener('change', aplicarFiltros);
     
+    // Botón nueva reserva presencial
+    document.getElementById('btn-abrir-reserva-presencial')?.addEventListener('click', function () {
+        const modal = new bootstrap.Modal(document.getElementById('modalCrearPresencial'));
+        modal.show();
+    });
+
     // Delegación de eventos para botones de acción
     document.addEventListener('click', function(e) {
         // Botón Ver Detalles
@@ -307,6 +407,50 @@ document.addEventListener('DOMContentLoaded', function() {
             const reservaId = btn.getAttribute('data-reserva-id');
             if (reservaId) {
                 cancelarReserva(parseInt(reservaId));
+            }
+        }
+
+        // Botón Check-in
+        if (e.target.closest('.btn-checkin-reserva')) {
+            const btn = e.target.closest('.btn-checkin-reserva');
+            const reservaId = btn.getAttribute('data-reserva-id');
+            if (reservaId) {
+                const fila = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
+                const cliente = fila?.querySelector('.cliente-info strong')?.textContent?.trim() || '';
+                const hab = fila?.querySelector('.habitacion-info strong')?.textContent?.trim() || '';
+                const tipo = fila?.querySelector('.habitacion-info small')?.textContent?.trim() || '';
+                if (typeof abrirModalCheckin === 'function') {
+                    abrirModalCheckin(parseInt(reservaId), cliente, `${hab} - ${tipo}`);
+                }
+            }
+        }
+
+        // Botón Check-out
+        if (e.target.closest('.btn-checkout-reserva')) {
+            const btn = e.target.closest('.btn-checkout-reserva');
+            const reservaId = btn.getAttribute('data-reserva-id');
+            if (reservaId) {
+                const fila = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
+                const cliente = fila?.querySelector('.cliente-info strong')?.textContent?.trim() || '';
+                const hab = fila?.querySelector('.habitacion-info strong')?.textContent?.trim() || '';
+                const tipo = fila?.querySelector('.habitacion-info small')?.textContent?.trim() || '';
+                if (typeof abrirModalCheckout === 'function') {
+                    abrirModalCheckout(parseInt(reservaId), cliente, `${hab} - ${tipo}`);
+                }
+            }
+        }
+
+        // Botón Pago presencial
+        if (e.target.closest('.btn-pago-presencial')) {
+            const btn = e.target.closest('.btn-pago-presencial');
+            const reservaId = btn.getAttribute('data-reserva-id');
+            if (reservaId) {
+                const fila = document.querySelector(`tr[data-reserva-id="${reservaId}"]`);
+                const cliente = fila?.querySelector('.cliente-info strong')?.textContent?.trim() || '';
+                const total = fila?.cells?.[6]?.textContent?.trim() || '';
+                if (typeof abrirModalPagoPresencial === 'function') {
+                    abrirModalPagoPresencial(parseInt(reservaId), cliente, total);
+                }
             }
         }
     });

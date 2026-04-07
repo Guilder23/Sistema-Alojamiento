@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/clientes/clientes.css' %}">
+<link rel="stylesheet" href="{% static 'css/clientes/modals.css' %}">
+<link rel="stylesheet" href="{% static 'css/clientes/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/clientes/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/clientes/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/clientes/modals/eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-clientes">
+    <section class="clientes-section">
+        <div class="section-header">
+            <div>
+                <h2><i class="fas fa-users"></i> Gestion de Clientes</h2>
+                <p class="subtitle">Administra el catalogo de clientes</p>
+            </div>
+            <button class="btn btn-primary" onclick="abrirModalCrearCliente()">
+                <i class="fas fa-plus"></i> Nuevo Cliente
+            </button>
+        </div>
+
+        <div class="filters-container">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-clientes" class="search-input" placeholder="Buscar cliente...">
+            </div>
+            <select id="filter-pais" class="filter-select">
+                <option value="">Filtrar por Pais</option>
+                <option value="VE">Venezuela</option>
+                <option value="CO">Colombia</option>
+                <option value="PE">Peru</option>
+                <option value="EC">Ecuador</option>
+                <option value="BO">Bolivia</option>
+                <option value="CL">Chile</option>
+                <option value="AR">Argentina</option>
+                <option value="BR">Brasil</option>
+                <option value="MX">Mexico</option>
+                <option value="OTRO">Otro pais</option>
+            </select>
+            <select id="filter-estado" class="filter-select">
+                <option value="">Filtrar por Estado</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="tabla-clientes" class="clientes-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Documento</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Pais</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="loading-row">
+                        <td colspan="8">Cargando clientes...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button id="prev-page" onclick="cambiarPaginaClientes('prev')">Anterior</button>
+            <span id="page-info">Pagina 1 de 1</span>
+            <button id="next-page" onclick="cambiarPaginaClientes('next')">Siguiente</button>
+        </div>
+    </section>
+</div>
+
+{% include 'clientes/modals/crear.html' %}
+{% include 'clientes/modals/ver.html' %}
+{% include 'clientes/modals/editar.html' %}
+{% include 'clientes/modals/eliminar.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/clientes/clientes.js' %}"></script>
+<script src="{% static 'js/clientes/modals/crear.js' %}"></script>
+<script src="{% static 'js/clientes/modals/ver.js' %}"></script>
+<script src="{% static 'js/clientes/modals/editar.js' %}"></script>
+<script src="{% static 'js/clientes/modals/eliminar.js' %}"></script>
+{% endblock %}

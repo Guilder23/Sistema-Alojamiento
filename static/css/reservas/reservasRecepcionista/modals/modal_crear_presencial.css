@@ -1,0 +1,74 @@
+/* Modal Crear Reserva Presencial */
+#modalCrearPresencial .modal-content {
+    border-radius: 3px;
+}
+
+#modalCrearPresencial .modal-header {
+    background: #0a6266;
+    color: white;
+}
+
+#modalCrearPresencial .modal-header .modal-title {
+    font-weight: 700;
+}
+
+#modalCrearPresencial .modal-body {
+    padding-top: 18px;
+}
+
+#modalCrearPresencial .form-label {
+    font-weight: 700;
+    color: rgba(17, 24, 39, 0.85);
+}
+
+#modalCrearPresencial .form-control,
+#modalCrearPresencial .form-select {
+    border-radius: 3px;
+    border: 1px solid rgba(17, 24, 39, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+#modalCrearPresencial .form-control:focus,
+#modalCrearPresencial .form-select:focus {
+    border-color: rgba(10, 98, 102, 0.9);
+    box-shadow: 0 0 0 4px rgba(10, 98, 102, 0.16);
+}
+
+#modalCrearPresencial .btn-primary {
+    background: #0a6266;
+    border-color: #0a6266;
+    color: white;
+}
+
+#modalCrearPresencial .btn-primary:hover {
+    background: #084e51;
+    border-color: #084e51;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.3);
+}
+
+#modalCrearPresencial .btn-outline-primary {
+    color: #0a6266;
+    border-color: #0a6266;
+}
+
+#modalCrearPresencial .btn-outline-primary:hover {
+    background: rgba(10, 98, 102, 0.08);
+    border-color: #084e51;
+    color: #084e51;
+}
+
+#modalCrearPresencial .form-check-label {
+    font-weight: 600;
+}
+
+#presencial-acompanantes .acompanante-row {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: rgba(248, 250, 252, 0.9);
+}
+
+#presencial-acompanantes .acompanante-row .btn-remove {
+    white-space: nowrap;
+}

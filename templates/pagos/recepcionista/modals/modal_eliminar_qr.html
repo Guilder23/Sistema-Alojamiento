@@ -1,0 +1,34 @@
+<!-- Modal Eliminar QR -->
+<div class="modal fade" id="modalEliminarQR" tabindex="-1" aria-labelledby="modalEliminarQRLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title" id="modalEliminarQRLabel">
+                    <i class="fas fa-exclamation-triangle"></i> Eliminar Configuración QR
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Advertencia:</strong> Esta acción no se puede deshacer. Se eliminará permanentemente esta configuración de QR.
+                </div>
+
+                <p class="text-center" style="font-size: 16px; color: #333;">¿Estás seguro de que deseas eliminar esta configuración?</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">
+                    <i class="fas fa-trash"></i> Sí, Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

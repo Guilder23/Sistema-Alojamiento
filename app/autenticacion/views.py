@@ -52,7 +52,7 @@ class FormularioLoginPersonalizado(AuthenticationForm):
 
 class LoginPersonalizado(LoginView):
     """Vista de login personalizada que redirecciona según el rol"""
-    template_name = 'autenticacion/login.html'
+    template_name = 'inicio/inicio.html'
     form_class = FormularioLoginPersonalizado
     
     def get_context_data(self, **kwargs):
@@ -60,6 +60,7 @@ class LoginPersonalizado(LoginView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = '🔐 Login'
         context['descripcion'] = 'Ingresa tu usuario, email y contraseña para acceder'
+        context['abrir_modal_login'] = True
         return context
     
     def form_valid(self, form):
@@ -99,8 +100,9 @@ def registro(request):
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         email = request.POST.get('email', '').strip()
-        password = request.POST.get('password', '')
-        password_confirm = request.POST.get('password_confirm', '')
+        # Compatibilidad con nombres usados en el modal (password1/password2)
+        password = request.POST.get('password', request.POST.get('password1', ''))
+        password_confirm = request.POST.get('password_confirm', request.POST.get('password2', ''))
         first_name = request.POST.get('first_name', '').strip()
         last_name = request.POST.get('last_name', '').strip()
         
@@ -128,6 +130,9 @@ def registro(request):
         if errores:
             for error in errores:
                 messages.error(request, error)
+            return render(request, 'inicio/inicio.html', {
+                'abrir_modal_registro': True,
+            })
         else:
             # Crear usuario
             usuario = User.objects.create_user(
@@ -147,8 +152,10 @@ def registro(request):
             
             messages.success(request, '¡Registro exitoso! Inicia sesión con tus credenciales')
             return redirect('autenticacion:login')
-    
-    return render(request, 'autenticacion/registro.html')
+
+    return render(request, 'inicio/inicio.html', {
+        'abrir_modal_registro': True,
+    })
 
 
 # ==================== DASHBOARDS ====================
