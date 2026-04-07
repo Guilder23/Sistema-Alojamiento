@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 from django.utils import timezone
 from app.habitaciones.models import Habitacion
 from app.clientes.models import Cliente
@@ -15,6 +16,11 @@ class Reserva(models.Model):
         ('finalizada', 'Finalizada'),
         ('no_show', 'No presentado'),
     ]
+
+    ORIGEN_RESERVA = [
+        ('online', 'En línea'),
+        ('presencial', 'Presencial'),
+    ]
     
     habitacion = models.ForeignKey(
         Habitacion,
@@ -27,6 +33,15 @@ class Reserva(models.Model):
         on_delete=models.CASCADE,
         related_name='reservas',
         help_text="Cliente que realiza la reserva"
+    )
+
+    creada_por = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reservas_creadas',
+        help_text="Usuario del sistema que registró la reserva"
     )
     
     fecha_entrada = models.DateField(
@@ -46,6 +61,13 @@ class Reserva(models.Model):
         choices=ESTADOS_RESERVA,
         default='pendiente'
     )
+
+    origen = models.CharField(
+        max_length=20,
+        choices=ORIGEN_RESERVA,
+        default='online',
+        help_text="Canal/origen de la reserva (en línea o presencial)"
+    )
     
     precio_total = models.DecimalField(
         max_digits=12,
@@ -58,6 +80,27 @@ class Reserva(models.Model):
         blank=True,
         null=True,
         help_text="Notas especiales de la reserva"
+    )
+
+    # Flujo presencial: check-in/check-out (sin depender solo de fechas)
+    checkin_realizado = models.BooleanField(
+        default=False,
+        help_text="Indica si se realizó el check-in"
+    )
+    fecha_checkin = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text="Fecha y hora real del check-in"
+    )
+
+    checkout_realizado = models.BooleanField(
+        default=False,
+        help_text="Indica si se realizó el check-out"
+    )
+    fecha_checkout = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text="Fecha y hora real del check-out"
     )
     
     creado = models.DateTimeField(auto_now_add=True)
@@ -135,3 +178,34 @@ class HistorialReserva(models.Model):
     
     def __str__(self):
         return f"Cambio en Reserva {self.reserva.id} - {self.cambio}"
+
+
+class AcompananteReserva(models.Model):
+    """Acompañantes/huespedes adicionales asociados a una reserva."""
+
+    TIPOS_DOCUMENTO = [
+        ('ci', 'Cédula'),
+        ('pasaporte', 'Pasaporte'),
+        ('otro', 'Otro'),
+    ]
+
+    reserva = models.ForeignKey(
+        Reserva,
+        on_delete=models.CASCADE,
+        related_name='acompanantes'
+    )
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100, blank=True, null=True)
+    tipo_documento = models.CharField(max_length=20, choices=TIPOS_DOCUMENTO, default='ci')
+    numero_documento = models.CharField(max_length=50, blank=True, null=True)
+    telefono = models.CharField(max_length=30, blank=True, null=True)
+
+    creado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-creado']
+        verbose_name = 'Acompañante'
+        verbose_name_plural = 'Acompañantes'
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido or ''}".strip()

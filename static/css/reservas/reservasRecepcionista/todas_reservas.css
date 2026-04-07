@@ -52,6 +52,25 @@ body {
     box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
 }
 
+.page-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.page-header .subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 5px 0 0 0;
+}
+
 .page-header h1 {
     color: white;
     font-size: 24px;
@@ -67,17 +86,25 @@ body {
     font-size: 26px;
 }
 
-.page-header p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 5px 0 0 0;
-}
+/* (subtitle ya cubre el texto del header) */
 
 /* Estadísticas Rápidas */
+.stats-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: nowrap;
+}
+
+.stats-row .col-stat {
+    /* Evita que la última tarjeta se “salga” por el gap */
+    flex: 0 0 calc((100% - 56px) / 5);
+    max-width: calc((100% - 56px) / 5);
+}
+
 .stat-card {
     background: white;
     border-radius: 3px;
-    padding: 20px;
+    padding: 22px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
@@ -85,6 +112,23 @@ body {
     margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #e8e8e8;
+}
+
+@media (max-width: 1200px) {
+    .stats-row {
+        flex-wrap: wrap;
+    }
+    .stats-row .col-stat {
+        flex: 0 0 calc(33.333% - 10px);
+        max-width: calc(33.333% - 10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-row .col-stat {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 .stat-card:hover {
@@ -140,47 +184,79 @@ body {
     font-size: 14px;
 }
 
-/* Filtros */
-.filtros-card {
+/* Filtros compactos (estilo Gestión de Usuarios) */
+.filters-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
     background: white;
+    padding: 12px 15px;
     border-radius: 3px;
-    padding: 20px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid #e8e8e8;
-    margin-bottom: 20px;
 }
 
-.filtros-card h5 {
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 15px;
-    font-size: 16px;
+.search-wrapper {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
 }
 
-.filtros-card h5 i {
-    color: var(--primary-color);
-    margin-right: 8px;
+.search-wrapper i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    font-size: 12px;
 }
 
-.filtros-card label {
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 6px;
-    font-size: 13px;
-}
-
-.filtros-card .form-select,
-.filtros-card .form-control {
-    border-radius: 3px;
+.search-input {
+    width: 100%;
+    padding: 6px 10px 6px 28px;
     border: 1px solid #d0d0d0;
-    font-size: 14px;
-    padding: 10px 15px;
+    border-radius: 3px;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+    height: 32px;
 }
 
-.filtros-card .form-select:focus,
-.filtros-card .form-control:focus {
-    border-color: var(--primary-color);
+.search-input:focus {
+    outline: none;
+    border-color: #0a6266;
     box-shadow: 0 0 0 3px rgba(10, 98, 102, 0.1);
+}
+
+.filter-select {
+    padding: 6px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+    min-width: 150px;
+    max-width: 190px;
+    height: 32px;
+    transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #0D7A7F;
+    box-shadow: 0 0 0 3px rgba(13, 122, 127, 0.1);
+}
+
+@media (max-width: 1200px) {
+    .filters-container {
+        flex-wrap: wrap;
+    }
+    .filter-select {
+        flex: 1;
+        min-width: 160px;
+        max-width: none;
+    }
 }
 
 /* Tabla */
@@ -209,6 +285,16 @@ body {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
+}
+
+.th-multiline {
+    display: inline-block;
+    line-height: 1.05;
+}
+
+/* Columnas CHECK-IN/OUT REAL un poco más anchas */
+.col-check-real {
+    min-width: 140px;
 }
 
 .table thead th:first-child {
@@ -252,6 +338,55 @@ body {
     font-weight: 500;
     font-size: 0.85rem;
     text-transform: uppercase;
+}
+
+/* Badge de Pago */
+.badge-pago-validado {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-pago-enviado {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-pago-pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-pago-rechazado {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.badge-pago-sin {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Badge Origen */
+.badge-origen-presencial {
+    background: rgba(13, 122, 127, 0.12);
+    color: #0a6266;
+    border: 1px solid rgba(13, 122, 127, 0.25);
+    border-radius: 3px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.badge-origen-online {
+    background: rgba(108, 117, 125, 0.12);
+    color: #495057;
+    border: 1px solid rgba(108, 117, 125, 0.25);
+    border-radius: 3px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
 .badge-pendiente {

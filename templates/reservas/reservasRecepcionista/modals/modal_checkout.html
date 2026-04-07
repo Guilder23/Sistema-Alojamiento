@@ -1,0 +1,37 @@
+<!-- Modal Check-out -->
+<div class="modal fade" id="modalCheckout" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title"><i class="fas fa-door-closed"></i> Check-out</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">¿Finalizar la reserva y marcar la salida?</p>
+                <div class="alert alert-info">
+                    <div><strong>Reserva:</strong> <span id="checkout-reserva"></span></div>
+                    <div><strong>Cliente:</strong> <span id="checkout-cliente"></span></div>
+                    <div><strong>Habitación:</strong> <span id="checkout-habitacion"></span></div>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Estado de la habitación después de salida</label>
+                    <select class="form-select" id="checkout-estado-habitacion">
+                        <option value="limpieza" selected>En limpieza</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="fuera_servicio">Fuera de servicio</option>
+                    </select>
+                </div>
+
+                <div class="alert alert-danger mt-3" id="checkout-error" style="display:none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btn-checkout-confirmar">
+                    <i class="fas fa-check"></i> Confirmar Check-out
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

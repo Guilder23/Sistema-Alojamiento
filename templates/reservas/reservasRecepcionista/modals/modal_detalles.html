@@ -51,12 +51,39 @@
                         <div class="col-md-6">
                             <p><strong>Fecha Entrada:</strong> <span id="modal-fecha-entrada"></span></p>
                             <p><strong>Fecha Salida:</strong> <span id="modal-fecha-salida"></span></p>
+                            <p><strong>Origen:</strong> <span id="modal-origen"></span></p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Precio Total:</strong> <span id="modal-precio-total" class="text-success fw-bold"></span></p>
+                            <p><strong>Precio Total:</strong> <span id="modal-precio-total"></span></p>
                             <p><strong>Estado:</strong> <span id="modal-estado-reserva"></span></p>
+                            <p><strong>Pago:</strong> <span id="modal-pago"></span></p>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <p><strong>Check-in:</strong> <span id="modal-checkin">N/A</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Check-out:</strong> <span id="modal-checkout">N/A</span></p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <p><strong>Registrado por:</strong> <span id="modal-creador-nombre">N/A</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Rol:</strong> <span id="modal-creador-rol">N/A</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acompañantes -->
+                <div class="detalle-section mb-4" id="modal-acompanantes-section" style="display:none;">
+                    <h6 class="detalle-titulo">
+                        <i class="fas fa-users"></i> Acompañantes
+                    </h6>
+                    <ul class="mb-0" id="modal-acompanantes-list"></ul>
                 </div>
 
                 <!-- Notas del Cliente -->

@@ -8,22 +8,33 @@
 <link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_detalles.css' %}">
 <link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_confirmar.css' %}">
 <link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_cancelar.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_crear_presencial.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_checkin.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_checkout.css' %}">
+<link rel="stylesheet" href="{% static 'css/reservas/reservasRecepcionista/modals/modal_pago_presencial.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col-12">
-            <div class="page-header">
-                <h1><i class="fas fa-calendar-check"></i> Gestión de Reservas</h1>
-                <p class="text-muted">Visualiza y administra todas las reservas del sistema</p>
+            <div class="page-header page-header-flex">
+                <div class="page-header-left">
+                    <h1><i class="fas fa-calendar-check"></i> Gestión de Reservas</h1>
+                    <p class="subtitle">Visualiza y administra todas las reservas del sistema</p>
+                </div>
+                <div class="page-header-right">
+                    <button class="btn btn-light" id="btn-abrir-reserva-presencial">
+                        <i class="fas fa-plus"></i> Nueva Reserva Presencial
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Estadísticas Rápidas -->
-                <div class="row mb-4">
-                    <div class="col-md-2">
+                <div class="row mb-4 stats-row">
+                    <div class="col-stat">
                         <div class="stat-card stat-total">
                             <div class="stat-icon">
                                 <i class="fas fa-list"></i>
@@ -34,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-stat">
                         <div class="stat-card stat-pendiente">
                             <div class="stat-icon">
                                 <i class="fas fa-clock"></i>
@@ -45,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-stat">
                         <div class="stat-card stat-confirmada">
                             <div class="stat-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -56,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-stat">
                         <div class="stat-card stat-activa">
                             <div class="stat-icon">
                                 <i class="fas fa-calendar"></i>
@@ -67,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-stat">
                         <div class="stat-card stat-cancelada">
                             <div class="stat-icon">
                                 <i class="fas fa-times-circle"></i>
@@ -80,43 +91,44 @@
                     </div>
                 </div>
 
-                <!-- Filtros -->
+                <!-- Filtros compactos (tiempo real) -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="filtros-card">
-                            <h5><i class="fas fa-filter"></i> Filtros</h5>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Estado:</label>
-                                    <select class="form-select" id="filtro-estado">
-                                        <option value="">Todos</option>
-                                        <option value="pendiente">Pendiente</option>
-                                        <option value="confirmada">Confirmada</option>
-                                        <option value="cancelada">Cancelada</option>
-                                        <option value="finalizada">Finalizada</option>
-                                        <option value="no_show">No Show</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Habitación:</label>
-                                    <input type="text" class="form-control" id="filtro-habitacion" placeholder="Número o nombre">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Cliente:</label>
-                                    <input type="text" class="form-control" id="filtro-cliente" placeholder="Nombre o email">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>&nbsp;</label>
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-primary w-100" onclick="aplicarFiltros()">
-                                            <i class="fas fa-search"></i> Buscar
-                                        </button>
-                                        <button class="btn btn-secondary" onclick="limpiarFiltros()">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                        <div class="filters-container">
+                            <div class="search-wrapper">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="search-reservas" class="search-input" placeholder="Buscar por cliente u habitación...">
                             </div>
+
+                            <select id="filter-estado" class="filter-select">
+                                <option value="">Estado (Todos)</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="confirmada">Confirmada</option>
+                                <option value="cancelada">Cancelada</option>
+                                <option value="finalizada">Finalizada</option>
+                                <option value="no_show">No Show</option>
+                            </select>
+
+                            <select id="filter-pago" class="filter-select">
+                                <option value="">Pago (Todos)</option>
+                                <option value="validado">Validado</option>
+                                <option value="enviado">Comprobante enviado</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="rechazado">Rechazado</option>
+                                <option value="sin">Sin pago</option>
+                            </select>
+
+                            <select id="filter-checkin" class="filter-select">
+                                <option value="">Check-in (Todos)</option>
+                                <option value="1">Realizado</option>
+                                <option value="0">No realizado</option>
+                            </select>
+
+                            <select id="filter-checkout" class="filter-select">
+                                <option value="">Check-out (Todos)</option>
+                                <option value="1">Realizado</option>
+                                <option value="0">No realizado</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -131,11 +143,15 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Cliente</th>
+                                            <th>Origen</th>
                                             <th>Habitación</th>
                                             <th>Entrada</th>
                                             <th>Salida</th>
+                                            <th class="col-check-real"><span class="th-multiline">CHECK-<br>IN REAL</span></th>
+                                            <th class="col-check-real"><span class="th-multiline">CHECK-<br>OUT REAL</span></th>
                                             <th>Huéspedes</th>
                                             <th>Total</th>
+                                            <th>Pago</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -145,13 +161,25 @@
                                         <tr data-reserva-id="{{ reserva.id }}" data-estado="{{ reserva.estado }}" 
                                             data-habitacion="{{ reserva.habitacion.numero }} {{ reserva.habitacion.nombre }}"
                                             data-cliente="{{ reserva.cliente.nombre }} {{ reserva.cliente.apellido }} {{ reserva.cliente.email }}"
-                                            data-notas="{{ reserva.notas|default:'' }}">
+                                            data-notas="{{ reserva.notas|default:'' }}"
+                                            data-checkin="{{ reserva.checkin_realizado|yesno:'1,0' }}"
+                                            data-checkout="{{ reserva.checkout_realizado|yesno:'1,0' }}"
+                                            data-pago="{{ reserva.pago_estado|default:'sin' }}"
+                                            data-pago-validacion="{{ reserva.pago_estado_validacion|default:'' }}"
+                                            data-origen="{{ reserva.origen|default:'online' }}">
                                             <td><strong>#{{ reserva.id }}</strong></td>
                                             <td>
                                                 <div class="cliente-info">
                                                     <strong>{{ reserva.cliente.nombre }} {{ reserva.cliente.apellido }}</strong>
                                                     <small class="d-block text-muted">{{ reserva.cliente.email }}</small>
                                                 </div>
+                                            </td>
+                                            <td>
+                                                {% if reserva.origen == 'presencial' %}
+                                                    <span class="badge badge-origen-presencial">PRESENCIAL</span>
+                                                {% else %}
+                                                    <span class="badge badge-origen-online">EN LÍNEA</span>
+                                                {% endif %}
                                             </td>
                                             <td>
                                                 <div class="habitacion-info">
@@ -161,11 +189,37 @@
                                             </td>
                                             <td>{{ reserva.fecha_entrada|date:"d/m/Y" }}</td>
                                             <td>{{ reserva.fecha_salida|date:"d/m/Y" }}</td>
+                                            <td class="col-check-real">
+                                                {% if reserva.fecha_checkin %}
+                                                    <small class="text-muted">{{ reserva.fecha_checkin|date:"d/m/Y H:i" }}</small>
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
+                                            <td class="col-check-real">
+                                                {% if reserva.fecha_checkout %}
+                                                    <small class="text-muted">{{ reserva.fecha_checkout|date:"d/m/Y H:i" }}</small>
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 <i class="fas fa-users"></i> {{ reserva.num_huespedes }}
                                             </td>
                                             <td>
                                                 <strong class="text-success">${{ reserva.precio_total|floatformat:2 }}</strong>
+                                            </td>
+                                            <td>
+                                                {% if reserva.pago_existe %}
+                                                    <span class="badge badge-pago-{{ reserva.pago_estado }}">
+                                                        {{ reserva.pago_estado|upper }}
+                                                    </span>
+                                                    {% if reserva.pago_estado_validacion %}
+                                                        <small class="d-block text-muted">{{ reserva.pago_estado_validacion|upper }}</small>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="badge badge-pago-sin">SIN</span>
+                                                {% endif %}
                                             </td>
                                             <td>
                                                 <span class="badge badge-{{ reserva.estado }}">
@@ -177,9 +231,22 @@
                                                     <button class="btn btn-sm btn-info btn-ver-detalles" data-reserva-id="{{ reserva.id }}" title="Ver detalles">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
+                                                    <button class="btn btn-sm btn-dark btn-pago-presencial" data-reserva-id="{{ reserva.id }}" title="Registrar pago presencial">
+                                                        <i class="fas fa-cash-register"></i>
+                                                    </button>
                                                     {% if reserva.estado == 'pendiente' %}
                                                     <button class="btn btn-sm btn-success btn-confirmar-reserva" data-reserva-id="{{ reserva.id }}" title="Confirmar">
                                                         <i class="fas fa-check"></i>
+                                                    </button>
+                                                    {% endif %}
+                                                    {% if not reserva.checkin_realizado and reserva.estado != 'cancelada' and reserva.estado != 'finalizada' %}
+                                                    <button class="btn btn-sm btn-success btn-checkin-reserva" data-reserva-id="{{ reserva.id }}" title="Check-in">
+                                                        <i class="fas fa-door-open"></i>
+                                                    </button>
+                                                    {% endif %}
+                                                    {% if reserva.checkin_realizado and reserva.estado != 'cancelada' and reserva.estado != 'finalizada' %}
+                                                    <button class="btn btn-sm btn-warning btn-checkout-reserva" data-reserva-id="{{ reserva.id }}" title="Check-out">
+                                                        <i class="fas fa-door-closed"></i>
                                                     </button>
                                                     {% endif %}
                                                     {% if reserva.estado in 'pendiente,confirmada' %}
@@ -192,7 +259,7 @@
                                         </tr>
                                         {% empty %}
                                         <tr>
-                                            <td colspan="9" class="text-center text-muted py-4">
+                                            <td colspan="13" class="text-center text-muted py-4">
                                                 <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
                                                 No hay reservas registradas
                                             </td>
@@ -213,8 +280,16 @@
 {% include 'reservas/reservasRecepcionista/modals/modal_detalles.html' %}
 {% include 'reservas/reservasRecepcionista/modals/modal_confirmar.html' %}
 {% include 'reservas/reservasRecepcionista/modals/modal_cancelar.html' %}
+{% include 'reservas/reservasRecepcionista/modals/modal_crear_presencial.html' %}
+{% include 'reservas/reservasRecepcionista/modals/modal_checkin.html' %}
+{% include 'reservas/reservasRecepcionista/modals/modal_checkout.html' %}
+{% include 'reservas/reservasRecepcionista/modals/modal_pago_presencial.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/reservas/reservasRecepcionista/todas_reservas.js' %}"></script>
+<script src="{% static 'js/reservas/reservasRecepcionista/modals/modal_crear_presencial.js' %}"></script>
+<script src="{% static 'js/reservas/reservasRecepcionista/modals/modal_checkin.js' %}"></script>
+<script src="{% static 'js/reservas/reservasRecepcionista/modals/modal_checkout.js' %}"></script>
+<script src="{% static 'js/reservas/reservasRecepcionista/modals/modal_pago_presencial.js' %}"></script>
 {% endblock %}

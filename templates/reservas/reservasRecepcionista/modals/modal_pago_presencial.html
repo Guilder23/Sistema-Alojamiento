@@ -1,0 +1,46 @@
+<!-- Modal Pago Presencial -->
+<div class="modal fade" id="modalPagoPresencial" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fas fa-cash-register"></i> Registrar Pago Presencial</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <div><strong>Reserva:</strong> <span id="pago-reserva"></span></div>
+                    <div><strong>Cliente:</strong> <span id="pago-cliente"></span></div>
+                    <div><strong>Total:</strong> <span id="pago-total"></span></div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Tipo de pago</label>
+                        <select class="form-select" id="pago-tipo">
+                            <option value="efectivo">Efectivo</option>
+                            <option value="transferencia">Transferencia</option>
+                            <option value="tarjeta">Tarjeta</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Referencia (opcional)</label>
+                        <input type="text" class="form-control" id="pago-referencia" placeholder="Nro referencia / voucher">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Comentario (opcional)</label>
+                        <textarea class="form-control" id="pago-comentario" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger mt-3" id="pago-error" style="display:none;"></div>
+                <div class="alert alert-success mt-3" id="pago-ok" style="display:none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-dark" id="btn-pago-confirmar">
+                    <i class="fas fa-check"></i> Registrar Pago
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
