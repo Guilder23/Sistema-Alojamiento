@@ -1,0 +1,32 @@
+<!-- Modal Crear Categoria -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-crear-categoria" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-layer-group"></i> Crear Categoria</h3>
+        <button class="close-modal" id="close-modal-crear-categoria">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-crear-categoria">
+            <div class="form-group">
+                <label for="crear-categoria-nombre">Nombre <span class="required">*</span></label>
+                <input type="text" id="crear-categoria-nombre" class="form-control" required>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-categoria-descripcion">Descripcion</label>
+                <textarea id="crear-categoria-descripcion" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group checkbox-group">
+                <label for="crear-categoria-activo">
+                    <input type="checkbox" id="crear-categoria-activo" checked> Categoria Activa
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-categoria')">Cancelar</button>
+        <button type="submit" form="form-crear-categoria" class="btn btn-primary">
+            <i class="fas fa-save"></i> Guardar
+        </button>
+    </div>
+</div>

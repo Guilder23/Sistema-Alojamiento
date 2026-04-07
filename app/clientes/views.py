@@ -19,6 +19,8 @@ from .models import Cliente
 def puede_gestionar_clientes(user):
 	"""Permite acceso a admin, recepcionista y gerente."""
 	try:
+		if user.is_superuser:
+			return True
 		return user.perfil.rol.nombre in {'administrador', 'recepcionista', 'gerente'}
 	except Exception:
 		return False

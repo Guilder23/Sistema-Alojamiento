@@ -1,0 +1,27 @@
+/* Modal crear venta */
+
+.items-venta {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.item-row {
+    display: grid;
+    grid-template-columns: 1fr 110px 40px;
+    gap: 10px;
+    align-items: center;
+}
+
+.total-venta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .item-row {
+        grid-template-columns: 1fr;
+    }
+}

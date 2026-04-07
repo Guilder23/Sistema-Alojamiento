@@ -1,0 +1,17 @@
+/* Modal crear producto */
+
+#modal-crear-producto .stock-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+#modal-crear-producto .checkbox-group {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    #modal-crear-producto .stock-grid {
+        grid-template-columns: 1fr;
+    }
+}

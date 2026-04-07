@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/productos/cliente/mis_compras.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-mis-compras">
+    <div class="page-header">
+        <h1><i class="fas fa-shopping-bag"></i> {{ titulo }}</h1>
+        <p class="text-muted">Revisa tus compras realizadas</p>
+    </div>
+
+    {% if compras %}
+    <div class="compras-lista">
+        {% for compra in compras %}
+        <div class="compra-card">
+            <div class="compra-header">
+                <div>
+                    <h3>Compra #{{ compra.id }}</h3>
+                    <span class="compra-fecha">{{ compra.creado|date:"d/m/Y H:i" }}</span>
+                </div>
+                <span class="badge badge-estado badge-{{ compra.estado }}">{{ compra.get_estado_display }}</span>
+            </div>
+            <div class="compra-body">
+                <ul class="compra-items">
+                    {% for detalle in compra.detalles.all %}
+                    <li>
+                        <span>{{ detalle.producto.nombre }} x{{ detalle.cantidad }}</span>
+                        <strong>${{ detalle.subtotal }}</strong>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="compra-total">
+                    <span>Total</span>
+                    <strong>${{ compra.total }}</strong>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i class="fas fa-shopping-bag"></i>
+        <p>No tienes compras registradas.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/productos/cliente/mis_compras.js' %}"></script>
+{% endblock %}

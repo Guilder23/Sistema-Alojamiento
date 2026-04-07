@@ -3,7 +3,7 @@ Archivo de utilidades para la aplicación de usuarios
 Contiene scripts para carga inicial de datos
 """
 
-from app.usuarios.models import Rol
+from app.autenticacion.models import Rol
 
 
 def crear_roles_iniciales():

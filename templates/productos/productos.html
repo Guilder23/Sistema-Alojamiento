@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/productos/productos.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos/modals.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos/modals/crear.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos/modals/ver.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos/modals/editar.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos/modals/eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-productos">
+    <section class="productos-section">
+        <div class="section-header">
+            <div>
+                <h2><i class="fas fa-box"></i> Gestion de Productos</h2>
+                <p class="subtitle">Administra el catalogo de productos y servicios</p>
+            </div>
+            <button class="btn btn-primary" onclick="abrirModalCrearProducto()">
+                <i class="fas fa-plus"></i> Nuevo Producto
+            </button>
+        </div>
+
+        <div class="filters-container">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-productos" class="search-input" placeholder="Buscar producto...">
+            </div>
+            <select id="filter-categoria" class="filter-select">
+                <option value="">Filtrar por Categoria</option>
+            </select>
+            <select id="filter-tipo" class="filter-select">
+                <option value="">Filtrar por Tipo</option>
+                <option value="producto">Producto</option>
+                <option value="servicio">Servicio</option>
+            </select>
+            <select id="filter-estado" class="filter-select">
+                <option value="">Filtrar por Estado</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="tabla-productos" class="productos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="loading-row">
+                        <td colspan="8">Cargando productos...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button id="prev-page" onclick="cambiarPaginaProductos('prev')">Anterior</button>
+            <span id="page-info">Pagina 1 de 1</span>
+            <button id="next-page" onclick="cambiarPaginaProductos('next')">Siguiente</button>
+        </div>
+    </section>
+</div>
+
+{% include 'productos/modals/crear.html' %}
+{% include 'productos/modals/ver.html' %}
+{% include 'productos/modals/editar.html' %}
+{% include 'productos/modals/eliminar.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/productos/productos.js' %}"></script>
+<script src="{% static 'js/productos/modals/utilidades.js' %}"></script>
+<script src="{% static 'js/productos/modals/crear.js' %}"></script>
+<script src="{% static 'js/productos/modals/ver.js' %}"></script>
+<script src="{% static 'js/productos/modals/editar.js' %}"></script>
+<script src="{% static 'js/productos/modals/eliminar.js' %}"></script>
+{% endblock %}

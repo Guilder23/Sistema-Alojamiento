@@ -1,0 +1,75 @@
+<!-- Modal Crear Producto -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-crear-producto" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-box"></i> Crear Producto</h3>
+        <button class="close-modal" id="close-modal-crear-producto">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="form-crear-producto">
+            <div class="form-group">
+                <label for="crear-nombre">Nombre <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-tag"></i></span>
+                    <input type="text" id="crear-nombre" class="form-control" required placeholder="Ej: Agua mineral">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-categoria">Categoria <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-layer-group"></i></span>
+                    <select id="crear-categoria" class="form-control" required></select>
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-tipo">Tipo <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-sliders-h"></i></span>
+                    <select id="crear-tipo" class="form-control" required>
+                        <option value="producto">Producto</option>
+                        <option value="servicio">Servicio</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="crear-precio">Precio de Venta <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon"><i class="fas fa-dollar-sign"></i></span>
+                    <input type="number" step="0.01" id="crear-precio" class="form-control" required placeholder="0.00">
+                </div>
+                <div class="form-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="crear-codigo">Codigo SKU</label>
+                <input type="text" id="crear-codigo" class="form-control" placeholder="SKU-001">
+            </div>
+            <div class="form-group">
+                <label for="crear-descripcion">Descripcion</label>
+                <textarea id="crear-descripcion" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="stock-grid">
+                <div class="form-group">
+                    <label for="crear-stock">Stock Actual</label>
+                    <input type="number" id="crear-stock" class="form-control" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="crear-stock-minimo">Stock Minimo</label>
+                    <input type="number" id="crear-stock-minimo" class="form-control" min="0" value="0">
+                </div>
+            </div>
+            <div class="form-group checkbox-group">
+                <label for="crear-activo">
+                    <input type="checkbox" id="crear-activo" checked> Producto Activo
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-crear-producto')">Cancelar</button>
+        <button type="submit" form="form-crear-producto" class="btn btn-primary">
+            <i class="fas fa-save"></i> Guardar
+        </button>
+    </div>
+</div>

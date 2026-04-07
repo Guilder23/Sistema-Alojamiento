@@ -1,0 +1,78 @@
+/* Estilos para Mis Compras */
+
+.container-mis-compras {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.compras-lista {
+    display: grid;
+    gap: 16px;
+}
+
+.compra-card {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+}
+
+.compra-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.compra-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    display: grid;
+    gap: 6px;
+}
+
+.compra-items li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.compra-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.badge-estado {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-pagada {
+    background: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+}
+
+.badge-pendiente {
+    background: rgba(255, 193, 7, 0.2);
+    color: #a77900;
+}
+
+.badge-cancelada {
+    background: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fb;
+    border-radius: 6px;
+}

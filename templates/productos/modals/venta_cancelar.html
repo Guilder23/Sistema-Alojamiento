@@ -1,0 +1,20 @@
+<!-- Modal Cancelar Venta -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-cancelar-venta" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-ban"></i> Cancelar Venta</h3>
+        <button class="close-modal" id="close-modal-cancelar-venta">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="confirm-message">
+            <p>Estas seguro de cancelar la venta <strong id="cancelar-venta-id">-</strong>?</p>
+            <p class="text-muted">El stock se devolverá si corresponde.</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-cancelar-venta')">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btn-confirmar-cancelar-venta">
+            <i class="fas fa-ban"></i> Confirmar
+        </button>
+    </div>
+</div>

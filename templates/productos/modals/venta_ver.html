@@ -1,0 +1,30 @@
+<!-- Modal Ver Venta -->
+<div class="modal-overlay"></div>
+<div class="modal-content" id="modal-ver-venta" style="display: none;">
+    <div class="modal-header">
+        <h3><i class="fas fa-eye"></i> Detalle de Venta</h3>
+        <button class="close-modal" id="close-modal-ver-venta">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="detail-group">
+            <div class="detail-label">Cliente</div>
+            <div class="detail-value" id="ver-venta-cliente">-</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Metodo</div>
+            <div class="detail-value" id="ver-venta-metodo">-</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Estado</div>
+            <div class="detail-value" id="ver-venta-estado">-</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Total</div>
+            <div class="detail-value" id="ver-venta-total">-</div>
+        </div>
+        <div class="venta-detalle-lista" id="ver-venta-detalles"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-ver-venta')">Cerrar</button>
+    </div>
+</div>

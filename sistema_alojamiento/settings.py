@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     'app.reservas',
     'app.clientes',
     'app.pagos',
-    'app.autenticacion',
+    'app.autenticacion.apps.AutenticacionConfig',
     'app.usuarios',
     'app.limpieza',
     'app.reportes',
     'app.notificaciones',
     'app.inicio',
+    'app.productos',
 ]
 
 MIDDLEWARE = [

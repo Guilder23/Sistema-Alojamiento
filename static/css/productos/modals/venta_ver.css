@@ -1,0 +1,15 @@
+/* Modal ver venta */
+
+.venta-detalle-lista {
+    margin-top: 12px;
+    display: grid;
+    gap: 8px;
+}
+
+.venta-detalle-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #f3f5f7;
+    border-radius: 4px;
+}

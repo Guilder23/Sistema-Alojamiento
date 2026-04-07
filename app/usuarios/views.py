@@ -16,6 +16,8 @@ from app.autenticacion.models import PerfilUsuario, Rol
 def es_administrador(user):
     """Verifica si el usuario es administrador"""
     try:
+        if user.is_superuser:
+            return True
         return user.perfil.rol.nombre == 'administrador'
     except:
         return False

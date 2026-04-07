@@ -68,10 +68,13 @@ class LoginPersonalizado(LoginView):
         response = super().form_valid(form)
         user = self.request.user
         
-        try:
-            rol = user.perfil.rol.nombre
-        except:
-            rol = 'cliente'
+        if user.is_superuser:
+            rol = 'administrador'
+        else:
+            try:
+                rol = user.perfil.rol.nombre
+            except Exception:
+                rol = 'cliente'
         
         # Guardar el rol en la sesión
         self.request.session['user_rol'] = rol

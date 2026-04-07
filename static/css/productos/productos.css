@@ -1,0 +1,332 @@
+/* Estilos para Gestion de Productos */
+
+:root {
+    --primary-color: #0D7A7F;
+    --primary-dark: #062A2E;
+    --primary-light: #1BA8B0;
+    --border-color: #C5E8ED;
+    --text-dark: #1a1a1a;
+    --text-light: #666666;
+    --bg-light: #f8f9fb;
+}
+
+.container-productos {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-header {
+    background: #0a6266;
+    color: white;
+    padding: 25px 30px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(10, 98, 102, 0.2);
+}
+
+.section-header h2 {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.section-header .subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: #1BA8B0;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #14959c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 98, 102, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+.filters-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    background: white;
+    padding: 12px 15px;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+}
+
+.search-wrapper {
+    flex: 1;
+    min-width: 180px;
+    position: relative;
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 6px 10px 6px 28px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    font-size: 13px;
+    height: 32px;
+}
+
+.filter-select {
+    padding: 6px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+    min-width: 150px;
+    max-width: 200px;
+    height: 32px;
+}
+
+.table-container {
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+}
+
+.productos-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.productos-table thead {
+    background: #14959c;
+    color: white;
+}
+
+.productos-table th {
+    padding: 16px 15px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.productos-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+.productos-table tbody tr:hover {
+    background-color: #f5f9fb;
+}
+
+.productos-table td {
+    padding: 14px 15px;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+}
+
+/* Acciones de tabla (igual que usuarios) */
+.actions-cell {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.actions-cell .btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.actions-cell .btn:hover {
+    opacity: 1;
+}
+
+.actions-cell .btn i {
+    margin: 0;
+}
+
+/* Badges (alineado a usuarios) */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-activo {
+    background: rgba(40, 167, 69, 0.15);
+    color: #1e7e34;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.badge-inactivo {
+    background: rgba(220, 53, 69, 0.12);
+    color: #c82333;
+    border: 1px solid rgba(220, 53, 69, 0.25);
+}
+
+/* Stock: verde/amarillo/rojo */
+.badge-stock-ok {
+    background: rgba(40, 167, 69, 0.15);
+    color: #1e7e34;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.badge-stock-warning {
+    background: rgba(255, 193, 7, 0.15);
+    color: #856404;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.badge-stock-danger {
+    background: rgba(220, 53, 69, 0.12);
+    color: #c82333;
+    border: 1px solid rgba(220, 53, 69, 0.25);
+}
+
+/* Paginacion (igual que usuarios) */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    border: 1px solid #0D7A7F;
+    background: white;
+    color: #0D7A7F;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #0D7A7F;
+    color: white;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination #page-info {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Hovers/bordes para botones de accion (igual que usuarios) */
+.btn-danger {
+    border: 1px solid #dc3545;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+.btn-info {
+    border: 1px solid #17a2b8;
+}
+
+.btn-info:hover {
+    background: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.4);
+}
+
+.btn-warning {
+    border: 1px solid #ffc107;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+    border-color: #d39e00;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+}

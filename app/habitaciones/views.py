@@ -11,6 +11,8 @@ from .models import FotoHabitacion, Habitacion
 
 def es_administrador(user):
     try:
+        if user.is_superuser:
+            return True
         return user.perfil.rol.nombre == 'administrador'
     except Exception:
         return False
