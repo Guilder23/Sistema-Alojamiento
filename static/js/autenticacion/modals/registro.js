@@ -11,6 +11,9 @@ function openRegistroModal() {
     const modal = document.getElementById('modalRegistro');
     if (modal) {
         modal.classList.add('active');
+        modal.style.display = 'flex';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
         document.body.style.overflow = 'hidden';
         setTimeout(() => {
             document.getElementById('reg_username')?.focus();
@@ -22,6 +25,9 @@ function closeRegistroModal() {
     const modal = document.getElementById('modalRegistro');
     if (modal) {
         modal.classList.remove('active');
+        modal.style.display = 'none';
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
         document.body.style.overflow = 'auto';
     }
 }
@@ -56,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!modal || !form) return;
 
     // Cerrar modal con overlay
-    const overlay = modal.querySelector('.modal-overlay');
+    const overlay = modal.querySelector('.auth-modal-overlay');
     if (overlay) {
         overlay.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -204,10 +210,10 @@ function showError(inputId, message) {
     
     // Si no existe, crear el elemento de error
     if (!errorElement) {
-        const formGroup = input.closest('.form-group');
+        const formGroup = input.closest('.auth-form-group');
         if (formGroup) {
             errorElement = document.createElement('div');
-            errorElement.className = 'error-message';
+            errorElement.className = 'auth-error-message';
             errorElement.id = errorId;
             formGroup.appendChild(errorElement);
         }

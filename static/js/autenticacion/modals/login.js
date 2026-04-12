@@ -42,6 +42,9 @@ function switchToRegistroModal() {
     
     if (registroModal) {
         registroModal.classList.add('active');
+        registroModal.style.display = 'flex';
+        registroModal.style.visibility = 'visible';
+        registroModal.style.opacity = '1';
         document.body.style.overflow = 'hidden';
         setTimeout(() => {
             document.getElementById('reg_username')?.focus();
@@ -58,11 +61,8 @@ document.addEventListener('click', function(e) {
         }
     }
     
-    // Cerrar registro modal al hacer click en overlay
-    if (e.target.id === 'modalRegistro' || (e.target.classList && e.target.classList.contains('auth-modal-overlay'))) {
-        if (e.target.closest('#modalRegistro')) {
-            closeRegistroModal();
-        }
+    if (e.target.classList && e.target.classList.contains('auth-modal-overlay') && e.target.closest('#modalRegistro')) {
+        closeRegistroModal();
     }
 });
 
