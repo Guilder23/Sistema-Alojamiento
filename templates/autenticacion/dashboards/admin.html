@@ -1,51 +1,139 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/dashboards/admin.css' %}">
-{% endblock %}
-
-{% block content %}
-<div class="container">
-        <!-- Tarjeta de Bienvenida -->
-        <div class="welcome-card">
-            <h2>¡Bienvenido, {{ user.first_name|default:user.username }}!</h2>
-            <p>Accede a las opciones del sistema desde el menú de abajo. Última conexión: {{ user.last_login|date:"d/m/Y H:i" }}</p>
-        </div>
-
-        <!-- Tu contenido específico por rol irá aquí -->
-        <div class="dashboard-grid">
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Estado</h3>
-                <p>Panel disponible</p>
-                <div class="card-value">✓</div>
-            </div>
-        </div>
-
-        <!-- Menú de Opciones -->
-        <div class="menu-section">
-            <h3>Opciones Disponibles</h3>
-            <div class="menu-items">
-                <a href="{% url 'autenticacion:password_change' %}" class="menu-item">
-                    <span class="menu-item-icon"><i class="fas fa-key"></i></span>
-                    <span>Cambiar Contraseña</span>
-                </a>
-                <a href="{% url 'autenticacion:login' %}" class="menu-item">
-                    <span class="menu-item-icon"><i class="fas fa-user"></i></span>
-                    <span>Mi Perfil</span>
-                </a>
-                <a href="{% url 'inicio:inicio' %}" class="menu-item">
-                    <span class="menu-item-icon"><i class="fas fa-home"></i></span>
-                    <span>Ir al Inicio</span>
-                </a>
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/dashboards/admin.js' %}"></script>
-{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Sistema de Alojamiento{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboards/admin.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+<div class="admin-dash">
+    <header class="admin-dash__header">
+        <div>
+            <h1 class="admin-dash__title">Panel de administración</h1>
+            <p class="admin-dash__lead">
+                Hola, <strong>{{ user.first_name|default:user.username }}</strong>.
+                Última conexión: {{ user.last_login|date:"d/m/Y H:i"|default:"—" }}
+            </p>
+        </div>
+        <div class="admin-dash__header-meta">
+            <span class="admin-dash__pill"><i class="fas fa-calendar-day" aria-hidden="true"></i> {% now "d/m/Y" %}</span>
+        </div>
+    </header>
+
+    <!-- KPIs -->
+    <section class="admin-dash__kpis" aria-label="Indicadores principales">
+        <article class="admin-kpi admin-kpi--stripe-1">
+            <div class="admin-kpi__icon admin-kpi__icon--1"><i class="fas fa-calendar-check" aria-hidden="true"></i></div>
+            <div class="admin-kpi__body">
+                <span class="admin-kpi__label">Reservas totales</span>
+                <span class="admin-kpi__value">{{ admin_kpis.total_reservas }}</span>
+                <span class="admin-kpi__hint">{{ admin_kpis.reservas_activas }} activas (pendiente / confirmada)</span>
+            </div>
+        </article>
+        <article class="admin-kpi admin-kpi--stripe-2">
+            <div class="admin-kpi__icon admin-kpi__icon--2"><i class="fas fa-door-open" aria-hidden="true"></i></div>
+            <div class="admin-kpi__body">
+                <span class="admin-kpi__label">Habitaciones</span>
+                <span class="admin-kpi__value">{{ admin_kpis.total_habitaciones }}</span>
+                <span class="admin-kpi__hint">{{ admin_kpis.habitaciones_disponibles }} disponibles · {{ admin_kpis.en_estancia_hoy }} estancias hoy</span>
+            </div>
+        </article>
+        <article class="admin-kpi admin-kpi--stripe-3">
+            <div class="admin-kpi__icon admin-kpi__icon--3"><i class="fas fa-users" aria-hidden="true"></i></div>
+            <div class="admin-kpi__body">
+                <span class="admin-kpi__label">Clientes activos</span>
+                <span class="admin-kpi__value">{{ admin_kpis.total_clientes }}</span>
+                <span class="admin-kpi__hint">{{ admin_kpis.total_usuarios }} usuarios en el sistema</span>
+            </div>
+        </article>
+        <article class="admin-kpi admin-kpi--stripe-4">
+            <div class="admin-kpi__icon admin-kpi__icon--4"><i class="fas fa-coins" aria-hidden="true"></i></div>
+            <div class="admin-kpi__body">
+                <span class="admin-kpi__label">Ingresos del mes</span>
+                <span class="admin-kpi__value">${{ admin_kpis.ingresos_mes|floatformat:2 }}</span>
+                <span class="admin-kpi__hint">Pagos validados · {{ admin_kpis.reservas_mes }} reservas nuevas este mes</span>
+            </div>
+        </article>
+        <article class="admin-kpi admin-kpi--stripe-5">
+            <div class="admin-kpi__icon admin-kpi__icon--5"><i class="fas fa-box-open" aria-hidden="true"></i></div>
+            <div class="admin-kpi__body">
+                <span class="admin-kpi__label">Catálogo</span>
+                <span class="admin-kpi__value">{{ admin_kpis.total_productos }}</span>
+                <span class="admin-kpi__hint">{{ admin_kpis.total_categorias }} categorías</span>
+            </div>
+        </article>
+    </section>
+
+    <!-- Gráficos (sombras y acentos fuertes solo aquí) -->
+    <div class="admin-dash__charts">
+        <section class="admin-chart-card admin-chart-card--wide admin-chart-card--accent-a">
+            <h2 class="admin-chart-card__title">Reservas registradas por mes</h2>
+            <p class="admin-chart-card__desc">Últimos 6 meses según fecha de creación</p>
+            <div class="admin-chart-card__canvas-wrap">
+                <canvas id="chartReservasMes" aria-label="Gráfico de reservas por mes"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--wide admin-chart-card--accent-b">
+            <h2 class="admin-chart-card__title">Ingresos por mes</h2>
+            <p class="admin-chart-card__desc">Suma de pagos validados o aprobados</p>
+            <div class="admin-chart-card__canvas-wrap">
+                <canvas id="chartIngresosMes" aria-label="Gráfico de ingresos por mes"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--accent-c">
+            <h2 class="admin-chart-card__title">Reservas por estado</h2>
+            <div class="admin-chart-card__canvas-wrap admin-chart-card__canvas-wrap--pie">
+                <canvas id="chartReservasEstado" aria-label="Gráfico circular reservas por estado"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--accent-d">
+            <h2 class="admin-chart-card__title">Habitaciones por estado</h2>
+            <div class="admin-chart-card__canvas-wrap admin-chart-card__canvas-wrap--pie">
+                <canvas id="chartHabEstado" aria-label="Gráfico dona habitaciones por estado"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--wide admin-chart-card--accent-e">
+            <h2 class="admin-chart-card__title">Habitaciones por tipo</h2>
+            <div class="admin-chart-card__canvas-wrap admin-chart-card__canvas-wrap--tall">
+                <canvas id="chartHabTipo" aria-label="Gráfico de barras habitaciones por tipo"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--accent-f">
+            <h2 class="admin-chart-card__title">Origen de reservas</h2>
+            <div class="admin-chart-card__canvas-wrap admin-chart-card__canvas-wrap--pie">
+                <canvas id="chartOrigen" aria-label="Gráfico pastel origen"></canvas>
+            </div>
+        </section>
+        <section class="admin-chart-card admin-chart-card--accent-g">
+            <h2 class="admin-chart-card__title">Pagos por método</h2>
+            <div class="admin-chart-card__canvas-wrap admin-chart-card__canvas-wrap--pie">
+                <canvas id="chartPagosTipo" aria-label="Gráfico polar pagos"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <!-- Accesos rápidos -->
+    <section class="admin-dash__actions" aria-label="Accesos rápidos">
+        <h2 class="admin-dash__actions-title">Accesos rápidos</h2>
+        <div class="admin-dash__actions-grid">
+            <a href="{% url 'usuarios:list' %}" class="admin-action-link"><i class="fas fa-user-cog" aria-hidden="true"></i> Usuarios</a>
+            <a href="{% url 'clientes:list' %}" class="admin-action-link"><i class="fas fa-address-book" aria-hidden="true"></i> Clientes</a>
+            <a href="{% url 'habitaciones:list' %}" class="admin-action-link"><i class="fas fa-bed" aria-hidden="true"></i> Habitaciones</a>
+            <a href="{% url 'reservas:todas_reservas' %}" class="admin-action-link"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Reservas</a>
+            <a href="{% url 'productos:list' %}" class="admin-action-link"><i class="fas fa-box" aria-hidden="true"></i> Productos</a>
+            <a href="{% url 'productos:categorias' %}" class="admin-action-link"><i class="fas fa-tags" aria-hidden="true"></i> Categorías</a>
+            <a href="{% url 'autenticacion:password_change' %}" class="admin-action-link"><i class="fas fa-key" aria-hidden="true"></i> Contraseña</a>
+            <a href="{% url 'inicio:inicio' %}" class="admin-action-link"><i class="fas fa-home" aria-hidden="true"></i> Inicio público</a>
+        </div>
+    </section>
+</div>
+
+{{ admin_charts|json_script:"admin-charts-data" }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'js/dashboards/admin.js' %}?v=5"></script>
+{% endblock %}

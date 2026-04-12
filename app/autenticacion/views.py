@@ -11,6 +11,8 @@ from .models import PerfilUsuario, Rol
 from django.contrib.auth.models import User
 import json
 
+from .dashboard_stats import build_admin_dashboard_payload, user_is_administrador
+
 
 # ==================== FORMULARIO PERSONALIZADO ====================
 
@@ -165,10 +167,17 @@ def registro(request):
 
 @login_required(login_url='autenticacion:login')
 def dashboard_admin(request):
-    """Dashboard para administradores"""
+    """Dashboard para administradores con métricas y gráficos."""
+    if not user_is_administrador(request.user):
+        messages.error(request, 'No tienes permiso para acceder al panel de administración.')
+        return redirect('inicio:inicio')
+
+    payload = build_admin_dashboard_payload()
     context = {
-        'titulo': 'Panel Administrativo',
-        'total_usuarios': User.objects.count(),
+        'titulo': 'Panel de administración',
+        'total_usuarios': payload['kpis']['total_usuarios'],
+        'admin_kpis': payload['kpis'],
+        'admin_charts': payload['charts'],
     }
     return render(request, 'autenticacion/dashboards/admin.html', context)
 

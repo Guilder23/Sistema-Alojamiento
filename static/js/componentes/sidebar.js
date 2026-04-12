@@ -49,17 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function ajustarMainContent() {
-        if (!mainContent || isMobile()) {
-            if (mainContent) mainContent.style.marginLeft = '0';
-            return;
-        }
-        
-        // Desktop: ajustar margen según estado del sidebar
-        if (sidebar.classList.contains('collapsed')) {
-            mainContent.style.marginLeft = '70px';
-        } else {
-            mainContent.style.marginLeft = '250px';
-        }
+        if (!mainContent) return;
+        /* El margen lo define sidebar.css (#sidebar ~ .main-content) para evitar solapamiento y FOUC */
+        mainContent.style.removeProperty('margin-left');
     }
     
     function cargarEstado() {

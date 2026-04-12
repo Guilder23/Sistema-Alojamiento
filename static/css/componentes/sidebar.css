@@ -2,6 +2,24 @@
    SIDEBAR CON COLORES TURQUESA
    ============================================= */
 
+/* Contenido principal: hueco para el sidebar fijo (sin depender solo del JS) */
+@media (min-width: 769px) {
+    #sidebar ~ .main-content:not(.no-sidebar) {
+        margin-left: 250px;
+        transition: margin-left 0.3s ease;
+    }
+
+    #sidebar.collapsed ~ .main-content:not(.no-sidebar) {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar ~ .main-content:not(.no-sidebar) {
+        margin-left: 0;
+    }
+}
+
 /* SIDEBAR BASE */
 #sidebar {
     position: fixed;
