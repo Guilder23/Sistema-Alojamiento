@@ -4,6 +4,10 @@
 {% block title %}Inicio - Sistema de Alojamiento{% endblock %}
 
 {% block extra_css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="{% static 'img/inicio/hero-portada.jpg' %}">
 <link rel="stylesheet" href="{% static 'css/inicio/inicio.css' %}">
 {% endblock %}
 
@@ -12,34 +16,90 @@
     
     <!-- Hero Section -->
     <section class="hero-section">
+        <div class="hero-section__cover" aria-hidden="true"></div>
         <div class="hero-container">
             <div class="hero-content">
-                <div class="hero-badge">Bienvenido a la solución</div>
-                <h1 class="hero-title">Gestión Inteligente de Alojamientos</h1>
-                <p class="hero-subtitle">La plataforma más completa y moderna para administrar tu hotel, posada o casa de huéspedes con eficiencia total</p>
+                <p class="hero-eyebrow">Plataforma todo-en-uno</p>
+                <h1 class="hero-title">Gestión clara de tu alojamiento</h1>
+                <p class="hero-subtitle">Reservas, habitaciones, pagos y equipo en un solo panel. Menos fricción, más control operativo.</p>
                 
                 <div class="hero-buttons">
                     {% if user.is_authenticated %}
                         <a href="{% url 'autenticacion:dashboard' %}" class="btn btn-primary btn-lg">
-                            <i class="fas fa-tachometer-alt"></i> Mi Dashboard
+                            <i class="fas fa-tachometer-alt" aria-hidden="true"></i> Ir al panel
                         </a>
                         <a href="{% url 'autenticacion:logout' %}" class="btn btn-secondary btn-lg">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Cerrar sesión
                         </a>
                     {% else %}
-                        <button onclick="openLoginModal()" class="btn btn-primary btn-lg">
-                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        <button type="button" onclick="openLoginModal()" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Iniciar sesión
                         </button>
-                        <button onclick="openRegistroModal()" class="btn btn-outline btn-lg">
-                            <i class="fas fa-user-plus"></i> Crear Cuenta Gratis
+                        <button type="button" onclick="openRegistroModal()" class="btn btn-outline btn-lg">
+                            <i class="fas fa-user-plus" aria-hidden="true"></i> Crear cuenta gratis
                         </button>
                     {% endif %}
                 </div>
             </div>
             
             <div class="hero-visual">
-                <div class="hero-icon-large">
-                    <i class="fas fa-building"></i>
+                <figure class="hero-photo-frame">
+                    <img
+                        class="hero-photo"
+                        src="{% static 'img/inicio/hero-alojamiento.jpg' %}"
+                        alt="Hotel y zona de piscina: ejemplo del tipo de alojamiento que puedes gestionar con la plataforma"
+                        width="1400"
+                        height="933"
+                        loading="eager"
+                        decoding="async">
+                </figure>
+                <div class="hero-mockup-shell" aria-hidden="true">
+                    <div class="hero-mockup">
+                    <div class="hero-mockup-chrome">
+                        <span class="hero-mockup-dot"></span>
+                        <span class="hero-mockup-dot"></span>
+                        <span class="hero-mockup-dot"></span>
+                        <span class="hero-mockup-title">Panel · Hoy</span>
+                    </div>
+                    <div class="hero-mockup-body">
+                        <div class="hero-mockup-sidebar">
+                            <span class="hero-mockup-nav active"></span>
+                            <span class="hero-mockup-nav"></span>
+                            <span class="hero-mockup-nav"></span>
+                            <span class="hero-mockup-nav"></span>
+                        </div>
+                        <div class="hero-mockup-main">
+                            <div class="hero-mockup-kpis">
+                                <div class="hero-mockup-kpi">
+                                    <span class="hero-mockup-kpi-label">Ocupación</span>
+                                    <span class="hero-mockup-kpi-value">84%</span>
+                                </div>
+                                <div class="hero-mockup-kpi">
+                                    <span class="hero-mockup-kpi-label">Check-in</span>
+                                    <span class="hero-mockup-kpi-value">12</span>
+                                </div>
+                                <div class="hero-mockup-kpi">
+                                    <span class="hero-mockup-kpi-label">Ingresos</span>
+                                    <span class="hero-mockup-kpi-value hero-mockup-kpi-value--accent">$24k</span>
+                                </div>
+                            </div>
+                            <div class="hero-mockup-chart">
+                                <div class="hero-mockup-bar" style="--h: 42%"></div>
+                                <div class="hero-mockup-bar" style="--h: 68%"></div>
+                                <div class="hero-mockup-bar" style="--h: 55%"></div>
+                                <div class="hero-mockup-bar" style="--h: 88%"></div>
+                                <div class="hero-mockup-bar" style="--h: 62%"></div>
+                                <div class="hero-mockup-bar" style="--h: 76%"></div>
+                                <div class="hero-mockup-bar" style="--h: 48%"></div>
+                            </div>
+                            <div class="hero-mockup-rows">
+                                <div class="hero-mockup-row"><span></span><span></span><span class="hero-mockup-pill"></span></div>
+                                <div class="hero-mockup-row"><span></span><span></span><span class="hero-mockup-pill hero-mockup-pill--ok"></span></div>
+                                <div class="hero-mockup-row"><span></span><span></span><span class="hero-mockup-pill"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,11 +127,135 @@
         </div>
     </section>
 
+    <!-- Galería alojamientos (ampliada) -->
+    <section class="inicio-gallery-section" aria-labelledby="inicio-gallery-title">
+        <div class="section-header">
+            <h2 id="inicio-gallery-title">Tu negocio, en imágenes</h2>
+            <p>Desde la habitación hasta el lobby: espacios impecables que puedes promocionar y gestionar con el mismo sistema</p>
+        </div>
+        <div class="inicio-gallery inicio-gallery--large">
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/habitacion.jpg' %}" alt="Habitación de hotel impecable y bien iluminada" width="1000" height="750" loading="lazy" decoding="async">
+                <figcaption>Habitaciones</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/bano-suite.jpg' %}" alt="Baño de suite con acabados modernos y iluminación suave" width="1000" height="750" loading="lazy" decoding="async">
+                <figcaption>Baños y suites</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/recepcion.jpg' %}" alt="Recepción de hotel con mostrador moderno" width="900" height="600" loading="lazy" decoding="async">
+                <figcaption>Recepción</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/lobby.jpg' %}" alt="Lobby elegante con sofás y iluminación cálida" width="900" height="600" loading="lazy" decoding="async">
+                <figcaption>Lobby y estancias</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/loft-modern.jpg' %}" alt="Interior de alojamiento tipo loft, luminoso y contemporáneo" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Apartamentos y lofts</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/piscina-azotea.jpg' %}" alt="Piscina infinita en azotea con vistas urbanas" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Piscinas y zonas comunes</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/spa-relax.jpg' %}" alt="Zona de spa con velas y ambiente relajante" width="900" height="600" loading="lazy" decoding="async">
+                <figcaption>Spa y bienestar</figcaption>
+            </figure>
+            <figure class="inicio-gallery__item">
+                <img src="{% static 'img/inicio/resort.jpg' %}" alt="Complejo turístico con piscina y palmeras" width="900" height="600" loading="lazy" decoding="async">
+                <figcaption>Resorts y exteriores</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Jardines, naturaleza y destinos -->
+    <section class="inicio-entorno-section" aria-labelledby="inicio-entorno-title">
+        <div class="section-header">
+            <h2 id="inicio-entorno-title">Jardines, vistas y entorno</h2>
+            <p>Ideal para posadas rurales, hoteles boutique y alojamientos cerca de la playa o la montaña</p>
+        </div>
+        <div class="inicio-entorno-grid">
+            <figure class="inicio-photo-card inicio-entorno-card inicio-entorno-card--wide">
+                <img src="{% static 'img/inicio/jardin-naturaleza.jpg' %}" alt="Paisaje natural con bosque y luz suave, entorno de alojamiento rural" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Jardines y naturaleza</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-entorno-card">
+                <img src="{% static 'img/inicio/montana-entorno.jpg' %}" alt="Montañas y valle al atardecer" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Montaña y valle</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-entorno-card">
+                <img src="{% static 'img/inicio/playa-destino.jpg' %}" alt="Playa tropical con arena y mar turquesa" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Playa y costa</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-entorno-card">
+                <img src="{% static 'img/inicio/lago-amanecer.jpg' %}" alt="Lago tranquilo al amanecer con montañas de fondo" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Lagos y amaneceres</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-entorno-card">
+                <img src="{% static 'img/inicio/cabana-bosque.jpg' %}" alt="Cabaña de madera en entorno boscoso" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Cabañas y entornos únicos</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-entorno-card inicio-entorno-card--full">
+                <img src="{% static 'img/inicio/montana-nieve.jpg' %}" alt="Cumbres nevadas y cielo despejado" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Nieve y alta montaña</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Gastronomía y momentos -->
+    <section class="inicio-gastro-section" aria-labelledby="inicio-gastro-title">
+        <div class="section-header">
+            <h2 id="inicio-gastro-title">Gastronomía, café y desayunos</h2>
+            <p>La experiencia del huésped también pasa por la mesa: muestra lo mejor de tu oferta</p>
+        </div>
+        <div class="inicio-gastro-mosaic">
+            <figure class="inicio-photo-card inicio-gastro-tile inicio-gastro-tile--hero">
+                <img src="{% static 'img/inicio/restaurante-ambiente.jpg' %}" alt="Restaurante de hotel con mesas preparadas y ambiente acogedor" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Restaurante</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-gastro-tile">
+                <img src="{% static 'img/inicio/desayuno-restaurant.jpg' %}" alt="Mesa de desayuno buffet con fruta y bollería" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Desayunos</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-gastro-tile">
+                <img src="{% static 'img/inicio/gastronomia-color.jpg' %}" alt="Platos coloridos y ensaladas frescas" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Propuesta gastronómica</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-gastro-tile">
+                <img src="{% static 'img/inicio/cafe-morning.jpg' %}" alt="Taza de café y ambiente de cafetería" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Café y pausas</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Personas: huéspedes y equipo -->
+    <section class="inicio-personas-section" aria-labelledby="inicio-personas-title">
+        <div class="section-header">
+            <h2 id="inicio-personas-title">Personas felices, estancias memorables</h2>
+            <p>Huéspedes satisfechos y equipos alineados: el corazón de cada alojamiento</p>
+        </div>
+        <div class="inicio-personas-split">
+            <figure class="inicio-photo-card inicio-personas-card">
+                <img src="{% static 'img/inicio/huespedes-lobby.jpg' %}" alt="Grupo de amigos sonriendo y disfrutando en un espacio común" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Huéspedes disfrutando el viaje</figcaption>
+            </figure>
+            <figure class="inicio-photo-card inicio-personas-card">
+                <img src="{% static 'img/inicio/equipo-recepcion.jpg' %}" alt="Profesionales en reunión de trabajo colaborativo" width="1200" height="800" loading="lazy" decoding="async">
+                <figcaption>Equipo en recepción y operaciones</figcaption>
+            </figure>
+        </div>
+        <figure class="inicio-photo-card inicio-personas-banner">
+            <img src="{% static 'img/inicio/equipo-trabajo.jpg' %}" alt="Equipo diverso colaborando en oficina moderna" width="1200" height="600" loading="lazy" decoding="async">
+            <figcaption>Coordinación del staff, un solo panel</figcaption>
+        </figure>
+    </section>
+
     <!-- Features Section -->
     <section class="features-section">
         <div class="section-header">
-            <h2>Características Principales</h2>
-            <p>Todo lo que necesitas para gestionar tu negocio de alojamiento</p>
+            <h2>Características principales</h2>
+            <p>Operación diaria, finanzas y experiencia del huésped en un mismo ecosistema</p>
         </div>
         
         <div class="features-grid">
@@ -113,7 +297,7 @@
 
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-sparkles"></i>
+                    <i class="fas fa-broom"></i>
                 </div>
                 <h3>Control de Limpieza</h3>
                 <p>Coordina y monitorea las tareas de limpieza para garantizar habitaciones impecables siempre.</p>
@@ -293,8 +477,8 @@
         
         <div class="faq-container">
             <div class="faq-item">
-                <div class="faq-question">
-                    <i class="fas fa-plus"></i>
+                <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                     <span>¿Puedo cambiar de plan en cualquier momento?</span>
                 </div>
                 <div class="faq-answer">
@@ -303,8 +487,8 @@
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">
-                    <i class="fas fa-plus"></i>
+                <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                     <span>¿Qué métodos de pago aceptan?</span>
                 </div>
                 <div class="faq-answer">
@@ -313,8 +497,8 @@
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">
-                    <i class="fas fa-plus"></i>
+                <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                     <span>¿Hay período de prueba gratuita?</span>
                 </div>
                 <div class="faq-answer">
@@ -323,8 +507,8 @@
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">
-                    <i class="fas fa-plus"></i>
+                <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                     <span>¿Puedo exportar mis datos?</span>
                 </div>
                 <div class="faq-answer">

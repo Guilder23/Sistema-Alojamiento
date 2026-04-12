@@ -1,4 +1,5 @@
 :root {
+    --public-navbar-height: 56px;
     --primary: #0D7A7F;
     --secondary: #062A2E;
     --accent: #1BA8B0;
@@ -23,25 +24,25 @@ body {
     background-color: #f5f7fa;
     color: #333;
     line-height: 1.6;
-    padding-top: 70px;
+    padding-top: var(--public-navbar-height, 56px);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Navbar público */
-nav:not(.sidebar-nav) {
+/* Evitar estilos genéricos en navbars con CSS propio (componentes) */
+nav:not(.sidebar-nav):not(.navbar):not(.dashboard-navbar):not(.breadcrumb-container) {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     box-shadow: var(--shadow);
     padding: 1rem 0;
 }
 
-nav:not(.sidebar-nav) a {
+nav:not(.sidebar-nav):not(.navbar):not(.dashboard-navbar):not(.breadcrumb-container) a {
     color: white;
     text-decoration: none;
 }
 
-nav:not(.sidebar-nav) a:hover {
+nav:not(.sidebar-nav):not(.navbar):not(.dashboard-navbar):not(.breadcrumb-container) a:hover {
     opacity: 0.8;
 }
 
@@ -223,12 +224,22 @@ button[type="submit"]:hover {
 .main-content.no-sidebar {
     margin-left: 0 !important;
     width: 100% !important;
+    /* Sin hueco entre navbar fijo y hero (el padding global de .main-content dejaba franja del color del body) */
+    padding-top: 0 !important;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+    :root {
+        --public-navbar-height: 52px;
+    }
+
     .main-content {
         padding: 1rem 0;
+    }
+
+    .main-content.no-sidebar {
+        padding-top: 0 !important;
     }
 
     .container {
